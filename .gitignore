@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+_site/
 
 # OS files
 .DS_Store
@@ -11,3 +12,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Local visual review captures and generated previews
+.impeccable/review/
+.impeccable/live/
+.impeccable/mocks/

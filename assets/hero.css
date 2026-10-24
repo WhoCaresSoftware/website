@@ -1,0 +1,11 @@
+.intro { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 4vw, 64px); }
+.hero-graph { width: 100%; max-width: 460px; justify-self: end; color: var(--wcs-accent); }
+.hero-graph svg { display: block; width: 100%; height: auto; overflow: visible; }
+.hero-axes { fill: none; stroke: var(--text-secondary); stroke-width: 1; }
+.hero-guides { fill: none; stroke: var(--rule); stroke-width: 1; stroke-dasharray: 2 7; }
+.hero-symbol { fill: currentColor; }
+#intro-title .accent { color: var(--wcs-accent); }
+@media (max-width: 800px) {
+  .intro { grid-template-columns: 1fr; gap: 32px; padding-bottom: 32px; }
+  .hero-graph { max-width: 320px; justify-self: center; }
+}
