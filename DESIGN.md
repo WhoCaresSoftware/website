@@ -116,6 +116,7 @@ and earlier `.impeccable` review briefs.
   container-relative internal spacing rather than fixed minimum sheet heights.
    Two quieter back folders carry localized “Internal” and “Top secret” tabs;
    the front tab reads “Client projects” / “Έργα πελατών”.
+- Folder dragging uses locally vendored `@use-gesture/vanilla` 10.3.1 for axis
 - Project papers share theme-aware drawings, localized captions and a thin-rule
   footer with the WC symbol and opening action. A faint localized drafting grid
   supports each visual: Aigistos worksites and a shared system; the real Hex
