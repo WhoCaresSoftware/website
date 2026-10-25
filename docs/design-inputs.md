@@ -1,7 +1,8 @@
 # Design dependencies
 
-Theme owns colors and color recipes. Brand owns identity rationale, geometry and
-generated artwork. Website imports their packages using npm and builds with Vite.
+The brand repository owns two modules: theme (colors and color recipes) and
+identity (rationale, geometry and generated artwork). Website imports their
+separate npm packages and builds with Vite.
 
 ## Development and deployment
 
@@ -34,24 +35,21 @@ archives in `packages/`. `package-lock.json` records npm integrity hashes, so
 not editable source. Increment producer versions for subsequent releases.
 
 ```sh
-# From theme: regenerate, verify and package the release
+# From brand: build and verify both modules
 npm run build && npm test && npm run check
 npm pack --pack-destination ../../website/website_main/packages
-
-# From brand: consume the matching theme and generate all artwork variants
-uv run scripts/build.py --theme ../../theme/theme_main/dist
-uv run scripts/build.py --check
-npm pack --pack-destination ../../website/website_main/packages
+npm pack --workspace @whocaressoftware/theme --pack-destination ../../website/website_main/packages
 
 # From website: install the new versioned archives and verify
 npm install ./packages/whocaressoftware-theme-VERSION.tgz ./packages/whocaressoftware-brand-VERSION.tgz
 npm run lint && npm run build
 ```
 
-Commit producer sources/outputs and package metadata; commit consumer archives,
+Commit producer sources and package metadata; generated outputs are ignored.
+Commit consumer archives,
 package.json and package-lock.json together. Registry releases or pinned Git
 dependencies can replace the archive dependencies without changing site code.
-Update brand alongside theme when resolved standalone asset colors change.
+Release both packages at the same version from the brand repository.
 
 ## Exceptions
 

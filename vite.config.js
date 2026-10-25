@@ -27,7 +27,7 @@ export default defineConfig(({ command }) => ({
       : relative(resolve('public'), asset(websiteAsset(name))) },
     context: {
       theme,
-      symbolParts: readFileSync(asset('symbol-parts.svg'), 'utf8')
+      symbolParts: readFileSync(asset('symbol-parts.html'), 'utf8')
     }
   })],
   build: { outDir: '../dist', emptyOutDir: true, assetsInlineLimit: 0 },

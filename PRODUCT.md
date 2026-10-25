@@ -46,7 +46,7 @@ Use the approved lowercase whocares wordmark or standalone WC symbol, with no
 software descriptor in the logo. Preserve the approved dark, muted, minimal
 identity and orchid accent. Logo lettering does not dictate body/UI typography.
 Canonical identity decisions and assets live in the sibling brand repository;
-theme tokens live in the sibling theme repository.
+theme tokens live in the brand repository's `theme/tokens/` directory.
 
 ## Evidence on Hand
 

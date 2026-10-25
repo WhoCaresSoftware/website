@@ -13,8 +13,8 @@
     "lint": "stylelint 'public/assets/*.css'"
   },
   "dependencies": {
-    "@whocaressoftware/brand": "file:packages/whocaressoftware-brand-0.2.0.tgz",
-    "@whocaressoftware/theme": "file:packages/whocaressoftware-theme-0.2.0.tgz"
+    "@whocaressoftware/brand": "file:packages/whocaressoftware-brand-0.4.0.tgz",
+    "@whocaressoftware/theme": "file:packages/whocaressoftware-theme-0.4.0.tgz"
   },
   "devDependencies": {
     "stylelint": "17.16.0",
