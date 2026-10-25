@@ -22,7 +22,11 @@
 [data-approach-step="1"] .sketch-connection,
 [data-approach-step="2"] .sketch-loop { stroke-dashoffset: 0; }
 .approach-interactive .steps { padding-left: 28px; }
-.approach-interactive .steps li { position: relative; padding: 12px 0 12px 12px; }
+.approach-interactive .steps li { position: relative; padding: 12px; border-radius: 4px; transition: background-color 240ms ease; }
+.approach-interactive .steps li h3, .approach-interactive .steps li p { transition: color 240ms ease; }
+.approach-interactive .steps li.is-current { background: color-mix(in srgb, var(--wcs-accent) 9%, var(--page-background)); }
+.approach-interactive .steps li.is-current h3 { color: var(--wcs-accent); }
+.approach-interactive .steps li.is-current p { color: var(--wcs-foreground); }
 .approach-interactive .steps li + li { margin-top: 12px; }
 .approach-interactive .steps li::marker { font-variant-numeric: tabular-nums; }
 .approach-interactive .steps li.is-current::marker { color: var(--wcs-accent); }
@@ -37,5 +41,6 @@
   .approach-sketch { position: static; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sketch-scene, .sketch-note, .sketch-part, .sketch-frame, .sketch-connection, .sketch-loop { transition: none; }
+  .sketch-scene, .sketch-note, .sketch-part, .sketch-frame, .sketch-connection, .sketch-loop,
+  .approach-interactive .steps li, .approach-interactive .steps li h3, .approach-interactive .steps li p { transition: none; }
 }

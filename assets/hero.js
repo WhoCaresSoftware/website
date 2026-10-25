@@ -96,7 +96,11 @@
   };
   if (reduced.matches) finish();
   else { graph.dataset.state = 'playing'; draw(0); }
-  new IntersectionObserver(entries => { visible = entries[0].isIntersecting; update(); }).observe(graph);
+  // Wait for the whole composition; a sliver below the fold must not spend the reveal.
+  new IntersectionObserver(entries => {
+    visible = entries[0].intersectionRatio >= .99;
+    update();
+  }, { threshold: [0, .99] }).observe(graph);
   document.addEventListener('visibilitychange', update);
   reduced.addEventListener('change', update);
   finePointer.addEventListener('change', resetMagnet);

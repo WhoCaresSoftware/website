@@ -98,13 +98,31 @@ and earlier `.impeccable` review briefs.
   custom software, practical AI and dependable platforms around the business.
 - The 3.9-second graph reveal runs once and cannot be replayed by clicking.
   Completed artwork responds subtly to pointer movement and resets on leave.
-  Mobile graph spacing is balanced with 32px gap and bottom padding.
+   On mobile, the headline precedes the graph, then the supporting copy and CTA.
+   The graph is capped at 320px and 36svh wide so the full reveal fits short
+   portrait screens with browser controls present; gaps are 24px. Short landscape
+   screens place headline and graph side by side, with copy and CTA below.
+   The reveal waits/pauses until at least 99% of the graph is visible. Content
+   remains in normal flow so enlarged text can scroll rather than clip.
 - Header wordmark clicks create overlapping pulses without navigation or scrolling.
+- Services retain their open layout with compact conceptual line illustrations:
+   assembling software, connected tools and an alternative infrastructure route.
+   Each animates once on entry; reduced motion keeps the finished illustration.
+   Named EN/EL links open Aigistos, AI Workflows & Agents and Private LLM Gateway
+   in the existing project dialog, returning focus to the originating link.
   Language selection is a native EN / ΕΛ radio toggle; no reset action is shown.
 - Work uses the same `1fr 1.35fr` grid as adjacent sections, stacking at 800px.
   Folder ratios are 1.5 generally, 1.3 at 801–1000px, and 1.2 on phones, with
   container-relative internal spacing rather than fixed minimum sheet heights.
-  Two quieter back folders carry localized “Internal” and “Top secret” tabs.
+   Two quieter back folders carry localized “Internal” and “Top secret” tabs;
+   the front tab reads “Client projects” / “Έργα πελατών”.
+- Folder dragging uses locally vendored `@use-gesture/vanilla` 10.3.1 for axis
+  locking, flick detection and tap filtering. Paper tracks horizontal movement
+  with bounded resistance; the destination side sheet accents during dragging.
+  Short flicks or a proportional-distance drag turn one page; incomplete and
+  interrupted gestures settle back. Vertical scrolling and pinch zoom remain
+  native. Reduced motion removes paper travel; supported touch devices may give
+  an 8ms vibration on a successful turn (no vibration under reduced motion).
 - Both founders wear charcoal shirts with orchid WC prints. Published WebPs
   preserve alpha transparency; supplied original and branded PNGs are retained
   as source material. XRS stays first/higher and Mike second/lower.
@@ -235,6 +253,9 @@ These current decisions supersede older interaction specifications below:
   scroll-snap carousel with labeled controls and a counter. Reduced motion skips
   expansion and scrolling animation.
 - Approach scenes cycle every 4.5 seconds while visible, without row controls.
+  The matching step has a subtle orchid-tinted background, orchid heading and
+  full-contrast description. Color transitions follow the scene changes without
+  moving content, and are disabled under reduced motion.
   Reduced motion uses a static scene; all descriptions remain readable.
 - Portrait borders respond to hover/focus and presses. Back-to-top uses a
   touch-friendly outlined bubble and arrow. External website links use new tabs.

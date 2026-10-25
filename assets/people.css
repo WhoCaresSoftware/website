@@ -5,15 +5,18 @@
 .portrait-pair figcaption { color: var(--wcs-accent); }
 .portrait-pair .founder-cutout img { position: relative; outline: none; border-radius: 0 0 24px 24px; }
 .founder-profile-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 4px; font-size: var(--label); font-weight: 400; color: var(--text-secondary); }
-.portrait-pair figure:is(:hover, :focus-within) .founder-profile-link { color: var(--wcs-accent); }
-.portrait-pair figure:is(:hover, :focus-within) .founder-profile-link span { text-decoration: underline; text-underline-offset: 5px; }
+.portrait-pair figure:has(:focus-visible) .founder-profile-link { color: var(--wcs-accent); }
+.portrait-pair figure:has(:focus-visible) .founder-profile-link span { text-decoration: underline; text-underline-offset: 5px; }
 .founder-portrait:focus-visible { outline: none; }
 .founder-portrait:focus-visible::after { outline: 2px solid var(--wcs-focus); outline-offset: 7px; }
 .portrait-pair figure:has(.founder-portrait:active) .founder-profile-link { color: var(--wcs-foreground); }
 .founder-profile-link svg { width: 20px; height: 20px; }
 .founder-name-link { color: var(--wcs-accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em; }
-.founder-name-link:hover { text-decoration-thickness: 2px; }
 @media (hover: hover) and (pointer: fine) {
+  .founder-name-link:hover { text-decoration-thickness: 2px; }
+  .portrait-pair figure:hover .founder-profile-link { color: var(--wcs-accent); }
+  .portrait-pair figure:hover .founder-profile-link span { text-decoration: underline; text-underline-offset: 5px; }
+  .founder-portrait:hover::before { border-color: var(--wcs-accent); }
   .portrait-pair figure:hover { transform: translateY(-6px) rotate(-1deg); }
   .portrait-pair figure:nth-child(2):hover { transform: translateY(-6px) rotate(1deg); }
   .portrait-pair figure:hover .founder-cutout::before { background: var(--rule); }
@@ -21,7 +24,7 @@
 .portrait-pair figure:has(.founder-portrait:focus-visible) { transform: translateY(-6px); }
 .portrait-pair figure:has(.founder-portrait:active) { transform: translateY(-2px); }
 .founder-portrait:active { transform: none; }
-.founder-portrait:is(:hover, :focus-visible)::before { border-color: var(--wcs-accent); }
+.founder-portrait:focus-visible::before { border-color: var(--wcs-accent); }
 .founder-portrait:active::before { background: var(--rule); }
 .founder-profile-link:active, .founder-name-link:active { color: var(--wcs-foreground); }
 html.founder-reading { overflow: hidden; scrollbar-gutter: stable; }
@@ -30,7 +33,9 @@ html.founder-reading { overflow: hidden; scrollbar-gutter: stable; }
 .founder-toolbar { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 0; background: var(--wcs-background); border-bottom: 1px solid var(--rule); font-size: var(--label); color: var(--text-secondary); }
 .founder-close { display: grid; place-items: center; width: 44px; min-height: 44px; padding: 10px; border-radius: 4px; font: inherit; color: inherit; border: 0; background: transparent; cursor: pointer; }
 .founder-close svg { width: 24px; height: 24px; }
-.founder-close:hover { color: var(--wcs-foreground); background: var(--wcs-surface); }
+@media (hover: hover) and (pointer: fine) {
+  .founder-close:hover { color: var(--wcs-foreground); background: var(--wcs-surface); }
+}
 .founder-toolbar h2 { font-size: 32px; color: var(--wcs-foreground); }
 .founder-toolbar .founder-close { flex-shrink: 0; }
 .founder-content { padding-top: 16px; }

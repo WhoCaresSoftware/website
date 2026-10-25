@@ -13,6 +13,7 @@
   dialog.innerHTML = '<div class="work-document"><header class="document-toolbar"><h2 id="work-document-title"></h2><button type="button" class="document-close" autofocus><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header><div class="document-content"></div></div>';
   document.body.append(dialog);
   let selected = -1;
+  let trigger;
   let closing = false;
   let animation;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -55,6 +56,7 @@
     const greek = document.documentElement.lang === 'el';
     folder.querySelector('.folder-back-far .folder-tab').textContent = greek ? 'Άκρως απόρρητο' : 'Top secret';
     folder.querySelector('.folder-back-near .folder-tab').textContent = greek ? 'Εσωτερικά' : 'Internal';
+    folder.querySelector(':scope > .folder-tab').textContent = greek ? 'Έργα πελατών' : 'Client projects';
     [previous, next].forEach((button, index) => {
       const neighbor = (current + (index ? 1 : -1) + projects.length) % projects.length;
       const label = `${greek ? (index ? 'Επόμενο έργο' : 'Προηγούμενο έργο') : (index ? 'Next project' : 'Previous project')}: ${projects[neighbor].querySelector('h3').textContent}`;
@@ -63,10 +65,10 @@
     });
     position.textContent = `${current + 1} / ${projects.length}`;
   };
-  const turn = direction => {
+  const turn = (direction, dragTransform) => {
     const restoreFocus = document.activeElement === buttons[current];
     const outgoing = buttons[current];
-    const outgoingTransform = getComputedStyle(outgoing).transform;
+    const outgoingTransform = dragTransform || getComputedStyle(outgoing).transform;
     buttons.forEach(button => {
       button.getAnimations().forEach(effect => effect.cancel());
       button.classList.remove('is-leaving');
@@ -96,45 +98,74 @@
     event.preventDefault();
     turn(event.key === 'ArrowRight' ? 1 : -1);
   });
-  let gesture;
-  let suppressClickUntil = 0;
-  documents.addEventListener('pointerdown', event => {
-    if (!event.isPrimary) { gesture = null; return; }
-    if (event.pointerType === 'mouse') return;
-    gesture = { id: event.pointerId, x: event.clientX, y: event.clientY, horizontal: false };
-  });
-  documents.addEventListener('pointermove', event => {
-    if (!gesture || gesture.id !== event.pointerId) return;
-    const dx = event.clientX - gesture.x;
-    const dy = event.clientY - gesture.y;
-    if (!gesture.horizontal && Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) { gesture = null; return; }
-    if (Math.abs(dx) > 12 && Math.abs(dx) > Math.abs(dy) * 1.3) {
-      gesture.horizontal = true;
-      documents.setPointerCapture(event.pointerId);
-      if (!reduced.matches) buttons[current].style.translate = `${Math.max(-24, Math.min(24, dx * .25))}px 0`;
-    }
-  });
-  const endGesture = event => {
-    buttons[current].style.translate = '';
-    if (!gesture || gesture.id !== event.pointerId) return;
-    const dx = event.clientX - gesture.x;
-    if (gesture.horizontal) {
-      suppressClickUntil = performance.now() + 400;
-      if (event.type === 'pointerup' && Math.abs(dx) >= 40) turn(dx < 0 ? 1 : -1);
-    }
-    gesture = null;
-  };
-  documents.addEventListener('pointerup', endGesture);
-  documents.addEventListener('pointercancel', endGesture);
-  documents.addEventListener('lostpointercapture', event => {
-    if (event.target === documents) endGesture(event);
-  });
-  documents.addEventListener('click', event => {
-    if (event.detail !== 0 && performance.now() < suppressClickUntil) {
-      event.preventDefault();
-      event.stopImmediatePropagation();
-    }
-  }, true);
+  // The library owns pointer tracking, axis intent, flicks and tap filtering.
+  // Keep normal project buttons available even if the optional module fails to load.
+  import('./vendor/use-gesture/vanilla-10.3.1.mjs').then(({ DragGesture }) => {
+    let dragged;
+    let cancelDrag;
+    let dragLimit = 1;
+    const resetDrag = (settle = true) => {
+      if (!dragged) return;
+      const button = dragged;
+      const from = getComputedStyle(button).transform;
+      button.style.transform = '';
+      documents.classList.remove('is-dragging');
+      delete documents.dataset.direction;
+      dragged = null;
+      cancelDrag = null;
+      if (settle && !reduced.matches) button.animate([
+        { transform: from }, { transform: getComputedStyle(button).transform }
+      ], { duration: 240, easing: 'cubic-bezier(.16,1,.3,1)' });
+    };
+    const interrupt = () => { cancelDrag?.(); resetDrag(); };
+    // A second finger belongs to browser zoom, never to project navigation.
+    documents.addEventListener('pointerdown', event => {
+      if (!event.isPrimary) interrupt();
+    }, true);
+    window.addEventListener('blur', interrupt);
+    document.addEventListener('visibilitychange', () => { if (document.hidden) interrupt(); });
+    new DragGesture(documents, state => {
+      const { active, first, last, canceled, event, movement: [dx], swipe: [swipe], cancel } = state;
+      if (canceled || event.type === 'pointercancel' || event.type === 'lostpointercapture') {
+        resetDrag();
+        return;
+      }
+      if (first) {
+        buttons.forEach(button => {
+          button.getAnimations().forEach(effect => effect.cancel());
+          button.classList.remove('is-leaving');
+        });
+        dragged = buttons[current];
+        const bounds = dragged.getBoundingClientRect();
+        dragLimit = Math.max(12, Math.min(dragged.clientWidth * .38, bounds.left - 12, innerWidth - bounds.right - 12));
+        cancelDrag = cancel;
+        documents.classList.add('is-dragging');
+      }
+      if (!dragged) return;
+      if (active) {
+        const limit = dragLimit;
+        const travel = limit * Math.tanh(dx / limit);
+        // Direct finger feedback with gentle resistance before the sheet leaves its folder.
+        dragged.style.transform = reduced.matches ? 'none' : `translateX(${travel}px) rotate(${travel / limit * 3}deg)`;
+        documents.dataset.direction = dx < 0 ? 'next' : 'previous';
+      }
+      if (last) {
+        const threshold = Math.min(56, dragged.clientWidth * .18);
+        const direction = swipe || (Math.abs(dx) >= threshold ? Math.sign(dx) : 0);
+        const from = getComputedStyle(dragged).transform;
+        resetDrag(!direction);
+        if (direction) {
+          turn(-direction, from);
+          if (event.pointerType === 'touch' && !reduced.matches) navigator.vibrate?.(8);
+        }
+      }
+    }, {
+      axis: 'x', threshold: 6, axisThreshold: { mouse: 4, touch: 6, pen: 6 },
+      filterTaps: true, tapsThreshold: 6,
+      pointer: { capture: false, keys: false },
+      swipe: { distance: 18, velocity: .25, duration: 350 }
+    });
+  }).catch(() => { /* Side buttons and keyboard navigation remain available. */ });
   const localize = () => {
     const greek = document.documentElement.lang === 'el';
     const label = greek ? 'Δείτε το έργο' : 'Open project';
@@ -259,12 +290,13 @@
     content.querySelectorAll('a[href^="https://"]').forEach(link => { link.target = '_blank'; link.rel = 'noopener noreferrer'; });
   };
   const origin = () => {
-    const from = buttons[selected].getBoundingClientRect();
+    const from = (trigger || buttons[selected]).getBoundingClientRect();
     const to = dialog.getBoundingClientRect();
     return `translate(${from.x + from.width / 2 - to.x - to.width / 2}px, ${from.y + from.height / 2 - to.y - to.height / 2}px) scale(${Math.min(from.width / to.width, .96)}, ${Math.min(from.height / to.height, .96)})`;
   };
-  const open = index => {
+  const open = (index, source = buttons[index]) => {
     if (dialog.open) return;
+    trigger = source;
     selected = index;
     renderDocument();
     dialog.showModal();
@@ -296,11 +328,19 @@
     animation?.cancel();
     document.documentElement.classList.remove('work-reading');
     buttons[selected]?.classList.remove('is-selected');
-    buttons[selected]?.focus({ preventScroll: true });
+    trigger?.focus({ preventScroll: true });
     closing = false;
   });
   section.querySelector('h2').after(folder);
   projects.forEach(project => { project.hidden = true; });
   window.addEventListener('wcs:languagechange', localize);
+  document.addEventListener('click', event => {
+    const link = event.target.closest('.service-work-link[data-project-index]');
+    if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const index = Number(link.dataset.projectIndex);
+    if (!projects[index]) return;
+    event.preventDefault();
+    open(index, link);
+  });
   localize();
 })();

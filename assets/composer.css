@@ -7,7 +7,9 @@ body:has(.composer[open]) { overflow: hidden; }
 .composer .composer-titlebar h2 { font-size: 20px; font-weight: 600; line-height: 1.2; letter-spacing: 0; }
 .composer-titlebar .dismiss { margin-left: auto; }
 .composer .composer-titlebar .dismiss { background: transparent; }
-.composer .composer-titlebar .dismiss:hover { background: var(--rule); }
+@media (hover: hover) and (pointer: fine) {
+  .composer .composer-titlebar .dismiss:hover { background: var(--rule); }
+}
 .composer .composer-titlebar .dismiss:active { color: var(--wcs-accent); }
 .composer-titlebar :focus-visible { outline-offset: 2px; }
 .composer[open] { animation: paper-open 520ms cubic-bezier(.16,1,.3,1); }
@@ -22,7 +24,9 @@ body:has(.composer[open]) { overflow: hidden; }
 .composer p, .composer label, .composer button, .composer a, .composer input, .composer textarea { font-size: 16px; }
 .composer .recipient { margin-top: 8px; overflow-wrap: anywhere; }
 .composer button, .composer .email-draft { min-height: 44px; padding: 10px 16px; border: 1px solid var(--rule); border-radius: 4px; background: var(--wcs-background); color: var(--wcs-foreground); font-family: inherit; cursor: pointer; }
-.composer button:hover { background: var(--wcs-surface); }
+@media (hover: hover) and (pointer: fine) {
+  .composer button:hover { background: var(--wcs-surface); }
+}
 .composer .dismiss { flex: 0 0 44px; width: 44px; padding: 10px; border: 0; }
 .dismiss svg { display: block; width: 24px; height: 24px; }
 .composer label { display: block; margin-bottom: 6px; }
@@ -40,7 +44,9 @@ body:has(.composer[open]) { overflow: hidden; }
 .composer-note { margin-top: 12px; }
 .composer-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .composer .email-draft { display: inline-flex; align-items: center; background: var(--wcs-accent); color: var(--wcs-on-accent); border-color: transparent; text-decoration: none; font-weight: 600; }
-.composer .email-draft:hover { background: var(--cta-active); }
+@media (hover: hover) and (pointer: fine) {
+  .composer .email-draft:hover { background: var(--cta-active); }
+}
 .composer [hidden] { display: none !important; }
 .composer-status:not(:empty) { margin-top: 16px; }
 .copy-fallback { margin-top: 12px; }
