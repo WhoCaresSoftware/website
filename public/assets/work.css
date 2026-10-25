@@ -56,7 +56,8 @@ html.work-reading { overflow: hidden; scrollbar-gutter: stable; }
 .work:has(.work-folder) > h2 { margin-bottom: 0; }
 .work:has(.work-folder) > .work-folder { grid-column: 2; width: calc(100% - 48px); max-width: none; margin: 120px 0 0; }
 .work-folder { width: calc(100% - 96px); max-width: 640px; margin: 156px auto 0; padding: 17px; background: transparent; }
-.work-folder::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--wcs-surface); }
+/* Paint the front outline with its cover, above the negative-z back folders. */
+.work-folder::before { content: ''; position: absolute; inset: -1px; z-index: -1; border: 1px solid var(--rule); border-radius: inherit; background: var(--wcs-surface); }
 .folder-back { position: absolute; inset: 0; pointer-events: none; border: 1px solid color-mix(in srgb, var(--rule) 65%, var(--wcs-background)); border-radius: inherit; background: color-mix(in srgb, var(--wcs-surface) 55%, var(--wcs-background)); transform-origin: bottom left; }
 .folder-back-near { z-index: -2; transform: translate(32px, -42px) rotate(3deg); }
 .folder-back-far { z-index: -3; transform: translate(64px, -90px) rotate(5deg); background: color-mix(in srgb, var(--wcs-surface) 30%, var(--wcs-background)); }
@@ -88,6 +89,25 @@ html.work-reading { overflow: hidden; scrollbar-gutter: stable; }
 .folder-document:where(:nth-child(even)) { transform: rotate(.9deg) translateX(4px); }
 .folder-document:focus-visible { border-color: var(--text-secondary); }
 .folder-document .document-open { margin-top: auto; padding-top: 20px; }
+/* Project papers share a drawing field and restrained architectural title block. */
+.project-drawing { display: flex; flex: 1; flex-direction: column; justify-content: center; width: 100%; min-height: 0; margin: 10px 0; }
+.project-sketch { display: block; width: 100%; flex: 1; min-height: 0; height: 0; color: var(--text-secondary); }
+.document-visual { margin: 24px 0; padding: 16px 0; border-block: 1px solid var(--rule); }
+.document-visual .project-sketch { height: auto; aspect-ratio: 400 / 180; }
+.document-visual figcaption { margin-top: 12px; font-size: var(--label); color: var(--text-secondary); }
+.drawing-grid { opacity: .18; }
+.drawing-guides { stroke: var(--rule); }
+.drawing-paper { fill: var(--wcs-background); }
+.drawing-connections { stroke: var(--wcs-accent); }
+.drawing-connections circle { fill: var(--wcs-background); }
+.drawing-caption { display: block; margin-top: 6px; font-size: clamp(14px, 2.8cqw, 16px); line-height: 1.25; color: var(--text-secondary); }
+.drawing-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; border-top: 1px solid var(--rule); padding-top: 8px; }
+.drawing-credit { width: 24px; height: 24px; flex-shrink: 0; color: var(--text-secondary); }
+.work-folder .drawing-footer .document-open { margin: 0; padding: 0; }
+.work-folder:has(.document-illustrated) { grid-template-rows: minmax(min-content, 1fr) auto; }
+.work-folder .folder-document.document-illustrated { min-height: 280px; }
+.project-drawing { flex-shrink: 0; min-height: 100px; }
+@media (max-width: 360px) { .drawing-caption { display: none; } }
 .folder-navigation { display: flex; justify-content: flex-end; align-items: baseline; gap: 16px; padding: 0 8px; margin-top: 4px; font-size: var(--label); color: var(--text-secondary); }
 .folder-navigation > span:last-child { flex-shrink: 0; font-variant-numeric: tabular-nums; }
 .folder-side { position: absolute; top: 22px; bottom: 28px; width: calc(100% - 76px); display: flex; align-items: center; padding: 12px; border: 1px solid var(--rule); border-radius: 4px; background: var(--wcs-background); color: var(--text-secondary); cursor: pointer; box-shadow: 0 6px 16px rgb(0 0 0 / .08); transition: transform 280ms cubic-bezier(.16,1,.3,1), border-color 180ms; }

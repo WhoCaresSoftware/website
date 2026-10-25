@@ -5,3 +5,13 @@ Unmodified outlined SVG artwork copied from the approved Who Cares Software bran
 Light-mode wordmark and WC symbol use the unmodified approved
 `whocares-wordmark-ink.svg` and `whocares-symbol-ink.svg` exports, with exact
 #0D0D10 fills. Dark mode retains the paper wordmark and orchid symbol.
+
+## Repository layout (2026-10-25)
+
+Runtime assets and licenses now live under `public/assets/`. This document is
+internal and is not published. Paths in the historical notes above describe
+the assets at the time they were recorded. Website source PNGs and the unused
+Manrope font/license have moved to the sibling brand repository at
+`../../brand/brand_main/assets/source/website/` (relative to the website root).
+Superseded portrait WebP derivatives were removed; the current site uses the
+Mike and XRS cutouts in both themes.

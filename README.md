@@ -8,21 +8,23 @@ composer and approach sketches.
 ## Local preview
 
 ```sh
-python3 scripts/stage-site.py
-python3 -m http.server 4173 --directory _site
+python3 -m http.server 4173 --directory public
 ```
 
-Open http://localhost:4173. Rerun staging after changing public files.
-Only the explicit allowlist in `scripts/stage-site.py` is published by the Pages
-workflow. Keep source imagery, provenance, design notes and review captures out
-of that list. Older portrait variants are retained as source material, not shipped.
+Open http://localhost:4173. Local preview and GitHub Pages serve the same `public/`
+directory directly, with no build or staging step. Refresh after editing files.
+Everything in `public/` is published. Original artwork and historical fonts live
+in the sibling brand repository at `../../brand/brand_main/assets/source/website/`.
+Website provenance and dependency notes live in `docs/assets/`. Keep design notes
+and review captures outside `public/`. Superseded portrait WebP derivatives have
+been removed. Serving and deploying the website does not require the brand repository.
 
 ## Editing
 
-- `index.html`: source content and English fallback.
-- `assets/styles.css`: shared layout, typography and theme tokens.
-- `assets/preferences.js`: appearance/language preferences and homepage Greek copy.
-- `assets/{work,people,composer,approach}.{css,js}`: component presentation and behavior.
+- `public/index.html`: source content and English fallback.
+- `public/assets/styles.css`: shared layout, typography and theme tokens.
+- `public/assets/preferences.js`: appearance/language preferences and homepage Greek copy.
+- `public/assets/{work,people,composer,approach}.{css,js}`: component presentation and behavior.
 - `PRODUCT.md` and `DESIGN.md`: product constraints and visual decisions.
 
 Check English and Greek, light and dark, narrow and wide screens, keyboard and

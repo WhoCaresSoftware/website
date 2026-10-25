@@ -10,3 +10,13 @@ Converted with cwebp, quality 84, 1280px width; original aspect ratios and artwo
 preserved, no crop or retouch. Source credit appears alongside the images in the
 project document. These images illustrate the historical game project, not a claim
 of current availability, art authorship by WhoCaresGames, or launch status.
+
+## Repository layout (2026-10-25)
+
+Runtime assets and licenses now live under `public/assets/`. This document is
+internal and is not published. Paths in the historical notes above describe
+the assets at the time they were recorded. Website source PNGs and the unused
+Manrope font/license have moved to the sibling brand repository at
+`../../brand/brand_main/assets/source/website/` (relative to the website root).
+Superseded portrait WebP derivatives were removed; the current site uses the
+Mike and XRS cutouts in both themes.

@@ -21,3 +21,13 @@ image generation were performed. All supplied PNGs and existing dark WebPs remai
 Each founder uses one lazy-loaded img inside a picture; the source chooses the
 dark portrait and the fallback chooses light. Native media handles no-JS system
 appearance; preferences.js updates the source condition for the effective theme.
+
+## Repository layout (2026-10-25)
+
+Runtime assets and licenses now live under `public/assets/`. This document is
+internal and is not published. Paths in the historical notes above describe
+the assets at the time they were recorded. Website source PNGs and the unused
+Manrope font/license have moved to the sibling brand repository at
+`../../brand/brand_main/assets/source/website/` (relative to the website root).
+Superseded portrait WebP derivatives were removed; the current site uses the
+Mike and XRS cutouts in both themes.

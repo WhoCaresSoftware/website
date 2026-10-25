@@ -1,8 +1,8 @@
 ---
 version: 1
 slug: "index-html"
-primary_target: "index.html"
-related_targets: ["assets/styles.css", "assets/preferences.js"]
+primary_target: "public/index.html"
+related_targets: ["public/assets/styles.css", "public/assets/preferences.js"]
 ---
 
 # Homepage
@@ -79,7 +79,7 @@ Native anchors, visible focus and reduced
 motion support remain essential. Contact is whocaressoftware@gmail.com.
 
 FINISH: Review evidence lives in `.impeccable/review/refinement/`. Internal briefs,
-source provenance and review files stay outside the explicitly allowlisted artifact.
+source provenance and review files stay outside the published `public/` directory.
 
 PREFERENCES: System appearance defaults to dark only for a dark preference,
 otherwise light. Website-local light paper/ink/darker-orchid tokens preserve the

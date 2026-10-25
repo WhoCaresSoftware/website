@@ -116,6 +116,19 @@ and earlier `.impeccable` review briefs.
   container-relative internal spacing rather than fixed minimum sheet heights.
    Two quieter back folders carry localized “Internal” and “Top secret” tabs;
    the front tab reads “Client projects” / “Έργα πελατών”.
+- Project papers share theme-aware drawings, localized captions and a thin-rule
+  footer with the WC symbol and opening action. A faint localized drafting grid
+  supports each visual: Aigistos worksites and a shared system; the real Hex
+  Mythica environment; applications/gateway/private models; brand references and
+  image production; tasks/tools/human review. Schematics are conceptual, not
+  implementation documentation or real client outputs. The same visual appears
+  larger beneath the deliverable in each reading dialog, with a visible caption.
+  Grid IDs are unique across covers and the open dialog. At narrow phone widths
+  the cover caption yields space to the drawing. Sheets have a 280px floor and
+  grow together for longer translated content; the drawing reserves 100px.
+  Brand Image Pipelines uses a reference board (motif, swatches and copy) feeding
+  portrait and landscape product compositions. The recurring motif shows visual
+  continuity. These are illustrative layouts, not actual client image outputs.
 - Folder dragging uses locally vendored `@use-gesture/vanilla` 10.3.1 for axis
   locking, flick detection and tap filtering. Paper tracks horizontal movement
   with bounded resistance; the destination side sheet accents during dragging.
@@ -132,8 +145,8 @@ and earlier `.impeccable` review briefs.
 
 ### Historical rationale
 
-Canonical ink, paper and orchid tokens remain in `assets/whocares.css`. Website
-overrides live in `assets/styles.css`. Neutral canvas, headings, supporting text,
+Canonical ink, paper and orchid tokens remain in `public/assets/whocares.css`. Website
+overrides live in `public/assets/styles.css`. Neutral canvas, headings, supporting text,
 project labels, list markers, links and rules carry most of the page. Orchid is
 reserved for the primary contact CTA, focus/selection and the small founder
 signoff. Headline emphasis spans inherit neutral text; hierarchy comes from
@@ -142,7 +155,7 @@ neutral too. Canonical brand/theme assets remain unchanged.
 
 ## Website themes and preferences
 
-`assets/styles.css` scopes the website's light treatment: warm paper #F7F6F3,
+`public/assets/styles.css` scopes the website's light treatment: warm paper #F7F6F3,
 ink #202020, orchid #75468F, secondary text #5E5D59, rules #D5D3CE and hover
 surface #ECEBE7. Dark uses ink #0D0D10, paper text #EAE9E6, secondary #B9B8B5,
 rules #38383A, hover surface #1B1B1D and orchid #B69ACB. The lavender canvas
@@ -170,7 +183,7 @@ Auto detects only the primary browser language; Greek selects Greek, all other
 languages English. System follows live color-scheme changes until overridden.
 Language also follows browser `languagechange` in Auto mode.
 
-The synchronous `assets/preferences.js` bootstrap runs before styles to apply
+The synchronous `public/assets/preferences.js` bootstrap runs before styles to apply
 the stored/system theme. No content is hidden during startup. Greek text,
 document language, title, descriptions, accessible labels and control copy are
 translated together. English is the static HTML fallback; without JS, selectors
@@ -298,7 +311,7 @@ tilt 1 degree on fine-pointer hover, with no idle motion. Mike uses the supplied
 transparent cutout over a neutral rounded backing starting 12% below the top;
 his hair extends above that backing. XRS uses his supplied transparent cutout with
 the same treatment. Both cutouts are shared across themes. Provenance and biography
-sources are recorded in assets/images/FOUNDER-PROVENANCE.md; LinkedIn career
+sources are recorded in docs/assets/images/FOUNDER-PROVENANCE.md; LinkedIn career
 history could not be read and is not represented as verified.
 
 ### Services
@@ -327,8 +340,8 @@ use 280ms transform/opacity motion, skipped under reduced motion. All five exist
 project documents, galleries and links retain their modal behavior. Mobile has
 exposed side-sheet tap targets and a 252px minimum paper height, growing with content.
 
-Titles and deliverable labels remain visible before opening. `assets/work.css`
-owns the geometry; `assets/work.js` enhances the original project articles.
+Titles and deliverable labels remain visible before opening. `public/assets/work.css`
+owns the geometry; `public/assets/work.js` enhances the original project articles.
 
 - Geometry: folder margin-top 52px, padding 17px, 1px rule and corners
   0/16/16/16px. The tab is 23px tall and 140px wide. The document area uses
@@ -378,8 +391,8 @@ attach-again notice. No claim is made that an external app opened or sent mail.
 The hero CTA opens a native modal dialog anchored to the bottom, up to 760px wide
 and 94dvh tall, internally scrollable, with 20px upper corners and safe-area
 padding. The CTA arrow shifts only 3px, with no
-tracking, launch, inset tile or activation delay. `assets/composer.css` owns the
-component; `assets/composer.js` owns draft state and progressive enhancement.
+tracking, launch, inset tile or activation delay. `public/assets/composer.css` owns the
+component; `public/assets/composer.js` owns draft state and progressive enhancement.
 
 Subject, message, local file picker/drop area, filenames/sizes/removal, recipient,
 copy action and email handoff are fully English/Greek. Native dialog supplies
@@ -422,11 +435,14 @@ Hex Mythica's opened project document includes two locally hosted, uncropped
 and an isometric game environment. A single-column gallery follows the project
 copy, with localized alt text/captions and a source link. Images load only when
 the project is opened; the closed folder remains text-only. Provenance is recorded
-in `assets/images/HEX-MYTHICA-PROVENANCE.md` and excluded from publication.
+in `docs/assets/images/HEX-MYTHICA-PROVENANCE.md` and excluded from publication.
 
 Use supplied SVGs without distortion. Final AI-restyled founder portraits were
 supplied by the user via clipboard and converted with `cwebp -q 90`. The external
 generator and exact prompt are unknown. Preserve both the studio PNG source files
 and the earlier original portraits
-and internal provenance. Stage only allowlisted public files, font licenses and
-assets; exclude strategy, review evidence and internal documentation.
+in the sibling brand repository (`../../brand/brand_main/assets/source/website/`
+for the website originals), with internal provenance in `docs/assets/`.
+Publish `public/` directly, including
+runtime assets and their licenses; keep strategy, review evidence and internal
+documentation outside that directory. Local preview serves the same directory.

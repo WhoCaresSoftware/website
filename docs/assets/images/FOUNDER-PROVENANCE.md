@@ -45,3 +45,13 @@ The supplied decade-of-experience statement is used. The national-first claim
 is omitted in favor of a concise description of the collective.
 LinkedIn destinations are user-supplied. Mike's README contains a different
 LinkedIn slug; the requested mbastakis URL is also linked from his public blog.
+
+## Repository layout (2026-10-25)
+
+Runtime assets and licenses now live under `public/assets/`. This document is
+internal and is not published. Paths in the historical notes above describe
+the assets at the time they were recorded. Website source PNGs and the unused
+Manrope font/license have moved to the sibling brand repository at
+`../../brand/brand_main/assets/source/website/` (relative to the website root).
+Superseded portrait WebP derivatives were removed; the current site uses the
+Mike and XRS cutouts in both themes.

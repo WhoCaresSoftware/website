@@ -19,3 +19,13 @@ Greek coverage verified 2026-10-24: both existing Source Sans 3 WOFF2 files cont
 Greek, including accented characters used by the complete Greek translation.
 These are not Latin-only subsets. Browser platform-font inspection confirms
 self-hosted Source Sans 3 for Greek regular and semibold text; no new font needed.
+
+## Repository layout (2026-10-25)
+
+Runtime assets and licenses now live under `public/assets/`. This document is
+internal and is not published. Paths in the historical notes above describe
+the assets at the time they were recorded. Website source PNGs and the unused
+Manrope font/license have moved to the sibling brand repository at
+`../../brand/brand_main/assets/source/website/` (relative to the website root).
+Superseded portrait WebP derivatives were removed; the current site uses the
+Mike and XRS cutouts in both themes.

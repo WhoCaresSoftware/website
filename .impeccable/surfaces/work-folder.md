@@ -1,8 +1,8 @@
 ---
 version: 1
 slug: work-folder
-primary_target: assets/work.js
-related_targets: [assets/work.css, index.html]
+primary_target: public/assets/work.js
+related_targets: [public/assets/work.css, public/index.html]
 ---
 
 # Selected work folder
