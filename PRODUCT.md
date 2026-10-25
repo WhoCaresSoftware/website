@@ -50,14 +50,16 @@ theme tokens live in the sibling theme repository.
 
 ## Evidence on Hand
 
-- Approved logo kit: ../../brand/brand_main/assets/exports/logo/.
-- Studio profile: ../../brand/brand_main/wiki/PROFILE.md.
-- Identity decisions: ../../brand/brand_main/wiki/DECISIONS.md.
+- Approved logo kit: ../../brand/brand_main/dist/.
+- Studio profile: ../../brand/brand_main/docs/PROFILE.md.
+- Identity decisions: ../../brand/brand_main/docs/DECISIONS.md.
 - Research and recommended website structure: ../../website-research.md.
-- Final user-supplied AI-restyled founder portraits are available at
-  ../../brand/brand_main/assets/source/portraits/{mike,xrs}-studio.png (1122 × 1402).
+- Current user-supplied branded founder portrait PNGs are available in
+  ../../brand/brand_main/assets/portraits/website/; provenance and dimensions
+  are recorded in the brand repository's assets/README.md.
   Website assets are quality-90 WebP derivatives, displayed XRS first, then Mike.
-  Earlier 400 × 400 originals remain preserved as {mike,xrs}.png in that directory.
+  Earlier 400 × 400 originals remain preserved in assets/portraits/originals/
+  in the brand repository.
 - Project evidence: ../../project-evidence.md. The founder permits naming Hex
   Mythica and Aigistos publicly. Hex Mythica was end-to-end game development
   through WhoCaresGames; retain that attribution. Aigistos uses the custom worksite
@@ -84,7 +86,8 @@ dark preference and light otherwise. Manual choices are stored locally; denied
 storage still permits session choices. A segmented EN / ΕΛ radio control exposes
 the selected language directly; there is no manual reset action. Without JavaScript, the English page
 and native contact/navigation links remain usable with the system palette.
-These website-only light colors do not redefine the canonical brand palette.
+Theme owns the website's light and dark color mappings as a generated adapter;
+brand owns the rationale and identity assets. Website consumes those outputs.
 
 ## Product Principles
 

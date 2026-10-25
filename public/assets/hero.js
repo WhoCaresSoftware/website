@@ -6,6 +6,12 @@
   const bars = [...graph.querySelectorAll('[data-bar]')];
   const base = graph.querySelector('[data-base]');
   const cap = graph.querySelector('[data-cap]');
+  const finalHeights = bars.map(bar => Number(bar.getAttribute('height')));
+  const baseline = Number(bars[0].getAttribute('y')) + finalHeights[0];
+  const capY = Number(cap.getAttribute('y'));
+  const baseWidth = Number(base.getAttribute('width'));
+  const capWidth = Number(cap.getAttribute('width'));
+  const strokeWidth = Number(bars[0].getAttribute('width'));
   const axes = graph.querySelector('.hero-axes');
   const guides = graph.querySelector('.hero-guides');
   const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
@@ -20,11 +26,11 @@
   let targets = [0, 0, 0];
   const paintOffsets = () => {
     bars.forEach((bar, i) => {
-      const height = [70, 42, 70][i] + offsets[i];
-      bar.setAttribute('y', 85 - height);
+      const height = finalHeights[i] + offsets[i];
+      bar.setAttribute('y', baseline - height);
       bar.setAttribute('height', height);
     });
-    cap.setAttribute('y', 15 - offsets[2]);
+    cap.setAttribute('y', capY - offsets[2]);
   };
   const resetMagnet = () => {
     cancelAnimationFrame(magneticFrame);
@@ -32,7 +38,7 @@
     magneticTime = null;
     offsets = [0, 0, 0];
     targets = [0, 0, 0];
-    cap.setAttribute('y', 15);
+    cap.setAttribute('y', capY);
     if (complete) paintOffsets();
   };
   const settle = now => {
@@ -52,7 +58,7 @@
   const ease = x => 1 - Math.pow(1 - x, 3);
   const mix = (a, b, t) => a + (b - a) * t;
   const clamp = x => Math.max(0, Math.min(1, x));
-  const heights = [[25, 52, 36], [58, 25, 45], [38, 59, 28], [70, 42, 70]];
+  const heights = [[25, 52, 36], [58, 25, 45], [38, 59, 28], finalHeights];
   const announce = progress => {
     graph.dataset.progress = progress;
     document.dispatchEvent(new CustomEvent('wcs:hero-progress', { detail: { progress } }));
@@ -63,12 +69,12 @@
     const t = ease(stage - index);
     bars.forEach((bar, i) => {
       const height = mix(heights[index][i], heights[index + 1][i], t);
-      bar.setAttribute('y', 85 - height);
+      bar.setAttribute('y', baseline - height);
       bar.setAttribute('height', height);
     });
     const join = ease(clamp((progress - .64) / .28));
-    base.setAttribute('width', 78 * join);
-    cap.setAttribute('width', 13 + 21 * join);
+    base.setAttribute('width', baseWidth * join);
+    cap.setAttribute('width', strokeWidth + (capWidth - strokeWidth) * join);
     cap.setAttribute('opacity', join);
     axes.style.opacity = mix(.65, .3, join);
     guides.style.opacity = mix(.55, .16, join);

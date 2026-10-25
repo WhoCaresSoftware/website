@@ -85,6 +85,15 @@ DM Mono wordmark remains supplied artwork; it does not determine the UI typeface
 
 ## Colors
 
+### Color ownership — centralized implementation
+
+Theme now owns all executable palette values, both modes and color recipes.
+Theme CSS and brand artwork are npm dependencies bundled by Vite;
+`styles.css` owns layout and typography, not a separate palette. This
+supersedes the implementation ownership described in historical sections below.
+The visual values recorded here are reference snapshots, not editable tokens.
+See [design inputs](docs/design-inputs.md) for regeneration and raster exceptions.
+
 ### Approved release — October 2026
 
 This snapshot takes precedence over historical component specifications below
@@ -440,10 +449,10 @@ in `docs/assets/images/HEX-MYTHICA-PROVENANCE.md` and excluded from publication.
 
 Use supplied SVGs without distortion. Final AI-restyled founder portraits were
 supplied by the user via clipboard and converted with `cwebp -q 90`. The external
-generator and exact prompt are unknown. Preserve both the studio PNG source files
-and the earlier original portraits
-in the sibling brand repository (`../../brand/brand_main/assets/source/website/`
-for the website originals), with internal provenance in `docs/assets/`.
-Publish `public/` directly, including
+generator and exact prompt are unknown. Current branded PNG sources and earlier
+original portraits live in the sibling brand repository under
+`../../brand/brand_main/assets/portraits/`, with provenance in its `assets/README.md`.
+Superseded studio treatments are preserved in brand Git history.
+Build with Vite and publish `dist/`, including
 runtime assets and their licenses; keep strategy, review evidence and internal
 documentation outside that directory. Local preview serves the same directory.

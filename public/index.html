@@ -3,38 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="assets/preferences.js"></script>
-  <script src="assets/composer.js" defer></script>
-  <script src="assets/work.js" defer></script>
+  <script>
+    // Apply a saved preference before styles paint; CSS handles system defaults.
+    try {
+      const theme = localStorage.getItem('wcs-theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.wcsTheme = theme;
+    } catch { /* Storage may be unavailable. */ }
+  </script>
+  <script type="module" src="assets/main.js"></script>
   <link rel="stylesheet" href="assets/services.css">
-  <script src="assets/services.js" defer></script>
   <title>Who Cares Software — Software that makes work easier</title>
   <meta name="description" content="An independent software studio led by Mike and XRS. Custom software, practical AI and dependable platforms, built around your business.">
-  <meta name="theme-color" content="#0D0D10">
+  <meta name="theme-color" content="{{theme.modes.light.page-background}}" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="{{theme.modes.dark.page-background}}" media="(prefers-color-scheme: dark)">
   <link rel="canonical" href="https://whocaressoftware.com/">
   <meta property="og:title" content="Who Cares Software — Software that makes work easier">
   <meta property="og:description" content="Custom software, practical AI and dependable platforms. Meet Mike and XRS, the people behind Who Cares Software.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://whocaressoftware.com/">
-  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="{{brandAsset 'favicon.svg'}}" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/source-sans-3-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/whocares.css">
+  <link rel="stylesheet" href="/theme-assets/whocares.css">
+  <link rel="stylesheet" href="/theme-assets/website.css">
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="stylesheet" href="assets/composer.css">
   <link rel="stylesheet" href="assets/work.css">
   <link rel="stylesheet" href="assets/people.css">
   <link rel="stylesheet" href="assets/approach.css">
-  <script src="assets/approach.js" defer></script>
-  <script src="assets/people.js" defer></script>
-  <script src="assets/back-top.js" defer></script>
-  <script src="assets/wordmark.js" defer></script>
   <link rel="stylesheet" href="assets/hero.css">
-  <script src="assets/hero.js" defer></script>
 </head>
 <body id="top">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="top">
-    <button class="logo" type="button" aria-label="Who Cares Software — animate wordmark"><img class="brand-light" src="assets/brand/whocares-wordmark-ink.svg" width="190" height="36" alt="whocares"><img class="brand-dark" src="assets/brand/whocares-wordmark-paper.svg" width="190" height="36" alt="whocares"></button>
+    <button class="logo" type="button" aria-label="Who Cares Software — animate wordmark"><img class="brand-light" src="{{brandAsset 'whocares-wordmark-ink.svg'}}" width="190" height="36" alt="whocares"><img class="brand-dark" src="{{brandAsset 'whocares-wordmark-paper.svg'}}" width="190" height="36" alt="whocares"></button>
     <div class="preferences" hidden>
       <div class="preference-buttons">
         <fieldset id="language" aria-label="Language"><label><input type="radio" name="language" value="en" aria-label="EN — English"><span lang="en">EN</span></label><label><input type="radio" name="language" value="el" aria-label="ΕΛ — Ελληνικά"><span lang="el">ΕΛ</span></label></fieldset>
@@ -57,11 +58,7 @@
           <g class="hero-guides" opacity=".16"><path d="M40 74H392M40 148H392M40 222H392M114 28V318M188 28V318M262 28V318M336 28V318"/></g>
           <g class="hero-axes" opacity=".3"><path d="M40 28V318H392M35 33L40 28L45 33M387 313L392 318L387 323M35 74H45M35 148H45M35 222H45M114 313V323M188 313V323M262 313V323M336 313V323"/></g>
           <g class="hero-symbol" transform="translate(69 24) scale(3.2)">
-            <rect data-bar x="11" y="15" width="13" height="70"/>
-            <rect data-bar x="33" y="43" width="13" height="42"/>
-            <rect data-bar x="55" y="15" width="13" height="70"/>
-            <rect data-base x="11" y="72" width="78" height="13"/>
-            <rect data-cap x="55" y="15" width="34" height="13"/>
+            {{{symbolParts}}}
           </g>
         </svg>
       </div>
@@ -106,19 +103,21 @@
       </ol>
     </section>
     <section class="people section" id="people" aria-labelledby="people-title">
+      <div class="people-intro">
       <h2 id="people-title">Two founders.<br><span class="accent">Shared responsibility.</span></h2>
-      <div class="people-copy"><p>Mike and XRS are co-founders and platform engineers, backed by a collective of trusted specialists. We stay hands-on, from understanding your problem to building the systems behind your business.</p><p class="signoff"><img class="brand-light" src="assets/brand/whocares-symbol-ink.svg" width="48" height="48" alt="" aria-hidden="true"><img class="brand-dark" src="assets/brand/whocares-symbol-orchid.svg" width="48" height="48" alt="" aria-hidden="true"><span>Who cares? <span class="accent">We do.</span></span></p>
+      <div class="people-copy"><p>Mike and XRS are co-founders and platform engineers, backed by a collective of trusted specialists. We stay hands-on, from understanding your problem to building the systems behind your business.</p><p class="signoff"><img class="brand-light" src="{{brandAsset 'whocares-symbol-ink.svg'}}" width="48" height="48" alt="" aria-hidden="true"><img class="brand-dark" src="{{brandAsset 'whocares-symbol-orchid.svg'}}" width="48" height="48" alt="" aria-hidden="true"><span>Who cares? <span class="accent">We do.</span></span></p>
+      </div>
+      </div>
         <div class="portrait-pair" aria-label="Meet the co-founders">
           <figure><a class="founder-portrait founder-cutout" data-founder="xrs" href="https://www.linkedin.com/in/chriskarpousis/" aria-label="XRS — LinkedIn"><img src="assets/images/xrs-cutout.webp" alt="XRS" width="1122" height="1402" loading="lazy"></a><figcaption>XRS <span>Co-founder</span></figcaption></figure>
           <figure><a class="founder-portrait founder-cutout" data-founder="mike" href="https://www.linkedin.com/in/mbastakis/" aria-label="Mike — LinkedIn"><img src="assets/images/mike-cutout.webp" alt="Mike" width="1122" height="1402" loading="lazy"></a><figcaption>Mike <span>Co-founder</span></figcaption></figure>
         </div>
-      </div>
     </section>
     <section class="contact section" id="contact" tabindex="-1" aria-labelledby="contact-title">
       <h2 id="contact-title">What needs to<br><span class="accent">work better?</span></h2>
       <div><p>You don’t need a finished brief. Tell Mike and XRS what you’re working on and what’s getting in the way.</p><a class="email" href="mailto:whocaressoftware@gmail.com">whocaressoftware@gmail.com</a></div>
     </section>
   </main>
-  <footer><div class="footer-brand" role="img" aria-label="Who Cares Software"><img class="footer-symbol brand-light" src="assets/brand/whocares-symbol-ink.svg" alt="" width="40" height="40" aria-hidden="true"><img class="footer-symbol brand-dark" src="assets/brand/whocares-symbol-orchid.svg" alt="" width="40" height="40" aria-hidden="true"><img class="footer-wordmark brand-light" src="assets/brand/whocares-wordmark-ink.svg" alt="" width="120" aria-hidden="true"><img class="footer-wordmark brand-dark" src="assets/brand/whocares-wordmark-paper.svg" alt="" width="120" aria-hidden="true"></div><a class="back-top" href="#top"><span>Back to top</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></a></footer>
+  <footer><div class="footer-brand" role="img" aria-label="Who Cares Software"><img class="footer-symbol brand-light" src="{{brandAsset 'whocares-symbol-ink.svg'}}" alt="" width="40" height="40" aria-hidden="true"><img class="footer-symbol brand-dark" src="{{brandAsset 'whocares-symbol-orchid.svg'}}" alt="" width="40" height="40" aria-hidden="true"><img class="footer-wordmark brand-light" src="{{brandAsset 'whocares-wordmark-ink.svg'}}" alt="" width="120" aria-hidden="true"><img class="footer-wordmark brand-dark" src="{{brandAsset 'whocares-wordmark-paper.svg'}}" alt="" width="120" aria-hidden="true"></div><a class="back-top" href="#top"><span>Back to top</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></a></footer>
 </body>
 </html>

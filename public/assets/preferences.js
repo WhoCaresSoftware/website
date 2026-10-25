@@ -18,7 +18,12 @@
   const applyTheme = () => {
     const resolved = theme === 'system' ? (media.matches ? 'dark' : 'light') : theme;
     root.dataset.wcsTheme = resolved;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', resolved === 'dark' ? '#0d0d10' : '#f3eef4');
+    const updateChrome = () => {
+      const color = getComputedStyle(root).getPropertyValue('--wcs-page-background').trim();
+      if (color) document.querySelectorAll('meta[name="theme-color"]').forEach(meta => meta.setAttribute('content', color));
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', updateChrome, { once: true });
+    else updateChrome();
     updateControls();
   };
   applyTheme();

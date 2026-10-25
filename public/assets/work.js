@@ -1,4 +1,5 @@
 /* Progressive enhancement: the original project articles remain the content source. */
+import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
 (() => {
   'use strict';
   if (!window.HTMLDialogElement || !HTMLDialogElement.prototype.showModal) return;
@@ -120,7 +121,9 @@
       button.querySelector('.document-open').before(drawing);
       const footer = document.createElement('span');
       footer.className = 'drawing-footer';
-      footer.innerHTML = '<svg class="drawing-credit" aria-hidden="true" viewBox="0 0 100 100"><path fill="currentColor" d="M11 15H24V72H33V43H46V72H55V15H89V28H68V72H89V85H11Z"/></svg>';
+      footer.innerHTML = symbolArtwork;
+      footer.querySelector('svg').classList.add('drawing-credit');
+      footer.querySelector('svg').setAttribute('aria-hidden', 'true');
       footer.append(button.querySelector('.document-open'));
       button.append(footer);
     }
@@ -179,12 +182,13 @@
     event.preventDefault();
     turn(event.key === 'ArrowRight' ? 1 : -1);
   });
-  // The library owns pointer tracking, axis intent, flicks and tap filtering.
+  // The library owns pointer tracking, axis intent and tap filtering.
   // Keep normal project buttons available even if the optional module fails to load.
   import('./vendor/use-gesture/vanilla-10.3.1.mjs').then(({ DragGesture }) => {
     let dragged;
     let cancelDrag;
     let dragLimit = 1;
+    let dragSamples = [];
     const resetDrag = (settle = true) => {
       if (!dragged) return;
       const button = dragged;
@@ -194,6 +198,7 @@
       delete documents.dataset.direction;
       dragged = null;
       cancelDrag = null;
+      dragSamples = [];
       if (settle && !reduced.matches) button.animate([
         { transform: from }, { transform: getComputedStyle(button).transform }
       ], { duration: 240, easing: 'cubic-bezier(.16,1,.3,1)' });
@@ -206,7 +211,7 @@
     window.addEventListener('blur', interrupt);
     document.addEventListener('visibilitychange', () => { if (document.hidden) interrupt(); });
     new DragGesture(documents, state => {
-      const { active, first, last, canceled, event, movement: [dx], swipe: [swipe], cancel } = state;
+      const { active, first, last, canceled, event, movement: [dx], cancel } = state;
       if (canceled || event.type === 'pointercancel' || event.type === 'lostpointercapture') {
         resetDrag();
         return;
@@ -220,9 +225,14 @@
         const bounds = dragged.getBoundingClientRect();
         dragLimit = Math.max(12, Math.min(dragged.clientWidth * .38, bounds.left - 12, innerWidth - bounds.right - 12));
         cancelDrag = cancel;
+        dragSamples = [{ x: 0, time: event.timeStamp }];
         documents.classList.add('is-dragging');
       }
       if (!dragged) return;
+      // Measure the recent motion, including the release pause, rather than
+      // requiring a fast final pointer event or a full-width pull.
+      dragSamples = dragSamples.filter(sample => event.timeStamp - sample.time <= 100);
+      dragSamples.push({ x: dx, time: event.timeStamp });
       if (active) {
         const limit = dragLimit;
         const travel = limit * Math.tanh(dx / limit);
@@ -231,8 +241,12 @@
         documents.dataset.direction = dx < 0 ? 'next' : 'previous';
       }
       if (last) {
-        const threshold = Math.min(56, dragged.clientWidth * .18);
-        const direction = swipe || (Math.abs(dx) >= threshold ? Math.sign(dx) : 0);
+        const threshold = Math.min(40, dragged.clientWidth * .12);
+        const sample = dragSamples[0];
+        const elapsed = event.timeStamp - sample.time;
+        const velocity = elapsed > 0 ? (dx - sample.x) / elapsed : 0;
+        const flick = Math.abs(dx) >= 16 && Math.abs(velocity) >= .15 && Math.sign(velocity) === Math.sign(dx);
+        const direction = Math.abs(dx) >= threshold || flick ? Math.sign(dx) : 0;
         const from = getComputedStyle(dragged).transform;
         resetDrag(!direction);
         if (direction) {
@@ -243,8 +257,7 @@
     }, {
       axis: 'x', threshold: 6, axisThreshold: { mouse: 4, touch: 6, pen: 6 },
       filterTaps: true, tapsThreshold: 6,
-      pointer: { capture: false, keys: false },
-      swipe: { distance: 18, velocity: .25, duration: 350 }
+      pointer: { capture: false, keys: false }
     });
   }).catch(() => { /* Side buttons and keyboard navigation remain available. */ });
   const localize = () => {

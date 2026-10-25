@@ -1,0 +1,24 @@
+{
+  "name": "@whocaressoftware/website",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "lint": "stylelint 'public/assets/*.css'"
+  },
+  "dependencies": {
+    "@whocaressoftware/brand": "file:packages/whocaressoftware-brand-0.2.0.tgz",
+    "@whocaressoftware/theme": "file:packages/whocaressoftware-theme-0.2.0.tgz"
+  },
+  "devDependencies": {
+    "stylelint": "17.16.0",
+    "vite": "8.3.5",
+    "vite-plugin-handlebars": "2.0.3"
+  }
+}

@@ -26,9 +26,9 @@
       const bounds = group.getBBox();
       const hit = document.createElementNS(ns, 'rect');
       hit.setAttribute('x', bounds.x - 25);
-      hit.setAttribute('y', '-800');
+      hit.setAttribute('y', svg.viewBox.baseVal.y);
       hit.setAttribute('width', bounds.width + 50);
-      hit.setAttribute('height', '892');
+      hit.setAttribute('height', svg.viewBox.baseVal.height);
       hit.setAttribute('fill', 'transparent');
       group.append(hit);
     });
