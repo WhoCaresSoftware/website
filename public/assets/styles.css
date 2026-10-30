@@ -83,6 +83,18 @@ h3 { font-size: var(--item-title); font-weight: 600; line-height: 1.2; letter-sp
 .logo img { width: 190px; height: auto; }
 .logo .wordmark { display: block; width: 190px; height: auto; overflow: visible; fill: var(--wcs-foreground); }
 .logo.has-wordmark img { display: none; }
+/* The WC symbol leads the wordmark and keeps its theme pairing after the wordmark becomes inline SVG. */
+.logo { gap: 12px; }
+.logo .logo-symbol { width: 40px; height: 40px; flex-shrink: 0; }
+.logo .logo-symbol.brand-light { display: var(--brand-light-display); }
+.logo .logo-symbol.brand-dark { display: var(--brand-dark-display); }
+@media (max-width: 800px) { .logo { gap: 10px; } .logo .logo-symbol { width: 32px; height: 32px; } }
+@media (max-width: 480px) {
+  .logo { gap: 8px; }
+  .logo .logo-symbol { width: 26px; height: 26px; }
+  /* The open menu adds settings beside its button; drop the symbol so the row still fits. */
+  .has-menu.menu-open .logo .logo-symbol { display: none; }
+}
 .wordmark-letter path { transition: fill 180ms ease; }
 @media (hover: hover) and (pointer: fine) { .wordmark-letter:hover path { fill: var(--wcs-accent); } }
 .logo:focus-visible .wordmark-letter path { fill: var(--wcs-accent); }
@@ -242,6 +254,9 @@ footer a { display: inline-flex; min-height: 44px; align-items: center; }
 }
 .site-nav { display: flex; gap: 4px; }
 .site-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 4px; font-size: var(--label); color: var(--text-secondary); white-space: nowrap; }
+/* Hairline separators between links: shorter and half the weight of the settings divider. */
+.site-nav a + a { position: relative; }
+.site-nav a + a::before { content: ''; position: absolute; left: -2.5px; top: 50%; width: 1px; height: 14px; background: var(--rule); transform: translateY(-50%) scaleX(.5); }
 .site-nav a[aria-current] { color: var(--wcs-foreground); text-decoration: underline; text-decoration-color: var(--wcs-accent); text-decoration-thickness: 2px; text-underline-offset: 8px; }
 /* Language reads as two quiet text options rather than a boxed control. */
 .top #language { padding: 0; border: 0; }
@@ -273,6 +288,7 @@ footer a { display: inline-flex; min-height: 44px; align-items: center; }
   .has-menu .site-nav { flex-direction: column; gap: 0; }
   .has-menu .site-nav a { min-height: 52px; padding: 0; font-size: var(--item-title); color: var(--wcs-foreground); }
   .has-menu .site-nav a[aria-current] { color: var(--wcs-accent); text-decoration: none; }
+  .site-nav a + a::before { display: none; }
   .has-menu .site-nav a + a { border-top: 1px solid var(--rule); border-radius: 0; }
   .has-menu .header-menu.is-open .site-nav a { animation: menu-item 320ms cubic-bezier(.16,1,.3,1) both; }
   .has-menu .header-menu.is-open .site-nav a:nth-child(2) { animation-delay: 40ms; }
