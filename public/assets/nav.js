@@ -24,21 +24,31 @@
   addEventListener('resize', schedule);
   update();
 
-  // Narrow screens fold links and settings behind a menu button. It precedes the
-  // menu in the DOM so Tab moves from the button into the open panel.
+  // Narrow screens fold the links behind a menu button; language and theme move
+  // beside it and show only while the menu is open. The button precedes the menu
+  // in the DOM so Tab moves from it into the open panel.
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'menu-toggle';
   toggle.setAttribute('aria-controls', menu.id);
   toggle.setAttribute('aria-expanded', 'false');
   toggle.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path class="menu-line-top" d="M4 9h16"/><path class="menu-line-bottom" d="M8 15h12"/></svg>';
-  menu.before(toggle);
+  const actions = document.createElement('div');
+  actions.className = 'header-actions';
+  actions.append(toggle);
+  menu.before(actions);
   header.classList.add('has-menu');
   const narrow = matchMedia('(max-width: 1000px)');
+  const preferences = menu.querySelector('.preferences');
+  const placePreferences = () => {
+    if (narrow.matches) actions.prepend(preferences);
+    else menu.append(preferences);
+  };
   const isOpen = () => menu.classList.contains('is-open');
   const setOpen = open => {
     toggle.setAttribute('aria-expanded', String(open));
     menu.classList.toggle('is-open', open);
+    header.classList.toggle('menu-open', open);
   };
   const localize = () => {
     const label = document.documentElement.lang === 'el' ? 'Μενού' : 'Menu';
@@ -55,7 +65,8 @@
   document.addEventListener('click', event => {
     if (isOpen() && !header.contains(event.target)) setOpen(false);
   });
-  narrow.addEventListener('change', () => setOpen(false));
+  narrow.addEventListener('change', () => { setOpen(false); placePreferences(); });
+  placePreferences();
   addEventListener('wcs:languagechange', localize);
   localize();
 })();

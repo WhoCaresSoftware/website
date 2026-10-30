@@ -99,6 +99,9 @@ See [design inputs](docs/design-inputs.md) for regeneration and raster exception
 This snapshot takes precedence over historical component specifications below
 and earlier `.impeccable` review briefs.
 
+- Below 1000px the section links fold into a menu panel, while the language
+  and theme controls appear in the header bar beside the menu button only while
+  the menu is open; the panel holds navigation only.
 - Light page canvas is orchid-white `#F3EEF4` (`--page-background`); white
   papers and controls use `#FFFFFF` (`--wcs-background`). Folder covers use
   `#E9E2EC`, secondary text `#625B65`, and rules `#D6CDD9`. Dark colors are unchanged.
