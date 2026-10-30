@@ -75,6 +75,25 @@ components:
 
 # Design System: Who Cares Software
 
+## Current website palette — Deep Teal
+
+The selected website theme is the original Deep Teal direction from
+`palette-mockups/2-without-purple.html` (also option A in
+`palette-mockups/6-deep-teal-options.html`). This selection supersedes the orchid
+color references and historical palette snapshot below; layout, typography and
+interaction decisions remain unchanged.
+
+- Light: white page `#FFFFFF`, neutral sections `#F2F4F4`, surfaces `#E6ECEB`,
+  text `#1A1F1F`, supporting text `#56605F`, borders `#D5DDDC`, teal `#1F6B64`.
+- Dark: page `#0C0F10`, sections `#161B1C`, surfaces `#1C2324`, text `#E8ECEB`,
+  supporting text `#A9B4B3`, borders `#2E3839`, teal `#6CC2B8`.
+- Amber supports the primary teal (`#A86F2E` light, `#D9A866` dark); muted blue
+  and green distinguish service illustrations and approach steps.
+- The website override is centralized in `public/assets/theme.css`; component
+  styles consume semantic roles. Shared npm archives are unchanged.
+- WC symbols inherit the active teal through the original shared SVG geometry.
+  Portfolio imagery and baked-in portrait shirt artwork keep their own colours.
+
 ## Overview
 
 **Creative North Star: Independent and plain-spoken.**
@@ -99,11 +118,11 @@ See [design inputs](docs/design-inputs.md) for regeneration and raster exception
 This snapshot takes precedence over historical component specifications below
 and earlier `.impeccable` review briefs.
 
-- Below 1000px the section links fold into a full-screen menu beneath the
-  header bar: a list of large-type rows between rules, each with a trailing
-  arrow. The page behind stops scrolling and leaves the focus order. The
-  language and theme controls appear in the header bar beside the menu button
-  only while the menu is open; the menu holds navigation only.
+- Below 1000px the section links fold into a full-screen menu beneath the header
+  bar: rows between rules, set smaller than the wordmark, each with a trailing
+  arrow, and the footer's social links centred at the bottom. The page behind
+  stops scrolling and leaves the focus order. The language and theme controls
+  appear in the header bar beside the menu button only while the menu is open.
 - Supporting hues (theme palette blue, orchid, green, amber) give each service
   and approach step its own soft colour: a tinted icon tile per service and a
   tinted row with a solid edge for the current step. Text stays neutral in light
@@ -289,7 +308,7 @@ These current decisions supersede older interaction specifications below:
   removed on collapse/close, and an external fallback. Images use a swipeable
   scroll-snap carousel with labeled controls and a counter. Reduced motion skips
   expansion and scrolling animation.
-- Approach scenes cycle every 4.5 seconds while visible, without row controls.
+- Approach scenes cycle every 2.5 seconds while visible, without row controls.
   The matching step has a subtle orchid-tinted background, orchid heading and
   full-contrast description. Color transitions follow the scene changes without
   moving content, and are disabled under reduced motion.

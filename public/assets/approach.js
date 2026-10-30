@@ -52,7 +52,7 @@
   let timer;
   const schedule = () => {
     clearInterval(timer);
-    if (visible && !document.hidden && !reduced.matches) timer = setInterval(() => { selected = (selected + 1) % items.length; show(selected); }, 4500);
+    if (visible && !document.hidden && !reduced.matches) timer = setInterval(() => { selected = (selected + 1) % items.length; show(selected); }, 2500);
   };
   new IntersectionObserver(entries => { visible = entries[0].isIntersecting; schedule(); }).observe(section);
   document.addEventListener('visibilitychange', schedule);

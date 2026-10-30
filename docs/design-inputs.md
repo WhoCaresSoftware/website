@@ -23,8 +23,20 @@ assets. The standard Handlebars plugin inserts theme metadata and brand's hero
 fragment into HTML in both development and production. Project decorations use
 Vite's `?raw` SVG imports. No source files are rewritten by the build.
 
-Stylelint rejects literal CSS colors and color-producing functions in website
-styles. Use theme roles instead. This replaces the custom color scanner; it
+The website's selected Deep Teal palette lives in `public/assets/theme.css`,
+loaded after the shared package styles. It overrides semantic color roles for
+light, dark and system appearance without modifying the producer packages.
+Supporting blue, green and amber roles keep illustrations varied; shared color
+recipes continue to derive from the active semantic roles. Browser theme-color
+metadata in `public/index.html` mirrors the two page backgrounds.
+The WC symbol uses the shared SVG geometry with `currentColor` so it follows the
+active website accent instead of retaining a baked-in orchid fill.
+`public/assets/favicon.svg` uses the same shared geometry with the selected
+light-mode teal and white palette.
+
+Stylelint permits literal colors only in `public/assets/theme.css` and rejects
+literal CSS colors and color-producing functions in component styles. Use theme
+roles instead. This replaces the custom color scanner; it
 checks CSS, not JavaScript or HTML. The site has no custom design lock or sync tool.
 
 ## Updating the producer packages

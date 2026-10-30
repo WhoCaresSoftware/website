@@ -1,4 +1,8 @@
 {
+  "overrides": [{
+    "files": ["public/assets/theme.css"],
+    "rules": { "color-no-hex": null }
+  }],
   "rules": {
     "color-no-hex": true,
     "color-named": "never",
