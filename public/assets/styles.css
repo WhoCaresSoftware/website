@@ -13,7 +13,8 @@
   font-display: swap;
 }
 :root {
-  --page-background: var(--wcs-page-background);
+  /* Neutral grounds keep orchid for emphasis; the theme's light canvas is orchid-white. */
+  --page-background: var(--wcs-palette-white);
   --cta-active: var(--wcs-accent-active);
   --text-secondary: var(--wcs-foreground-muted);
   --rule: var(--wcs-border);
@@ -27,15 +28,29 @@
   --lead: 20px;
   --label: 16px;
   --column-gap: clamp(32px, 5.56vw, 80px);
+  /* Supporting hues mark one item each; text stays neutral where a hue lacks contrast. */
+  --hue-build: var(--wcs-palette-blue);
+  --hue-automate: var(--wcs-palette-orchid);
+  --hue-run: var(--wcs-palette-green);
+  --hue-plan: var(--wcs-palette-amber);
+  --hue-tint: .22;
+  --band-tint: .16;
+  --band: var(--wcs-palette-gray);
 }
 :root[data-wcs-theme="dark"] {
   --brand-light-display: none;
   --brand-dark-display: block;
+  --page-background: var(--wcs-page-background);
+  --hue-tint: .2;
+  --band-tint: .1;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-wcs-theme]) {
     --brand-light-display: none;
     --brand-dark-display: block;
+    --page-background: var(--wcs-page-background);
+    --hue-tint: .2;
+    --band-tint: .1;
   }
 }
 * { box-sizing: border-box; }
@@ -55,6 +70,12 @@ h1 { font-size: var(--display); font-weight: 400; line-height: 1.04; letter-spac
 h2 { font-size: var(--section-title); font-weight: 400; line-height: 1.15; letter-spacing: -.02em; }
 h3 { font-size: var(--item-title); font-weight: 600; line-height: 1.2; letter-spacing: -.01em; }
 .accent { color: inherit; }
+.section h2 .accent { color: var(--wcs-accent); }
+.hued > * { --hue-ink: var(--wcs-foreground); }
+:root[data-wcs-theme="dark"] .hued > * { --hue-ink: var(--hue); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-wcs-theme]) .hued > * { --hue-ink: var(--hue); }
+}
 .signoff .accent { color: var(--wcs-accent); }
 .top, main, footer { max-width: 1600px; margin-inline: auto; padding-inline: var(--gutter); }
 .top { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding-block: 28px; gap: 20px 32px; }
@@ -108,7 +129,11 @@ figure { margin: 0; min-width: 0; }
 .portrait-pair img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 0%; }
 .portrait-pair figcaption { margin-top: 12px; font-size: var(--lead); font-weight: 600; }
 .portrait-pair figcaption span { display: block; font-size: var(--label); color: var(--text-secondary); font-weight: 400; }
-.section { border-top: 1px solid var(--rule); padding-block: 64px; }
+.section { padding-block: 64px; }
+/* Alternate sections share one full-width neutral band; the band edges replace divider rules.
+   The tint is a translucent layer because website styles cannot mix colors. */
+.services, .approach, .contact { position: relative; isolation: isolate; clip-path: inset(0 -100vmax); }
+.services::before, .approach::before, .contact::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--band); box-shadow: 0 0 0 100vmax var(--band); opacity: var(--band-tint); pointer-events: none; }
 .services, .approach, .people, .contact { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: var(--column-gap); }
 .services { grid-template-columns: minmax(0, 1fr); gap: 40px; }
 .service-list { min-width: 0; }
@@ -134,10 +159,9 @@ figure { margin: 0; min-width: 0; }
 .brand-light { display: var(--brand-light-display); }
 .brand-dark { display: var(--brand-dark-display); }
 .email { display: inline-block; color: var(--wcs-foreground); font-size: var(--item-title); text-decoration: underline; padding-block: 12px; margin-top: 14px; overflow-wrap: anywhere; max-width: 100%; }
-/* Footer rules sit within the page gutters, matching the section dividers. */
 footer { font-size: var(--label); }
 footer a { display: inline-flex; min-height: 44px; align-items: center; }
-.footer-main { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 48px; padding-block: 48px 40px; border-top: 1px solid var(--rule); }
+.footer-main { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 48px; padding-block: 48px 40px; }
 .footer-intro { margin-inline-end: auto; }
 .footer-tagline { margin-top: 12px; color: var(--text-secondary); }
 .footer-tagline .accent { color: var(--wcs-accent); }

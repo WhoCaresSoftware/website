@@ -102,6 +102,15 @@ and earlier `.impeccable` review briefs.
 - Below 1000px the section links fold into a menu panel, while the language
   and theme controls appear in the header bar beside the menu button only while
   the menu is open; the panel holds navigation only.
+- Supporting hues (theme palette blue, orchid, green, amber) give each service
+  and approach step its own soft colour: a tinted icon tile per service and a
+  tinted row with a solid edge for the current step. Text stays neutral in light
+  mode; dark mode also colours the current step heading and sketch accents.
+  Section headline emphasis spans use the orchid accent, matching the hero.
+- Page sections alternate between two neutral backgrounds: a white light-mode
+  canvas (theme ink in dark) and one full-width gray band (Services, Approach,
+  Contact). Orchid is kept for emphasis rather than large grounds. Band edges replace the
+  section divider rules and the footer's top rule.
 - Light page canvas is orchid-white `#F3EEF4` (`--page-background`); white
   papers and controls use `#FFFFFF` (`--wcs-background`). Folder covers use
   `#E9E2EC`, secondary text `#625B65`, and rules `#D6CDD9`. Dark colors are unchanged.
