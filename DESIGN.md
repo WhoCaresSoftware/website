@@ -99,9 +99,11 @@ See [design inputs](docs/design-inputs.md) for regeneration and raster exception
 This snapshot takes precedence over historical component specifications below
 and earlier `.impeccable` review briefs.
 
-- Below 1000px the section links fold into a menu panel, while the language
-  and theme controls appear in the header bar beside the menu button only while
-  the menu is open; the panel holds navigation only.
+- Below 1000px the section links fold into a full-screen menu beneath the
+  header bar: a list of large-type rows between rules, each with a trailing
+  arrow. The page behind stops scrolling and leaves the focus order. The
+  language and theme controls appear in the header bar beside the menu button
+  only while the menu is open; the menu holds navigation only.
 - Supporting hues (theme palette blue, orchid, green, amber) give each service
   and approach step its own soft colour: a tinted icon tile per service and a
   tinted row with a solid edge for the current step. Text stays neutral in light

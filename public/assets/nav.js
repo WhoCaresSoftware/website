@@ -32,7 +32,7 @@
   toggle.className = 'menu-toggle';
   toggle.setAttribute('aria-controls', menu.id);
   toggle.setAttribute('aria-expanded', 'false');
-  toggle.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path class="menu-line-top" d="M4 9h16"/><path class="menu-line-bottom" d="M8 15h12"/></svg>';
+  toggle.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path class="menu-line-top" d="M4 7h16"/><path class="menu-line-middle" d="M6 12h14"/><path class="menu-line-bottom" d="M8 17h12"/></svg>';
   const actions = document.createElement('div');
   actions.className = 'header-actions';
   actions.append(toggle);
@@ -44,11 +44,22 @@
     if (narrow.matches) actions.prepend(preferences);
     else menu.append(preferences);
   };
+  // The open menu fills the screen beneath the header bar, so the page behind it
+  // stops scrolling and leaves the focus order. A partly scrolled-away header
+  // shifts down to the top of the screen while the menu is open.
+  const behind = [...document.querySelectorAll('main, footer')];
   const isOpen = () => menu.classList.contains('is-open');
   const setOpen = open => {
+    const { top, height } = header.getBoundingClientRect();
+    if (open) {
+      header.style.top = top < 0 ? `${-top}px` : '';
+      header.style.setProperty('--menu-top', `${top < 0 ? height : top + height}px`);
+    } else header.style.top = '';
     toggle.setAttribute('aria-expanded', String(open));
     menu.classList.toggle('is-open', open);
     header.classList.toggle('menu-open', open);
+    document.documentElement.classList.toggle('menu-locked', open);
+    behind.forEach(element => { element.inert = open; });
   };
   const localize = () => {
     const label = document.documentElement.lang === 'el' ? 'Μενού' : 'Menu';
