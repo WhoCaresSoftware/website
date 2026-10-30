@@ -82,7 +82,18 @@
       'figure:nth-child(2) figcaption span': 'Συνιδρυτής',
       '#contact-title': 'Τι θα έκανε τη δουλειά σας<br><span class="accent">πιο εύκολη;</span>',
       '.contact p': 'Δεν χρειάζεται να γνωρίζετε τις τεχνικές λεπτομέρειες ή να έχετε έτοιμο σχέδιο. Πείτε στον Mike και στον XRS τι θέλετε να κάνετε και τι σας δυσκολεύει σήμερα.',
-      'footer a span': 'Επιστροφή στην αρχή'
+      '.back-top span': 'Επιστροφή στην αρχή',
+      '.footer-tagline': 'Ποιος νοιάζεται; <span class="accent">Εμείς.</span>',
+      '.footer-nav a[href="#problems"]': 'Υπηρεσίες',
+      '.footer-nav a[href="#work"]': 'Έργα',
+      '.footer-nav a[href="#approach"]': 'Προσέγγιση',
+      '.footer-nav a[href="#people"]': 'Ομάδα',
+      '.footer-nav a[href="#contact"]': 'Επικοινωνία',
+      '.site-nav a[href="#problems"]': 'Υπηρεσίες',
+      '.site-nav a[href="#work"]': 'Έργα',
+      '.site-nav a[href="#approach"]': 'Προσέγγιση',
+      '.site-nav a[href="#people"]': 'Ομάδα',
+      '.site-nav a[href="#contact"]': 'Επικοινωνία'
     };
     const entries = Object.entries(greek).map(([selector, el]) => {
       const node = document.querySelector(selector);
@@ -91,6 +102,8 @@
     const attributes = [
       ['.logo', 'aria-label', 'Who Cares Software — Αρχική'],
       ['.portrait-pair', 'aria-label', 'Γνωρίστε τους συνιδρυτές'],
+      ['.site-nav', 'aria-label', 'Ενότητες'],
+      ['.footer-nav', 'aria-label', 'Υποσέλιδο'],
       ['meta[name="description"]', 'content', 'Ένα ανεξάρτητο στούντιο λογισμικού με επικεφαλής τον Mike και τον XRS. Λογισμικό στα μέτρα σας, πρακτικές λύσεις τεχνητής νοημοσύνης και αξιόπιστες πλατφόρμες για την επιχείρησή σας.'],
       ['meta[property="og:title"]', 'content', 'Who Cares Software — Λογισμικό που κάνει τη δουλειά πιο εύκολη'],
       ['meta[property="og:description"]', 'content', 'Λογισμικό στα μέτρα σας, πρακτικές λύσεις τεχνητής νοημοσύνης και αξιόπιστες πλατφόρμες. Γνωρίστε τον Mike και τον XRS, τους ανθρώπους πίσω από τη Who Cares Software.']

@@ -7,3 +7,4 @@ import './people.js';
 import './back-top.js';
 import './wordmark.js';
 import './hero.js';
+import './nav.js';

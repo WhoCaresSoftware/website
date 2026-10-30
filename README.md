@@ -23,7 +23,8 @@ been removed. Serving and deploying the website does not require the brand repos
 ## Editing
 
 - `public/index.html`: source content and English fallback.
-- `public/assets/styles.css`: shared layout and typography; color roles come from theme.
+- `public/assets/styles.css`: shared layout and typography.
+- `public/assets/theme.css`: website Deep Teal color roles, layered over the shared theme.
 - Theme CSS and brand artwork are imported from npm dependencies.
 - [Design dependencies](docs/design-inputs.md): ownership, package updates and exceptions.
 - `public/assets/preferences.js`: appearance/language preferences and homepage Greek copy.

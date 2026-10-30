@@ -131,6 +131,42 @@ import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
     folder.querySelector('.folder-documents').append(button);
     return button;
   });
+  // An overview of every project, sharing the folder's sketches and reading dialog.
+  const grid = document.createElement('ul');
+  grid.className = 'work-grid';
+  const cards = buttons.map((button, index) => {
+    const item = document.createElement('li');
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'work-card';
+    card.setAttribute('aria-haspopup', 'dialog');
+    const sketch = button.querySelector('.project-sketch').cloneNode(true);
+    sketch.setAttribute('aria-hidden', 'true');
+    sketch.querySelector('pattern').id = `card-grid-${index}`;
+    sketch.querySelector('.drawing-grid').setAttribute('fill', `url(#card-grid-${index})`);
+    card.innerHTML = '<span class="document-name"></span><span class="document-kind"></span><span class="document-open"><span></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>';
+    card.prepend(sketch);
+    card.addEventListener('click', () => open(index, card));
+    item.append(card);
+    grid.append(item);
+    return card;
+  });
+  const views = document.createElement('fieldset');
+  views.className = 'work-views';
+  views.innerHTML = '<label><input type="radio" name="work-view" value="folder"><span></span></label><label><input type="radio" name="work-view" value="grid"><span></span></label>';
+  let view = 'folder';
+  try { if (localStorage.getItem('wcs-work-view') === 'grid') view = 'grid'; } catch { /* Folder remains the default. */ }
+  const showView = () => {
+    folder.hidden = view !== 'folder';
+    grid.hidden = view !== 'grid';
+    section.classList.toggle('work-showing-grid', view === 'grid');
+    views.querySelector(`input[value="${view}"]`).checked = true;
+  };
+  views.addEventListener('change', event => {
+    view = event.target.value;
+    try { localStorage.setItem('wcs-work-view', view); } catch { /* Session choice still works. */ }
+    showView();
+  });
   const browse = () => {
     buttons.forEach((button, index) => {
       button.classList.toggle('is-current', index === current);
@@ -270,6 +306,16 @@ import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
       button.setAttribute('aria-label', `${label}: ${projects[index].querySelector('h3').textContent}`);
       button.querySelector('.drawing-caption').textContent = drawingCaptions[greek ? 'el' : 'en'][index];
     });
+    cards.forEach((card, index) => {
+      card.querySelector('.document-name').textContent = projects[index].querySelector('h3').textContent;
+      card.querySelector('.document-kind').textContent = projects[index].querySelector('.project-kind').textContent;
+      card.querySelector('.document-open span').textContent = label;
+      card.setAttribute('aria-label', `${label}: ${projects[index].querySelector('h3').textContent}`);
+    });
+    views.setAttribute('aria-label', greek ? 'Προβολή έργων' : 'Project view');
+    const [folderLabel, gridLabel] = views.querySelectorAll('span');
+    folderLabel.textContent = greek ? 'Φάκελος' : 'Folder';
+    gridLabel.textContent = greek ? 'Όλα τα έργα' : 'All projects';
     browse();
     dialog.querySelector('.document-close').setAttribute('aria-label', greek ? 'Κλείσιμο' : 'Close');
     if (selected !== -1) renderDocument();
@@ -435,7 +481,8 @@ import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
     trigger?.focus({ preventScroll: true });
     closing = false;
   });
-  section.querySelector('h2').after(folder);
+  section.querySelector('h2').after(views, folder, grid);
+  showView();
   projects.forEach(project => { project.hidden = true; });
   window.addEventListener('wcs:languagechange', localize);
   document.addEventListener('click', event => {

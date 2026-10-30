@@ -11,7 +11,9 @@ const websiteAsset = name => ({
   'whocares-wordmark-ink.svg': 'website-wordmark-light.svg',
   'whocares-wordmark-paper.svg': 'website-wordmark-dark.svg'
 }[name] || name);
-const theme = JSON.parse(readFileSync(fileURLToPath(import.meta.resolve('@whocaressoftware/theme/website.json')), 'utf8'));
+const symbol = readFileSync(asset('website-symbol-light.svg'), 'utf8')
+  .replace('role="img" aria-label="whocares symbol"', 'aria-hidden="true"')
+  .replace(/fill="#[A-Fa-f0-9]+"/g, 'fill="currentColor"');
 
 export default defineConfig(({ command }) => ({
   root: 'public',
@@ -22,11 +24,11 @@ export default defineConfig(({ command }) => ({
     }
   },
   plugins: [handlebars({
-    helpers: { brandAsset: name => command === 'serve'
+    helpers: { brandSymbol: (className, size) => symbol.replace('<svg ', `<svg class="${className}" width="${size}" height="${size}" `),
+      brandAsset: name => command === 'serve'
       ? `/@fs/${asset(websiteAsset(name))}`
       : relative(resolve('public'), asset(websiteAsset(name))) },
     context: {
-      theme,
       symbolParts: readFileSync(asset('symbol-parts.html'), 'utf8')
     }
   })],

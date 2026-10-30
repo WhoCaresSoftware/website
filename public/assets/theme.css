@@ -1,0 +1,68 @@
+:root, [data-wcs-theme="light"] {
+  color-scheme: light;
+  --wcs-background: #FFFFFF;
+  --wcs-page-background: #FFFFFF;
+  --wcs-foreground: #1A1F1F;
+  --wcs-foreground-muted: #56605F;
+  --wcs-surface: #E6ECEB;
+  --wcs-surface-raised: #F2F4F4;
+  --wcs-border: #D5DDDC;
+  --wcs-accent: #1F6B64;
+  --wcs-accent-active: #18564F;
+  --wcs-accent-secondary: #A86F2E;
+  --wcs-accent-subtle: #E6ECEB;
+  --wcs-on-accent: #FFFFFF;
+  --wcs-focus: #1F6B64;
+  --wcs-brand-symbol: #1F6B64;
+  --wcs-brand-wordmark: #1A1F1F;
+  --wcs-section-background: #F2F4F4;
+  --wcs-support-blue: #3F6487;
+  --wcs-support-green: #526E48;
+  --wcs-support-amber: #A86F2E;
+}
+:root[data-wcs-theme="dark"] {
+  color-scheme: dark;
+  --wcs-background: #0C0F10;
+  --wcs-page-background: #0C0F10;
+  --wcs-foreground: #E8ECEB;
+  --wcs-foreground-muted: #A9B4B3;
+  --wcs-surface: #1C2324;
+  --wcs-surface-raised: #242E2F;
+  --wcs-border: #2E3839;
+  --wcs-accent: #6CC2B8;
+  --wcs-accent-active: #8AD4CA;
+  --wcs-accent-secondary: #D9A866;
+  --wcs-accent-subtle: #1C2324;
+  --wcs-on-accent: #0C0F10;
+  --wcs-focus: #6CC2B8;
+  --wcs-brand-symbol: #6CC2B8;
+  --wcs-brand-wordmark: #E8ECEB;
+  --wcs-section-background: #161B1C;
+  --wcs-support-blue: #8FB1D0;
+  --wcs-support-green: #A3C193;
+  --wcs-support-amber: #D9A866;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-wcs-theme]) {
+    color-scheme: dark;
+    --wcs-background: #0C0F10;
+    --wcs-page-background: #0C0F10;
+    --wcs-foreground: #E8ECEB;
+    --wcs-foreground-muted: #A9B4B3;
+    --wcs-surface: #1C2324;
+    --wcs-surface-raised: #242E2F;
+    --wcs-border: #2E3839;
+    --wcs-accent: #6CC2B8;
+    --wcs-accent-active: #8AD4CA;
+    --wcs-accent-secondary: #D9A866;
+    --wcs-accent-subtle: #1C2324;
+    --wcs-on-accent: #0C0F10;
+    --wcs-focus: #6CC2B8;
+    --wcs-brand-symbol: #6CC2B8;
+    --wcs-brand-wordmark: #E8ECEB;
+    --wcs-section-background: #161B1C;
+    --wcs-support-blue: #8FB1D0;
+    --wcs-support-green: #A3C193;
+    --wcs-support-amber: #D9A866;
+  }
+}

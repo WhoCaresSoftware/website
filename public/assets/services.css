@@ -1,12 +1,16 @@
 .service-list article { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: 32px; align-items: start; }
 .service-list h3 { grid-column: 2; grid-row: 1; }
 .service-list p, .service-work-link { grid-column: 2; }
-.service-sketch { grid-column: 1; grid-row: 1 / span 3; align-self: start; justify-self: center; width: 100%; max-width: 112px; color: var(--text-secondary); }
+.service-list article:nth-child(1) { --hue: var(--hue-build); }
+.service-list article:nth-child(2) { --hue: var(--hue-automate); }
+.service-list article:nth-child(3) { --hue: var(--hue-run); }
+.service-sketch { position: relative; isolation: isolate; grid-column: 1; grid-row: 1 / span 3; align-self: start; justify-self: center; width: 100%; max-width: 112px; aspect-ratio: 1; display: grid; place-items: center; padding: 12px; color: var(--text-secondary); }
+.service-sketch::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 8px; background: var(--hue); opacity: var(--hue-tint); }
 .service-sketch svg { display: block; width: 100%; height: auto; }
 .service-list p { max-width: 60ch; }
 .service-guide { stroke: var(--rule); }
 .cloud-update { stroke: var(--text-secondary); }
-.service-accent, .service-pieces, .service-route { stroke: var(--wcs-accent); }
+.service-accent, .service-pieces, .service-route { stroke: var(--hue-ink); }
 .service-route { stroke-width: 2; }
 .service-work-link { display: inline-flex; align-items: center; justify-self: start; gap: 10px; min-height: 44px; margin-top: 8px; font-size: var(--label); text-decoration: underline; text-underline-offset: 4px; }
 .service-work-link svg { flex: 0 0 20px; width: 20px; height: 20px; }
@@ -25,7 +29,7 @@
   .is-revealed .cloud-update { transform-box: view-box; transform-origin: 154px 74px; animation: service-update 1600ms 1400ms ease-in-out both; }
   .service-sketch:not(.is-visible) svg *, .service-sketch.is-paused svg * { animation-play-state: paused; }
 }
-@keyframes service-process { 0%, 100% { stroke: var(--text-secondary); } 40%, 70% { stroke: var(--wcs-accent); } }
+@keyframes service-process { 0%, 100% { stroke: var(--text-secondary); } 40%, 70% { stroke: var(--hue-ink); } }
 @keyframes service-reroute { 0%, 30% { stroke-dasharray: 1; stroke-dashoffset: 0; opacity: 1; } 60%, 100% { stroke-dasharray: 1; stroke-dashoffset: 0; opacity: .2; } }
 @keyframes service-maintenance { 0%, 35%, 100% { opacity: 1; } 55%, 80% { opacity: .35; } }
 @keyframes service-update { from { transform: rotate(-180deg); } to { transform: rotate(0); } }

@@ -2,7 +2,7 @@
 (async () => {
   const logo = document.querySelector('.logo');
   try {
-    const response = await fetch(logo.querySelector('img').src);
+    const response = await fetch(logo.querySelector('img:not(.logo-symbol)').src);
     if (!response.ok) return;
     const source = new DOMParser().parseFromString(await response.text(), 'image/svg+xml');
     const paths = source.querySelector('path').getAttribute('d').split(/\s+(?=M)/);
