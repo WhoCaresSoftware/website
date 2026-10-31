@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selected work — balanced file drawer</title>
+<style>
+:root { --bg: #0C0F10; --surface: #1C2324; --surface-2: #141A1B; --fg: #E8ECEB; --muted: #9FAAA8; --rule: #2A3335; --accent: #6CC2B8; --ease: cubic-bezier(.16,1,.3,1); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 "Source Sans 3", system-ui, sans-serif; }
+.page { max-width: 1040px; margin: 0 auto; padding: 56px 32px 80px; }
+h2 { margin: 0; font-size: 40px; font-weight: 600; letter-spacing: -.02em; }
+
+/* Folders stand front to back; only their tabs and top edges show. */
+.drawer { position: relative; height: 540px; margin-top: 64px; }
+.drawer::after { content: ''; position: absolute; left: -16px; right: -16px; bottom: -18px; height: 64px; border: 1px solid var(--rule); border-top: 0; border-radius: 0 0 18px 18px; background: linear-gradient(var(--surface-2), var(--bg)); z-index: 20; pointer-events: none; }
+.folder { position: absolute; left: 0; right: 0; bottom: calc(var(--i) * 52px + 12px); height: 290px; z-index: calc(10 - var(--i)); cursor: pointer; transition: transform .6s var(--ease), opacity .4s, filter .4s; }
+.drawer:not(.is-open):hover .folder:not(.is-current) { filter: brightness(.7); }
+.back, .cover { position: absolute; left: 0; right: 0; bottom: 0; border: 1px solid var(--rule); background: var(--surface-2); }
+.back { top: 0; border-radius: 0 12px 12px 12px; }
+.cover { height: 262px; overflow: hidden; border-radius: 6px 6px 12px 12px; background: linear-gradient(175deg, var(--tint), var(--surface) 45%); padding: 24px 28px; }
+.tab { position: absolute; top: -32px; left: calc(var(--i) * 20%); width: calc(20% - 8px); height: 33px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border: 1px solid var(--rule); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--surface-2); font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .3s; z-index: 2; }
+.tab b { font-weight: 600; font-variant-numeric: tabular-nums; transition: color .3s; }
+.cover h3 { margin: 0; font-size: 22px; font-weight: 600; }
+.cover span { color: var(--muted); font-size: 15px; }
+.cover p { position: absolute; left: 28px; bottom: 72px; max-width: 44ch; margin: 0; color: var(--muted); font-size: 15px; }
+.cover .big { position: absolute; right: 24px; bottom: 44px; font-size: 112px; font-weight: 600; line-height: 1; letter-spacing: -.05em; color: transparent; -webkit-text-stroke: 1px var(--c); opacity: .3; }
+.sheet { position: absolute; left: 4%; right: 4%; top: 30px; height: 258px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); overflow: hidden; transition: transform .7s var(--ease); }
+.sheet svg { width: 100%; height: 100%; display: block; }
+.sheet .copy { padding: 24px 28px; display: flex; flex-direction: column; gap: 8px; }
+.sheet h4 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -.01em; }
+.sheet p { margin: 0; color: var(--muted); font-size: 15px; }
+.sheet a { margin-top: auto; color: var(--c); font-weight: 600; text-decoration: none; }
+
+/* Hover or focus: the folder lifts slightly and its sheet peeks out. */
+.drawer:not(.is-open) .folder.is-current { transform: translateY(-12px); }
+.drawer:not(.is-open) .folder.is-current .sheet { transform: translateY(-84px); }
+.tab b { color: var(--c); }
+.folder.is-current .tab { color: var(--fg); background: var(--tint); }
+
+/* Open: folders in front step aside, the chosen sheet slides fully out. */
+.drawer.is-open .folder.is-front { transform: translateY(60px); opacity: 0; pointer-events: none; }
+.drawer.is-open .folder:not(.is-open) { opacity: 0; pointer-events: none; }
+.drawer.is-open .folder.is-open .sheet { z-index: 3; }
+.drawer.is-open .folder.is-open { transform: translateY(calc(var(--i) * 52px)); z-index: 11; cursor: default; }
+.drawer.is-open .folder.is-open .sheet { transform: translateY(-262px); box-shadow: 0 30px 60px #0009; }
+.controls { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; }
+.dots { display: flex; gap: 6px; }
+.dots button { width: 24px; height: 4px; padding: 0; border: 0; border-radius: 4px; background: var(--rule); cursor: pointer; transition: width .4s var(--ease), background .3s; }
+.dots button.on { width: 40px; background: var(--accent); }
+.back-link { padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 15px; cursor: pointer; visibility: hidden; }
+.drawer.is-open + .controls .back-link { visibility: visible; }
+.back-link:hover { color: var(--fg); }
+
+@media (max-width: 640px) {
+  .page { padding: 32px 16px 56px; } h2 { font-size: 30px; }
+  .drawer { height: 490px; }
+  .folder { bottom: calc(var(--i) * 42px + 12px); height: 250px; }
+  .drawer.is-open .folder.is-open { transform: translateY(calc(var(--i) * 42px)); }
+  .cover { height: 224px; padding: 18px; } .cover p { display: none; } .cover .big { font-size: 80px; }
+  .tab { padding: 0 10px; } .tab span { display: none; }
+  .sheet { top: 26px; grid-template-columns: 1fr; grid-template-rows: 72px 1fr; height: 224px; }
+  .sheet .copy { padding: 16px 18px; } .sheet h4 { font-size: 21px; }
+  .sheet p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .drawer.is-open .folder.is-open .sheet { transform: translateY(-236px); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <h2>Our work</h2>
+  <div class="drawer" tabindex="0" aria-label="Projects"></div>
+  <div class="controls"><div class="dots"></div><button class="back-link" type="button">← Back to all projects</button></div>
+</div>
+<script>
+const colours = [['#6CC2B8', '#1D3634'], ['#D3B069', '#36301F'], ['#88A8BD', '#232F37'], ['#D48AA4', '#37252C'], ['#8AA47F', '#26301F']];
+const projects = [
+  ['Aigistos', 'Custom worksite ERP', 'A purpose-built system for managing worksites in Greece, now in use by the Aigistos team.', 'm150 70 60-30 70 35v50l-60 30-70-35Zm0 0 70 35 60-30m-60 30v50'],
+  ['Hex Mythica', 'Game development', 'End-to-end development of a roguelite deck-building game: gameplay, backend services, multiplayer and infrastructure.', 'm210 30 60 35v70l-60 35-60-35V65Zm0 32 32 18v38l-32 18-32-18V80Z'],
+  ['Private LLM Gateway', 'Private AI', 'An organization-wide gateway to private language models, with your data excluded from model training.', 'm210 34 62 24v42c0 40-62 70-62 70s-62-30-62-70V58Zm-28 68 20 20 38-42'],
+  ['Brand Image Pipelines', 'Brand imagery', 'Image-generation workflows for branding teams, built around visual consistency and brand identity.', 'M138 44h144v112H138Zm8 102 46-50 34 36 20-18 30 32'],
+  ['AI Workflows & Agents', 'Engineering, legal & accounting', 'AI tools and engineering agents across the software lifecycle, plus workflows for legal and accounting work.', 'M144 100a16 16 0 1 0 32 0 16 16 0 1 0-32 0Zm100-44a16 16 0 1 0 32 0 16 16 0 1 0-32 0Zm0 88a16 16 0 1 0 32 0 16 16 0 1 0-32 0ZM176 100h34l34-38m-34 38 34 38']
+];
+const drawing = (d, c, i) => `<svg viewBox="0 0 420 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><radialGradient id="glow${i}" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="${c}" stop-opacity=".22"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient></defs><rect width="420" height="200" fill="#141A1B"/><rect width="420" height="200" fill="url(#glow${i})"/><path d="${d}" fill="none" stroke="${c}" stroke-width="2" stroke-linejoin="round"/></svg>`;
+const nr = i => String(i + 1).padStart(2, '0');
+const drawer = document.querySelector('.drawer');
+drawer.innerHTML = projects.map(([name, kind, text, d], i) => `
+  <article class="folder" style="--i:${i};--c:${colours[i][0]};--tint:${colours[i][1]}">
+    <div class="back"></div><div class="tab"><b>${nr(i)}</b><span>${name}</span></div>
+    <div class="sheet">${drawing(d, colours[i][0], i)}<div class="copy"><h4>${name}</h4><p>${text}</p><a href="#">Open project →</a></div></div>
+    <div class="cover"><h3>${name}</h3><span>${kind}</span><p>${text.split(': ')[0].split(', ')[0]}.</p><span class="big" aria-hidden="true">${nr(i)}</span></div>
+  </article>`).join('');
+const folders = [...drawer.children];
+const dots = document.querySelector('.dots');
+dots.innerHTML = projects.map(([name]) => `<button type="button" aria-label="${name}"></button>`).join('');
+[...dots.children].forEach((dot, i) => dot.addEventListener('click', () => { current = i; if (opened !== -1) opened = i; update(); }));
+let current = 0, opened = -1;
+const update = () => {
+  drawer.classList.toggle('is-open', opened !== -1);
+  folders.forEach((folder, i) => {
+    folder.classList.toggle('is-current', i === current);
+    folder.classList.toggle('is-open', i === opened);
+    folder.classList.toggle('is-front', opened !== -1 && i < opened);
+  });
+  [...dots.children].forEach((dot, i) => dot.classList.toggle('on', i === current));
+};
+folders.forEach((folder, i) => {
+  folder.addEventListener('mouseenter', () => { if (opened === -1) { current = i; update(); } });
+  folder.addEventListener('click', event => { if (!event.target.closest('a')) { current = opened = i; update(); } });
+});
+document.querySelector('.back-link').addEventListener('click', () => { opened = -1; update(); });
+drawer.addEventListener('keydown', event => {
+  const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
+  if (step) { current = Math.max(0, Math.min(projects.length - 1, current + step)); if (opened !== -1) opened = current; update(); }
+  if (event.key === 'Enter') { opened = current; update(); }
+  if (event.key === 'Escape') { opened = -1; update(); }
+});
+update();
+</script>
+</body>
+</html>

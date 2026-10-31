@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selected work — simple file drawer</title>
+<style>
+:root { --bg: #0C0F10; --surface: #1C2324; --surface-2: #141A1B; --fg: #E8ECEB; --muted: #9FAAA8; --rule: #2A3335; --accent: #6CC2B8; --ease: cubic-bezier(.16,1,.3,1); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 "Source Sans 3", system-ui, sans-serif; }
+.page { max-width: 1040px; margin: 0 auto; padding: 56px 32px 80px; }
+h2 { margin: 0; font-size: 40px; font-weight: 600; letter-spacing: -.02em; }
+
+/* Folders stand front to back; only their tabs and top edges show. */
+.drawer { position: relative; height: 520px; margin-top: 64px; }
+.folder { position: absolute; left: 0; right: 0; bottom: calc(var(--i) * 48px); height: 280px; z-index: calc(10 - var(--i)); cursor: pointer; transition: transform .6s var(--ease), opacity .4s; }
+.back, .cover { position: absolute; left: 0; right: 0; bottom: 0; border: 1px solid var(--rule); background: var(--surface-2); }
+.back { top: 0; border-radius: 0 12px 12px 12px; }
+.cover { height: 252px; border-radius: 6px 6px 12px 12px; background: var(--surface); padding: 24px 28px; }
+.tab { position: absolute; top: -32px; left: calc(var(--i) * 20%); width: calc(20% - 8px); height: 33px; display: flex; align-items: center; gap: 10px; padding: 0 14px; border: 1px solid var(--rule); border-bottom: 0; border-radius: 10px 10px 0 0; background: var(--surface-2); font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .3s; z-index: 2; }
+.tab b { color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; transition: color .3s; }
+.cover h3 { margin: 0; font-size: 22px; font-weight: 600; }
+.cover span { color: var(--muted); font-size: 15px; }
+.sheet { position: absolute; left: 4%; right: 4%; top: 30px; height: 248px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); overflow: hidden; transition: transform .7s var(--ease); }
+.sheet svg { width: 100%; height: 100%; display: block; }
+.sheet .copy { padding: 24px 28px; display: flex; flex-direction: column; gap: 8px; }
+.sheet h4 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -.01em; }
+.sheet p { margin: 0; color: var(--muted); font-size: 15px; }
+.sheet a { margin-top: auto; color: var(--accent); font-weight: 600; text-decoration: none; }
+
+/* Hover or focus: the folder lifts slightly and its sheet peeks out. */
+.drawer:not(.is-open) .folder.is-current { transform: translateY(-12px); }
+.drawer:not(.is-open) .folder.is-current .sheet { transform: translateY(-84px); }
+.folder.is-current .tab, .folder.is-current .tab b { color: var(--accent); }
+
+/* Open: folders in front step aside, the chosen sheet slides fully out. */
+.drawer.is-open .folder.is-front { transform: translateY(60px); opacity: 0; pointer-events: none; }
+.drawer.is-open .folder:not(.is-open) { opacity: 0; pointer-events: none; }
+.drawer.is-open .folder.is-open .sheet { z-index: 3; }
+.drawer.is-open .folder.is-open { transform: translateY(calc(var(--i) * 48px)); z-index: 11; cursor: default; }
+.drawer.is-open .folder.is-open .sheet { transform: translateY(-262px); }
+.back-link { margin-top: 24px; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 15px; cursor: pointer; visibility: hidden; }
+.drawer.is-open + .back-link { visibility: visible; }
+.back-link:hover { color: var(--fg); }
+
+@media (max-width: 640px) {
+  .page { padding: 32px 16px 56px; } h2 { font-size: 30px; }
+  .drawer { height: 470px; }
+  .folder { bottom: calc(var(--i) * 40px); height: 250px; }
+  .drawer.is-open .folder.is-open { transform: translateY(calc(var(--i) * 40px)); }
+  .cover { height: 224px; padding: 18px; }
+  .tab { padding: 0 10px; } .tab span { display: none; }
+  .sheet { top: 26px; grid-template-columns: 1fr; grid-template-rows: 72px 1fr; height: 224px; }
+  .sheet .copy { padding: 16px 18px; } .sheet h4 { font-size: 21px; }
+  .sheet p { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .drawer.is-open .folder.is-open .sheet { transform: translateY(-236px); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <h2>Our work</h2>
+  <div class="drawer" tabindex="0" aria-label="Projects"></div>
+  <button class="back-link" type="button">← Back to all projects</button>
+</div>
+<script>
+const projects = [
+  ['Aigistos', 'Custom worksite ERP', 'A purpose-built system for managing worksites in Greece, now in use by the Aigistos team.', 'm150 70 60-30 70 35v50l-60 30-70-35Zm0 0 70 35 60-30m-60 30v50'],
+  ['Hex Mythica', 'Game development', 'End-to-end development of a roguelite deck-building game: gameplay, backend services, multiplayer and infrastructure.', 'm210 30 60 35v70l-60 35-60-35V65Zm0 32 32 18v38l-32 18-32-18V80Z'],
+  ['Private LLM Gateway', 'Private AI', 'An organization-wide gateway to private language models, with your data excluded from model training.', 'm210 34 62 24v42c0 40-62 70-62 70s-62-30-62-70V58Zm-28 68 20 20 38-42'],
+  ['Brand Image Pipelines', 'Brand imagery', 'Image-generation workflows for branding teams, built around visual consistency and brand identity.', 'M138 44h144v112H138Zm8 102 46-50 34 36 20-18 30 32'],
+  ['AI Workflows & Agents', 'Engineering, legal & accounting', 'AI tools and engineering agents across the software lifecycle, plus workflows for legal and accounting work.', 'M144 100a16 16 0 1 0 32 0 16 16 0 1 0-32 0Zm100-44a16 16 0 1 0 32 0 16 16 0 1 0-32 0Zm0 88a16 16 0 1 0 32 0 16 16 0 1 0-32 0ZM176 100h34l34-38m-34 38 34 38']
+];
+const drawing = d => `<svg viewBox="0 0 420 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="420" height="200" fill="#141A1B"/><path d="${d}" fill="none" stroke="#6CC2B8" stroke-width="2" stroke-linejoin="round"/></svg>`;
+const nr = i => String(i + 1).padStart(2, '0');
+const drawer = document.querySelector('.drawer');
+drawer.innerHTML = projects.map(([name, kind, text, d], i) => `
+  <article class="folder" style="--i:${i}">
+    <div class="back"></div><div class="tab"><b>${nr(i)}</b><span>${name}</span></div>
+    <div class="sheet">${drawing(d)}<div class="copy"><h4>${name}</h4><p>${text}</p><a href="#">Open project →</a></div></div>
+    <div class="cover"><h3>${name}</h3><span>${kind}</span></div>
+  </article>`).join('');
+const folders = [...drawer.children];
+let current = 0, opened = -1;
+const update = () => {
+  drawer.classList.toggle('is-open', opened !== -1);
+  folders.forEach((folder, i) => {
+    folder.classList.toggle('is-current', i === current);
+    folder.classList.toggle('is-open', i === opened);
+    folder.classList.toggle('is-front', opened !== -1 && i < opened);
+  });
+};
+folders.forEach((folder, i) => {
+  folder.addEventListener('mouseenter', () => { if (opened === -1) { current = i; update(); } });
+  folder.addEventListener('click', event => { if (!event.target.closest('a')) { current = opened = i; update(); } });
+});
+document.querySelector('.back-link').addEventListener('click', () => { opened = -1; update(); });
+drawer.addEventListener('keydown', event => {
+  const step = { ArrowRight: 1, ArrowLeft: -1 }[event.key];
+  if (step) { current = Math.max(0, Math.min(projects.length - 1, current + step)); if (opened !== -1) opened = current; update(); }
+  if (event.key === 'Enter') { opened = current; update(); }
+  if (event.key === 'Escape') { opened = -1; update(); }
+});
+update();
+</script>
+</body>
+</html>

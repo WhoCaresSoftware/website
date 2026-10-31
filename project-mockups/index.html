@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selected work — display concepts</title>
+<style>
+:root {
+  --bg: #0C0F10; --surface: #1C2324; --surface-2: #141A1B; --fg: #E8ECEB; --muted: #9FAAA8; --rule: #2A3335;
+  --accent: #6CC2B8; --amber: #D3B069; --blue: #88A8BD; --green: #8AA47F; --rose: #D48AA4;
+  --ease: cubic-bezier(.16,1,.3,1);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.55 "Source Sans 3", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.page { max-width: 1240px; margin: 0 auto; padding: 56px 32px 120px; }
+.page > header h1 { margin: 0; font-size: 40px; font-weight: 600; letter-spacing: -.02em; }
+.page > header p { margin: 8px 0 0; color: var(--muted); max-width: 62ch; }
+nav.jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+nav.jump a { padding: 6px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--muted); font-size: 14px; text-decoration: none; transition: color .2s, border-color .2s; }
+nav.jump a:hover { color: var(--accent); border-color: var(--accent); }
+section.concept { margin-top: 96px; }
+.concept-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.concept-head b { color: var(--accent); font-variant-numeric: tabular-nums; font-size: 14px; }
+.concept-head h2 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -.01em; }
+.concept > p.why { margin: 0 0 28px; color: var(--muted); max-width: 70ch; }
+.frame { position: relative; border: 1px solid var(--rule); border-radius: 20px; padding: 40px; background: var(--bg); overflow: hidden; }
+.kicker { font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.title { margin: 6px 0 0; font-size: 34px; font-weight: 600; letter-spacing: -.02em; }
+.art { display: block; width: 100%; height: 100%; }
+.num { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 600; font-size: 14px; }
+
+/* 1 — Bento */
+.bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 170px; gap: 14px; margin-top: 28px; }
+.tile { position: relative; isolation: isolate; overflow: hidden; border: 1px solid var(--rule); border-radius: 18px; background: var(--surface-2); padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; transition: transform .5s var(--ease), border-color .3s; cursor: pointer; }
+.tile .art { position: absolute; inset: 0; z-index: -1; transition: transform .8s var(--ease); }
+.tile::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, var(--bg) 8%, transparent 62%); }
+.tile:hover { transform: translateY(-4px); border-color: var(--c); }
+.tile:hover .art { transform: scale(1.06); }
+.tile h3 { margin: 0; font-size: 20px; font-weight: 600; }
+.tile span { color: var(--muted); font-size: 14px; }
+.tile.big { grid-column: span 2; grid-row: span 2; } .tile.big h3 { font-size: 30px; }
+.tile.tall { grid-row: span 2; } .tile.wide { grid-column: span 2; }
+.tile.stat { justify-content: space-between; background: var(--accent); color: var(--bg); border: 0; }
+.tile.stat::after { display: none; }
+.tile.stat strong { font-size: 64px; line-height: 1; font-weight: 600; letter-spacing: -.04em; }
+.tile.stat span { color: inherit; opacity: .8; }
+
+/* 2 — Hover index */
+.index { list-style: none; margin: 20px 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.index li { display: grid; grid-template-columns: 56px 1fr auto 40px; align-items: center; gap: 24px; padding: 22px 8px; border-bottom: 1px solid var(--rule); cursor: pointer; transition: padding .5s var(--ease), color .3s; }
+.index li h3 { margin: 0; font-size: clamp(26px, 4vw, 52px); font-weight: 600; letter-spacing: -.03em; line-height: 1.05; transition: color .3s, transform .5s var(--ease); }
+.index li span.kind { color: var(--muted); font-size: 15px; text-align: right; }
+.index li .go { width: 40px; height: 40px; border: 1px solid var(--rule); border-radius: 50%; display: grid; place-items: center; transition: transform .5s var(--ease), background .3s, border-color .3s; }
+.index:hover li { color: var(--muted); }
+.index li:hover { color: var(--fg); padding-left: 20px; }
+.index li:hover h3 { color: var(--c); }
+.index li:hover .go { background: var(--c); border-color: var(--c); color: var(--bg); transform: rotate(-45deg); }
+.peek { position: absolute; top: 0; left: 0; width: 320px; height: 210px; border-radius: 14px; overflow: hidden; pointer-events: none; opacity: 0; transform: translate(-50%, -50%) scale(.8) rotate(-4deg); transition: opacity .3s, transform .5s var(--ease); box-shadow: 0 30px 60px #0009; z-index: 5; border: 1px solid var(--rule); }
+.peek.on { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(-2deg); }
+
+/* 3 — Sticky stack */
+.stack-scroll { height: 560px; overflow-y: auto; border-radius: 14px; scrollbar-width: thin; }
+.stack { padding: 8px 0 240px; }
+.stack article { position: sticky; top: calc(16px + var(--i) * 18px); height: 380px; margin-bottom: 120px; display: grid; grid-template-columns: 1fr 1.25fr; border-radius: 18px; overflow: hidden; border: 1px solid var(--rule); background: var(--surface-2); box-shadow: 0 -20px 40px #0008; transform-origin: top center; }
+.stack article .copy { padding: 32px; display: flex; flex-direction: column; justify-content: space-between; }
+.stack article p { color: var(--muted); margin: 12px 0 0; }
+.stack article .pill { align-self: start; padding: 8px 16px; border-radius: 999px; background: var(--c); color: var(--bg); font-weight: 600; font-size: 14px; }
+
+/* 4 — Spotlight */
+.spot { display: grid; grid-template-columns: 340px 1fr; gap: 32px; min-height: 460px; }
+.spot-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.spot-list button { all: unset; box-sizing: border-box; width: 100%; padding: 16px 18px; border-radius: 12px; cursor: pointer; display: grid; gap: 2px; position: relative; overflow: hidden; transition: background .3s; }
+.spot-list button strong { font-size: 19px; font-weight: 600; color: var(--muted); transition: color .3s; }
+.spot-list button span { font-size: 14px; color: var(--muted); max-height: 0; opacity: 0; transition: max-height .5s var(--ease), opacity .4s; }
+.spot-list button[aria-selected="true"] { background: var(--surface); }
+.spot-list button[aria-selected="true"] strong { color: var(--fg); }
+.spot-list button[aria-selected="true"] span { max-height: 60px; opacity: 1; }
+.spot-list button i { position: absolute; left: 0; bottom: 0; height: 2px; width: 0; background: var(--accent); }
+.spot-list button[aria-selected="true"] i { animation: fill 5s linear forwards; }
+@keyframes fill { to { width: 100%; } }
+.spot-view { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--rule); background: var(--surface-2); }
+.spot-view .slide { position: absolute; inset: 0; opacity: 0; transform: scale(1.04); transition: opacity .7s, transform 1.2s var(--ease); }
+.spot-view .slide.on { opacity: 1; transform: none; }
+.spot-view .cap { position: absolute; left: 24px; right: 24px; bottom: 24px; padding: 18px 20px; border-radius: 14px; background: #0C0F10cc; backdrop-filter: blur(12px); border: 1px solid var(--rule); }
+.spot-view .cap p { margin: 0; color: var(--muted); }
+
+/* 5 — Horizontal gallery */
+.rail { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 4px 24px; scrollbar-width: thin; cursor: grab; }
+.rail.drag { cursor: grabbing; scroll-snap-type: none; }
+.slab { flex: 0 0 min(520px, 82%); scroll-snap-align: start; border-radius: 22px; overflow: hidden; background: var(--surface-2); border: 1px solid var(--rule); user-select: none; }
+.slab .pic { position: relative; height: 300px; }
+.slab .pic b { position: absolute; right: 18px; bottom: -28px; font-size: 120px; line-height: 1; font-weight: 600; letter-spacing: -.06em; color: transparent; -webkit-text-stroke: 1px var(--c); opacity: .7; }
+.slab .body { padding: 22px 24px 26px; }
+.slab .body p { margin: 8px 0 0; color: var(--muted); }
+.rail-bar { height: 2px; background: var(--rule); border-radius: 2px; overflow: hidden; }
+.rail-bar i { display: block; height: 100%; width: 20%; background: var(--accent); transform-origin: left; }
+
+/* 6 — 3D deck */
+.deck { position: relative; height: 440px; perspective: 1400px; display: grid; place-items: center; }
+.card3d { position: absolute; width: 300px; height: 380px; border-radius: 20px; overflow: hidden; border: 1px solid var(--rule); background: var(--surface-2); transform-style: preserve-3d; transform: translateX(calc(var(--o) * 150px)) translateZ(calc(var(--d) * -90px)) rotateY(calc(var(--o) * -18deg)) rotateZ(calc(var(--o) * 2deg)); transition: transform .8s var(--ease), box-shadow .6s, opacity .6s; box-shadow: 0 30px 60px #000a; cursor: pointer; z-index: calc(10 - var(--d)); opacity: calc(1 - var(--d) * .14); }
+.card3d .pic { height: 230px; }
+.card3d .body { padding: 18px 20px; }
+.card3d .body span { color: var(--muted); font-size: 14px; }
+.card3d.front { box-shadow: 0 40px 80px #000c, 0 0 0 1px var(--c); }
+.deck-hint { text-align: center; color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+/* 7 — Blueprint board */
+.board { position: relative; height: 560px; border-radius: 14px; background-color: var(--surface-2); background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 32px 32px; overflow: hidden; }
+.board svg.links { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.board svg.links path { fill: none; stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 6 6; animation: dash 20s linear infinite; opacity: .6; }
+@keyframes dash { to { stroke-dashoffset: -240; } }
+.sheet { position: absolute; width: 250px; background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; padding: 10px; transform: rotate(var(--r)); transition: transform .5s var(--ease), box-shadow .5s, border-color .3s; box-shadow: 0 12px 24px #0007; cursor: pointer; }
+.sheet .pic { height: 120px; border-radius: 3px; overflow: hidden; }
+.sheet footer { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--muted); }
+.sheet h3 { margin: 6px 0 0; font-size: 17px; }
+.sheet::before { content: ''; position: absolute; top: -7px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--c); box-shadow: 0 2px 6px #000a; }
+.sheet:hover { transform: rotate(0) translateY(-8px) scale(1.04); box-shadow: 0 30px 50px #000a; border-color: var(--c); z-index: 3; }
+
+@media (max-width: 860px) {
+  .page { padding: 32px 16px 80px; } .frame { padding: 20px; }
+  .bento { grid-template-columns: repeat(2, 1fr); } .tile.big, .tile.wide { grid-column: span 2; }
+  .index li { grid-template-columns: 36px 1fr 40px; } .index li span.kind { display: none; }
+  .stack article { grid-template-columns: 1fr; grid-template-rows: 160px 1fr; }
+  .spot { grid-template-columns: 1fr; } .spot-view { min-height: 340px; }
+  .board { height: auto; display: grid; gap: 20px; padding: 24px; } .sheet { position: relative; left: auto !important; top: auto !important; width: auto; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <h1>Selected work — seven display concepts</h1>
+    <p>Interactive mockups for showing whocares projects. They use the site's dark palette and the real project copy. Hover, scroll, click and drag in each one. Each concept explains when it works best.</p>
+    <nav class="jump">
+      <a href="#bento">1 · Bento</a><a href="#index">2 · Hover index</a><a href="#stack">3 · Sticky stack</a><a href="#spotlight">4 · Spotlight</a><a href="#rail">5 · Gallery rail</a><a href="#deck">6 · 3D deck</a><a href="#board">7 · Blueprint board</a>
+    </nav>
+  </header>
+
+  <section class="concept" id="bento">
+    <div class="concept-head"><b>01</b><h2>Bento showcase</h2></div>
+    <p class="why">Asymmetric tiles with the headline project at double size, mixed with a stat tile. Shows everything at once and feels editorial. Best when there's one project to feature.</p>
+    <div class="frame"><div class="kicker">Selected work</div><h2 class="title">Built for teams that ship.</h2><div class="bento" data-render="bento"></div></div>
+  </section>
+
+  <section class="concept" id="index">
+    <div class="concept-head"><b>02</b><h2>Hover index</h2></div>
+    <p class="why">A large typographic list; a preview card follows the cursor over each row. Confident and fast to scan, and it scales to many projects. On touch screens the preview becomes a tap.</p>
+    <div class="frame" id="index-frame"><div class="kicker">Index of work</div><ul class="index" data-render="index"></ul><div class="peek"></div></div>
+  </section>
+
+  <section class="concept" id="stack">
+    <div class="concept-head"><b>03</b><h2>Sticky stack</h2></div>
+    <p class="why">Scroll inside the frame: each project card pins and the next one slides over it, leaving a stacked edge behind. Gives every project a full moment, like turning case-study pages.</p>
+    <div class="frame"><div class="stack-scroll"><div class="stack" data-render="stack"></div></div></div>
+  </section>
+
+  <section class="concept" id="spotlight">
+    <div class="concept-head"><b>04</b><h2>Spotlight</h2></div>
+    <p class="why">A project list beside one large stage that auto-advances every five seconds; the progress line shows the timer. Click any project to jump. Compact, and it explains each project in depth.</p>
+    <div class="frame"><div class="spot"><ul class="spot-list" role="tablist" data-render="spot-list"></ul><div class="spot-view" data-render="spot-view"></div></div></div>
+  </section>
+
+  <section class="concept" id="rail">
+    <div class="concept-head"><b>05</b><h2>Gallery rail</h2></div>
+    <p class="why">Wide slabs on a horizontal rail you can drag or scroll, with oversized outline numbers and a progress line. Natural on phones, and roomy for images.</p>
+    <div class="frame"><div class="rail" data-render="rail"></div><div class="rail-bar"><i></i></div></div>
+  </section>
+
+  <section class="concept" id="deck">
+    <div class="concept-head"><b>06</b><h2>3D deck</h2></div>
+    <p class="why">Projects fanned in perspective like a hand of cards. Click a card, or use ← →, to bring it to the front. Playful and memorable; best with a handful of projects.</p>
+    <div class="frame"><div class="deck" data-render="deck" tabindex="0"></div><p class="deck-hint">Click a card · ← → keys</p></div>
+  </section>
+
+  <section class="concept" id="board">
+    <div class="concept-head"><b>07</b><h2>Blueprint board</h2></div>
+    <p class="why">Projects pinned as drawing sheets on a grid board, linked by animated dashed lines. Extends the site's architectural-drawing style and the folder metaphor. Most on-brand, least conventional.</p>
+    <div class="frame"><div class="board" data-render="board"><svg class="links"></svg></div></div>
+  </section>
+</div>
+
+<script>
+const projects = [
+  { name: 'Aigistos', kind: 'Custom worksite ERP', text: 'A purpose-built system for managing worksites in Greece, now in use by the Aigistos team.', c: '#6CC2B8', icon: 'site' },
+  { name: 'Hex Mythica', kind: 'Game development · WhoCaresGames', text: 'End-to-end development of a roguelite deck-building game: gameplay, backend services, multiplayer systems and infrastructure.', c: '#D3B069', icon: 'hex' },
+  { name: 'Private LLM Gateway', kind: 'Private AI for your organization', text: 'An organization-wide gateway to private language models, with your data excluded from model training.', c: '#88A8BD', icon: 'shield' },
+  { name: 'Brand Image Pipelines', kind: 'Context-aware imagery from your assets', text: 'Custom image-generation workflows for branding teams, built around visual consistency and brand identity.', c: '#D48AA4', icon: 'frame' },
+  { name: 'AI Workflows & Agents', kind: 'Engineering, legal & accounting workflows', text: 'AI tools and engineering agents integrated across the software development lifecycle, and beyond.', c: '#8AA47F', icon: 'nodes' }
+];
+const icons = {
+  site: '<path d="m150 70 60-30 70 35v50l-60 30-70-35Z"/><path d="m150 70 70 35 60-30m-60 30v50m-40-72v50m20-40v50"/>',
+  hex: '<path d="m210 30 60 35v70l-60 35-60-35V65Z"/><path d="m210 62 32 18v38l-32 18-32-18V80Z"/>',
+  shield: '<path d="m210 34 62 24v42c0 40-62 70-62 70s-62-30-62-70V58Z"/><path d="m182 102 20 20 38-42"/>',
+  frame: '<rect x="138" y="44" width="144" height="112" rx="6"/><circle cx="244" cy="78" r="12"/><path d="m146 146 46-50 34 36 20-18 30 32"/>',
+  nodes: '<circle cx="160" cy="100" r="16"/><circle cx="260" cy="56" r="16"/><circle cx="260" cy="144" r="16"/><circle cx="210" cy="100" r="9"/><path d="M176 100h25m17-6 28-30m-28 42 28 30"/>'
+};
+// Generated art: a glow in the project's colour, a drawing grid and a line motif.
+const art = (p, id) => `<svg class="art" viewBox="0 0 420 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <defs><radialGradient id="g${id}" cx="70%" cy="30%" r="75%"><stop offset="0" stop-color="${p.c}" stop-opacity=".45"/><stop offset="1" stop-color="${p.c}" stop-opacity="0"/></radialGradient>
+  <pattern id="p${id}" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#ffffff" stroke-opacity=".06"/></pattern></defs>
+  <rect width="420" height="200" fill="#141A1B"/><rect width="420" height="200" fill="url(#p${id})"/><rect width="420" height="200" fill="url(#g${id})"/>
+  <g fill="none" stroke="${p.c}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">${icons[p.icon]}</g></svg>`;
+const arrow = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
+const nr = i => String(i + 1).padStart(2, '0');
+let uid = 0;
+const render = (name, html) => { document.querySelector(`[data-render="${name}"]`).insertAdjacentHTML('beforeend', html); };
+
+// 1 — Bento
+const [a, b, c, d, e] = projects;
+const tile = (p, cls = '') => `<article class="tile ${cls}" style="--c:${p.c}">${art(p, uid++)}<span>${p.kind}</span><h3>${p.name}</h3></article>`;
+render('bento', tile(a, 'big') + tile(b, 'tall') + `<article class="tile stat"><span>Selected projects</span><strong>5</strong><span>Software, games and AI</span></article>` + tile(c) + tile(d, 'wide') + tile(e, 'wide'));
+
+// 2 — Hover index with a cursor-following preview
+render('index', projects.map((p, i) => `<li style="--c:${p.c}" data-i="${i}"><span class="num">${nr(i)}</span><h3>${p.name}</h3><span class="kind">${p.kind}</span><span class="go">${arrow}</span></li>`).join(''));
+const indexFrame = document.getElementById('index-frame');
+const peek = indexFrame.querySelector('.peek');
+indexFrame.querySelectorAll('.index li').forEach(row => {
+  row.addEventListener('mouseenter', () => { peek.innerHTML = art(projects[row.dataset.i], uid++); peek.classList.add('on'); });
+  row.addEventListener('mouseleave', () => peek.classList.remove('on'));
+});
+indexFrame.addEventListener('mousemove', event => {
+  const box = indexFrame.getBoundingClientRect();
+  peek.style.left = `${event.clientX - box.left + 40}px`;
+  peek.style.top = `${event.clientY - box.top}px`;
+});
+
+// 3 — Sticky stack: covered cards shrink and dim as the next one arrives
+render('stack', projects.map((p, i) => `<article style="--i:${i};--c:${p.c}"><div class="copy"><div><span class="num">${nr(i)} / ${nr(projects.length - 1)}</span><h3 class="title">${p.name}</h3><p>${p.text}</p></div><span class="pill">View case study →</span></div><div>${art(p, uid++)}</div></article>`).join(''));
+const stackScroll = document.querySelector('.stack-scroll');
+const stackCards = [...stackScroll.querySelectorAll('article')];
+stackScroll.addEventListener('scroll', () => {
+  stackCards.forEach((card, i) => {
+    const next = stackCards[i + 1];
+    if (!next) return;
+    const gap = next.getBoundingClientRect().top - card.getBoundingClientRect().top;
+    const covered = Math.min(1, Math.max(0, 1 - gap / 380));
+    card.style.transform = `scale(${1 - covered * .06})`;
+    card.style.filter = `brightness(${1 - covered * .45})`;
+  });
+}, { passive: true });
+
+// 4 — Spotlight with auto-advance
+render('spot-list', projects.map((p, i) => `<li><button role="tab" aria-selected="${!i}" data-i="${i}"><strong>${p.name}</strong><span>${p.kind}</span><i></i></button></li>`).join(''));
+render('spot-view', projects.map((p, i) => `<div class="slide${i ? '' : ' on'}">${art(p, uid++)}<div class="cap"><span class="num">${nr(i)}</span><h3 class="title" style="font-size:26px">${p.name}</h3><p>${p.text}</p></div></div>`).join(''));
+const tabs = [...document.querySelectorAll('.spot-list button')];
+const slides = [...document.querySelectorAll('.spot-view .slide')];
+let spotIndex = 0, spotTimer;
+const spotlight = i => {
+  spotIndex = (i + projects.length) % projects.length;
+  tabs.forEach((tab, n) => { tab.setAttribute('aria-selected', String(n === spotIndex)); const bar = tab.querySelector('i'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; });
+  slides.forEach((slide, n) => slide.classList.toggle('on', n === spotIndex));
+  clearTimeout(spotTimer);
+  spotTimer = setTimeout(() => spotlight(spotIndex + 1), 5000);
+};
+tabs.forEach(tab => tab.addEventListener('click', () => spotlight(+tab.dataset.i)));
+spotlight(0);
+
+// 5 — Gallery rail with drag to scroll
+render('rail', projects.map((p, i) => `<article class="slab" style="--c:${p.c}"><div class="pic">${art(p, uid++)}<b>${nr(i)}</b></div><div class="body"><span class="kicker">${p.kind}</span><h3 class="title" style="font-size:26px">${p.name}</h3><p>${p.text}</p></div></article>`).join(''));
+const rail = document.querySelector('.rail');
+const railBar = document.querySelector('.rail-bar i');
+const railProgress = () => {
+  const visible = rail.clientWidth / rail.scrollWidth;
+  railBar.style.width = `${visible * 100}%`;
+  railBar.style.transform = `translateX(${rail.scrollLeft / rail.clientWidth * 100}%)`;
+};
+rail.addEventListener('scroll', railProgress, { passive: true });
+let railDrag;
+rail.addEventListener('pointerdown', event => { if (event.pointerType !== 'mouse') return; railDrag = { x: event.clientX, left: rail.scrollLeft }; rail.classList.add('drag'); });
+addEventListener('pointermove', event => { if (railDrag) rail.scrollLeft = railDrag.left - (event.clientX - railDrag.x); });
+addEventListener('pointerup', () => { if (!railDrag) return; railDrag = null; rail.classList.remove('drag'); });
+railProgress();
+
+// 6 — 3D deck
+render('deck', projects.map((p, i) => `<article class="card3d" style="--c:${p.c}" data-i="${i}"><div class="pic">${art(p, uid++)}</div><div class="body"><span class="num">${nr(i)}</span><h3 style="margin:4px 0 2px;font-size:21px">${p.name}</h3><span>${p.kind}</span></div></article>`).join(''));
+const deck = document.querySelector('.deck');
+const deckCards = [...deck.querySelectorAll('.card3d')];
+let front = 2;
+const layoutDeck = () => deckCards.forEach((card, i) => {
+  const offset = i - front;
+  card.style.setProperty('--o', offset);
+  card.style.setProperty('--d', Math.abs(offset));
+  card.classList.toggle('front', !offset);
+});
+deckCards.forEach(card => card.addEventListener('click', () => { front = +card.dataset.i; layoutDeck(); }));
+deck.addEventListener('keydown', event => {
+  if (event.key === 'ArrowLeft') front = Math.max(0, front - 1);
+  if (event.key === 'ArrowRight') front = Math.min(projects.length - 1, front + 1);
+  layoutDeck();
+});
+layoutDeck();
+
+// 7 — Blueprint board
+const spots = [[6, 10, -3], [38, 4, 2], [70, 14, -2], [18, 56, 2.5], [56, 58, -1.5]];
+render('board', projects.map((p, i) => `<article class="sheet" style="left:${spots[i][0]}%;top:${spots[i][1]}%;--r:${spots[i][2]}deg;--c:${p.c}"><div class="pic">${art(p, uid++)}</div><h3>${p.name}</h3><footer><span>${p.kind}</span><span class="num">${nr(i)}</span></footer></article>`).join(''));
+const board = document.querySelector('.board');
+const drawLinks = () => {
+  const box = board.getBoundingClientRect();
+  const centres = [...board.querySelectorAll('.sheet')].map(sheet => { const r = sheet.getBoundingClientRect(); return [r.left - box.left + r.width / 2, r.top - box.top + r.height / 2]; });
+  board.querySelector('svg.links').innerHTML = [[0, 1], [1, 2], [0, 3], [3, 4], [1, 4]].map(([from, to]) => {
+    const [x1, y1] = centres[from], [x2, y2] = centres[to];
+    return `<path d="M${x1} ${y1} C${(x1 + x2) / 2} ${y1}, ${(x1 + x2) / 2} ${y2}, ${x2} ${y2}"/>`;
+  }).join('');
+};
+drawLinks();
+addEventListener('resize', drawLinks);
+</script>
+</body>
+</html>
