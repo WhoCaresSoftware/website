@@ -1,58 +1,61 @@
-.approach-intro { min-width: 0; }
-.approach-sketch { max-width: var(--sketch-width); margin-top: var(--space-m-plus); color: var(--wcs-foreground-muted); }
-.approach-sketch svg { display: block; width: 100%; height: auto; overflow: visible; }
-.sketch-caption { margin-top: var(--space-3xs); font-size: var(--label); }
-.sketch-paper { fill: var(--wcs-background); }
-.sketch-accent { stroke: var(--wcs-accent); }
-.sketch-connector { stroke: var(--wcs-border); }
-.sketch-scene { opacity: 0; visibility: hidden; transition: opacity var(--duration-fast) ease, visibility var(--duration-fast); }
-[data-approach-step="0"] [data-scene="0"],
-[data-approach-step="1"] [data-scene="1"],
-[data-approach-step="2"] [data-scene="2"] { opacity: 1; visibility: visible; }
-.sketch-note, .sketch-part { transition: transform 360ms cubic-bezier(.16,1,.3,1); transform-box: fill-box; transform-origin: center; }
-.sketch-note-a { transform: var(--sketch-note-a-transform); }
-.sketch-note-b { transform: var(--sketch-note-b-transform); }
-.sketch-note-c { transform: var(--sketch-note-c-transform); }
-[data-approach-step="0"] .sketch-note-c { transform: none; }
-.sketch-part-a { transform: translateX(calc(-1 * var(--sketch-part-shift))); }
-.sketch-part-c { transform: translateX(var(--sketch-part-shift)); }
-[data-approach-step="1"] .sketch-part { transform: none; }
-.sketch-frame, .sketch-connection, .sketch-loop { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 460ms cubic-bezier(.16,1,.3,1); }
-[data-approach-step="0"] .sketch-frame,
-[data-approach-step="1"] .sketch-connection,
-[data-approach-step="2"] .sketch-loop { stroke-dashoffset: 0; }
-.approach-interactive .steps { --marker-gutter: calc(var(--space-l) + var(--space-xs)); padding-left: var(--marker-gutter); }
-.steps li:nth-child(1)::before { background: var(--wcs-plan-tint); }
-.steps li:nth-child(2)::before { background: var(--wcs-build-tint); }
-.steps li:nth-child(3)::before { background: var(--wcs-run-tint); }
-.steps li:nth-child(1)::after { background: var(--wcs-plan); }
-.steps li:nth-child(2)::after { background: var(--wcs-build); }
-.steps li:nth-child(3)::after { background: var(--wcs-run); }
-.steps li:nth-child(1).is-current h3, .steps li:nth-child(1).is-current::marker { color: var(--wcs-plan-foreground); }
-.steps li:nth-child(2).is-current h3, .steps li:nth-child(2).is-current::marker { color: var(--wcs-build-foreground); }
-.steps li:nth-child(3).is-current h3, .steps li:nth-child(3).is-current::marker { color: var(--wcs-run-foreground); }
-.approach-interactive .steps li { position: relative; isolation: isolate; padding: var(--space-s) var(--space-s-plus) var(--space-s) var(--space-xs); }
-.approach-interactive .steps li::before { content: ""; position: absolute; inset: 0 0 0 calc(-1 * var(--marker-gutter)); z-index: -1; border-radius: var(--radius-small); opacity: 0; transition: opacity var(--duration-state) ease; }
-.approach-interactive .steps li::after { content: ""; position: absolute; inset: 0 auto 0 calc(-1 * var(--marker-gutter)); width: var(--stroke-accent); border-radius: var(--radius-small) 0 0 var(--radius-small); opacity: 0; transition: opacity var(--duration-state) ease; }
-.approach-interactive .steps li h3, .approach-interactive .steps li p { transition: color var(--duration-state) ease; }
-.approach-interactive .steps li.is-current::before, .approach-interactive .steps li.is-current::after { opacity: 1; }
-.approach-interactive .steps li.is-current p { color: var(--wcs-foreground); }
-.approach-interactive .steps li + li { margin-top: var(--space-xs); }
-.approach-interactive .steps li::marker { font-variant-numeric: tabular-nums; }
-.approach-interactive .steps li.is-current::marker { font-weight: var(--weight-semibold); }
-@media (--stacked) {
-  .approach-intro { display: contents; }
-  .approach-sketch { position: sticky; top: 0; z-index: 2; max-width: none; margin-top: 0; padding-block: var(--space-xs); isolation: isolate; background: var(--wcs-page-background); border-bottom: var(--stroke-thin) solid var(--wcs-border); }
-  .approach-sketch::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--wcs-section-background); }
-  .approach-sketch svg { width: auto; height: var(--sketch-height-compact); margin-inline: auto; }
-  .sketch-caption { margin-top: 0; }
-  .approach-interactive { gap: var(--space-s-plus); }
+.approach { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+.approach-timeline { --route-progress: 1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto 100px auto; padding: 0; list-style: none; }
+.approach-timeline li { --segment-progress: 1; display: grid; grid-row: 1 / 4; grid-template-rows: subgrid; min-width: 0; padding: 0; text-align: center; }
+.approach-timeline li:nth-child(1) { --hue: var(--hue-plan); --next-hue: var(--hue-build); }
+.approach-timeline li:nth-child(2) { --hue: var(--hue-build); --next-hue: var(--hue-run); }
+.approach-timeline li:nth-child(3) { --hue: var(--hue-run); }
+.approach-timeline li + li { margin-top: 0; }
+.timeline-marker { position: relative; z-index: 1; display: grid; grid-row: 2; grid-column: 1; align-self: end; justify-self: center; place-items: center; width: 48px; height: 48px; border: 1px solid var(--rule); border-radius: 50%; background: var(--wcs-section-background); color: var(--text-secondary); font-size: var(--label); font-variant-numeric: tabular-nums; transition: border-color 220ms ease, color 220ms ease; }
+.approach-timeline li:nth-child(2) .timeline-marker { align-self: start; }
+.is-reached > .timeline-marker { border-color: var(--hue); color: var(--hue-ink); }
+.timeline-copy { grid-row: 3; grid-column: 1; padding: 16px 20px 0; transition: opacity 400ms ease; }
+.approach-timeline li:nth-child(2) .timeline-copy { grid-row: 1; align-self: end; padding: 0 20px 16px; }
+.timeline-copy > p:last-child { max-width: 34ch; margin-inline: auto; }
+.timeline-caption { margin-bottom: 8px; font-size: var(--label); }
+.approach-timeline h3 { margin-bottom: 10px; }
+.is-animated li:not(.is-reached) .timeline-copy { opacity: .35; }
+
+/* The winding route lives in the middle step and spans all three columns. */
+.approach-route { position: relative; grid-row: 2; grid-column: 1; pointer-events: none; }
+.route-canvas { position: absolute; top: 0; bottom: 0; left: -100%; width: 300%; }
+.route-canvas svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.route-canvas path { fill: none; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.route-base path { stroke: var(--rule); }
+.route-lit { clip-path: inset(0 calc(100% - var(--route-progress) * 100%) 0 0); }
+.route-dot { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--wcs-foreground); transform: translate(-50%, -50%); }
+
+/* Each time the dot passes a step, its marker pings. */
+.timeline-marker::after { content: ""; position: absolute; inset: -1px; border: 1px solid var(--hue); border-radius: 50%; opacity: 0; pointer-events: none; }
+.is-passing > .timeline-marker::after { animation: marker-ping 1200ms ease-out; }
+@keyframes marker-ping { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(1.8); } }
+
+/* Each step's sketch is a still drawing, always shown. */
+.route-sketch { display: block; width: 110px; height: auto; margin: 0 auto 10px; overflow: visible; color: var(--text-secondary); }
+.route-sketch .sketch-paper { fill: var(--wcs-section-background); }
+.route-sketch .sketch-accent { stroke: var(--hue); }
+.route-sketch .sketch-connector { stroke: var(--rule); }
+.route-sketch .sketch-note { transform-box: fill-box; transform-origin: center; }
+.route-sketch .sketch-note-a { transform: translate(-5px, 5px) rotate(-9deg); }
+.route-sketch .sketch-note-b { transform: translate(3px, -5px) rotate(8deg); }
+.approach-timeline.is-paused *, .approach-timeline.is-paused *::after { animation-play-state: paused; }
+
+@media (max-width: 800px) {
+  .approach { gap: 36px; }
+  .approach-timeline { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; }
+  .approach-timeline li { position: relative; grid-row: auto; grid-template-columns: 48px minmax(0, 1fr); grid-template-rows: none; column-gap: 24px; padding-bottom: 36px; text-align: left; }
+  .approach-timeline li:last-child { padding-bottom: 0; }
+  .timeline-marker, .approach-timeline li:nth-child(2) .timeline-marker { grid-row: 1; grid-column: 1; align-self: start; }
+  .timeline-copy, .approach-timeline li:nth-child(2) .timeline-copy { grid-row: 1; grid-column: 2; align-self: start; padding: 8px 0 0; }
+  .timeline-copy > p:last-child { margin-inline: 0; }
+  .route-sketch { width: 132px; margin: 0 0 12px; }
+  .approach-route { display: none; }
+  .approach-timeline li:not(:last-child)::before,
+  .approach-timeline li:not(:last-child)::after { content: ""; position: absolute; top: 48px; bottom: 0; left: 23.5px; width: 1px; background: var(--rule); }
+  .approach-timeline li:not(:last-child)::after { background: linear-gradient(var(--hue), var(--next-hue)); transform: scaleY(var(--segment-progress)); transform-origin: top; }
 }
-@media (--short-stacked) {
-  .approach-sketch { position: static; isolation: auto; background: none; }
-  .approach-sketch::before { content: none; }
+@media (max-width: 480px) {
+  .approach-timeline li { column-gap: 18px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sketch-scene, .sketch-note, .sketch-part, .sketch-frame, .sketch-connection, .sketch-loop,
-  .approach-interactive .steps li::before, .approach-interactive .steps li::after, .approach-interactive .steps li h3, .approach-interactive .steps li p { transition: none; }
+  .timeline-marker, .timeline-copy, .route-dot { transition: none; }
 }
