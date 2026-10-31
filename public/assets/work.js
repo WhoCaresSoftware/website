@@ -1,5 +1,4 @@
 /* Progressive enhancement: the original project articles remain the content source. */
-import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
 import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './gestures.js';
 (() => {
   'use strict';
@@ -40,8 +39,8 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
   navigation.append(position);
   folder.append(navigation);
   const drawingCaptions = {
-    en: ['Worksites. One shared system.', 'A world built to play.', 'Applications. Gateway. Private models.', 'Brand references into imagery.', 'Tasks, tools and human review.'],
-    el: ['Εργοτάξια σε ένα κοινό σύστημα.', 'Ένας κόσμος για παιχνίδι.', 'Εφαρμογές, πύλη, ιδιωτικά μοντέλα.', 'Από το υλικό της μάρκας σε εικόνες.', 'Εργασίες, εργαλεία και ανθρώπινος έλεγχος.']
+    en: ['Worksites. One shared system.', 'A world built to play.', 'Applications. Gateway. Private models.', 'Brand references into imagery.', 'Tasks, tools and human review.', 'Demo placeholder.', 'Demo placeholder.'],
+    el: ['Εργοτάξια σε ένα κοινό σύστημα.', 'Ένας κόσμος για παιχνίδι.', 'Εφαρμογές, πύλη, ιδιωτικά μοντέλα.', 'Από το υλικό της μάρκας σε εικόνες.', 'Εργασίες, εργαλεία και ανθρώπινος έλεγχος.', 'Δοκιμαστικό έργο.', 'Δοκιμαστικό έργο.']
   };
   // Concept sketches communicate the work, without claiming implementation detail.
   const projectSketches = [null,
@@ -78,18 +77,31 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
      <circle class="drawing-paper" cx="327" cy="90" r="35"/><circle cx="327" cy="80" r="10"/><path d="M308 109v-6c0-13 38-13 38 0v6"/>
      <g class="drawing-connections"><path d="m349 120 7 7 14-16M327 132v28h-70"/><path d="m263 154-6 6 6 6"/></g>`
   ];
+  // DEMO posters: one shared concept for every project — flat geometric shapes in the project's colour
+  // and the text colour — until real project artwork exists. The detailed drawings stay in the reading view.
+  const posterColours = ['--wcs-accent', '--wcs-palette-amber', '--wcs-palette-blue', '--wcs-palette-rose', '--wcs-palette-green'];
+  // Every composition stays inside the centre of the poster, so no tile shape crops it.
+  const compositions = [
+    '<circle class="poster-line" cx="200" cy="160" r="92"/><circle class="poster-a" cx="200" cy="160" r="70"/><rect class="poster-b" x="110" y="222" width="180" height="14" rx="7"/>',
+    '<path class="poster-a" d="M120 225a80 80 0 0 1 160 0Z"/><circle class="poster-b" cx="276" cy="122" r="18"/><path class="poster-line" d="M100 240h200"/>',
+    '<rect class="poster-a" x="115" y="105" width="46" height="135" rx="23"/><rect class="poster-b" x="177" y="135" width="46" height="105" rx="23"/><rect class="poster-a poster-soft" x="239" y="160" width="46" height="80" rx="23"/>',
+    '<path class="poster-a" d="M130 240V110a130 130 0 0 1 130 130Z"/><rect class="poster-line" x="222" y="100" width="62" height="62" rx="3"/><circle class="poster-b" cx="154" cy="216" r="12"/>',
+    '<circle class="poster-a" cx="168" cy="170" r="62"/><circle class="poster-b poster-soft" cx="232" cy="170" r="62"/>',
+    '<path class="poster-a" d="M200 96 284 240H116Z"/><circle class="poster-b" cx="200" cy="192" r="28"/>',
+    '<circle class="poster-line" cx="200" cy="170" r="88"/><circle class="poster-a" cx="200" cy="170" r="64"/><path class="poster-b" d="M122 163h156v14H122z"/>'
+  ];
+  const poster = index => `<svg class="project-poster" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="--c: var(${posterColours[index % posterColours.length]})"><rect class="poster-bg" width="400" height="400"/><g class="poster-art">${compositions[index % compositions.length]}</g></svg>`;
+  const sketches = [];
   const buttons = projects.map((project, index) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'folder-document';
     button.setAttribute('aria-haspopup', 'dialog');
-    button.innerHTML = '<span class="document-name"></span><span class="document-kind"></span><span class="document-open"><span></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>';
+    // Each card is a poster, a title and a subtitle.
+    button.innerHTML = '<span class="document-name"></span><span class="document-kind"></span>';
     {
-      button.classList.add('document-illustrated');
       // Conceptual worksite drawing, not a map of the client's implementation.
       const drawing = document.createElement('span');
-      drawing.className = 'project-drawing';
-      drawing.setAttribute('aria-hidden', 'true');
       drawing.innerHTML = `<svg class="aigistos-drawing" viewBox="0 0 400 180" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
         <defs><pattern id="aigistos-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path class="drawing-grid-line" d="M20 0H0V20" fill="none" stroke-width=".5"/></pattern></defs>
         <path class="drawing-grid" fill="url(#aigistos-grid)" stroke="none" d="M10 0h380v180H10z"/>
@@ -109,7 +121,7 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
           <path class="drawing-guides" d="M252 71h17m-17 12h12m-12 12h17m-17 12h12M291 113h68m-68 12h42"/>
           <g class="drawing-connections"><path d="M291 72h18v25h-18zM316 72h18v25h-18zM341 72h18v25h-18z"/><path d="m296 84 3 3 5-6m17 3 3 3 5-6m17 3 3 3 5-6"/></g>
         </g>
-      </svg><span class="drawing-caption"></span>`;
+      </svg>`;
       const svg = drawing.querySelector('svg');
       svg.classList.replace('aigistos-drawing', 'project-sketch');
       const gridID = `project-grid-${index}`;
@@ -119,20 +131,15 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
         svg.querySelectorAll('.drawing-sites, .drawing-system, :scope > .drawing-connections').forEach(element => element.remove());
         svg.insertAdjacentHTML('beforeend', projectSketches[index]);
       }
-      button.querySelector('.document-open').before(drawing);
-      const footer = document.createElement('span');
-      footer.className = 'drawing-footer';
-      footer.innerHTML = symbolArtwork;
-      footer.querySelector('svg').classList.add('drawing-credit');
-      footer.querySelector('svg').setAttribute('aria-hidden', 'true');
-      footer.append(button.querySelector('.document-open'));
-      button.append(footer);
+      svg.setAttribute('aria-hidden', 'true');
+      sketches.push(svg);
+      button.insertAdjacentHTML('afterbegin', poster(index));
     }
     button.addEventListener('click', () => open(index));
     folder.querySelector('.folder-documents').append(button);
     return button;
   });
-  // An overview of every project, sharing the folder's sketches and reading dialog.
+  // Wider screens show every project as a bento of tiles, six per page; phones keep the folder.
   const grid = document.createElement('ul');
   grid.className = 'work-grid';
   const cards = buttons.map((button, index) => {
@@ -141,33 +148,108 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
     card.type = 'button';
     card.className = 'work-card';
     card.setAttribute('aria-haspopup', 'dialog');
-    const sketch = button.querySelector('.project-sketch').cloneNode(true);
-    sketch.setAttribute('aria-hidden', 'true');
-    sketch.querySelector('pattern').id = `card-grid-${index}`;
-    sketch.querySelector('.drawing-grid').setAttribute('fill', `url(#card-grid-${index})`);
-    card.innerHTML = '<span class="document-name"></span><span class="document-kind"></span><span class="document-open"><span></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span>';
-    card.prepend(sketch);
+    card.innerHTML = '<span class="document-name"></span><span class="document-kind"></span>';
+    card.insertAdjacentHTML('afterbegin', poster(index));
     card.addEventListener('click', () => open(index, card));
     item.append(card);
     grid.append(item);
     return card;
   });
-  const views = document.createElement('fieldset');
-  views.className = 'work-views';
-  views.innerHTML = '<label><input type="radio" name="work-view" value="folder"><span></span></label><label><input type="radio" name="work-view" value="grid"><span></span></label>';
-  let view = 'folder';
-  try { if (localStorage.getItem('wcs-work-view') === 'grid') view = 'grid'; } catch { /* Folder remains the default. */ }
-  const showView = () => {
-    folder.hidden = view !== 'folder';
-    grid.hidden = view !== 'grid';
-    section.classList.toggle('work-showing-grid', view === 'grid');
-    views.querySelector(`input[value="${view}"]`).checked = true;
-  };
-  views.addEventListener('change', event => {
-    view = event.target.value;
-    try { localStorage.setItem('wcs-work-view', view); } catch { /* Session choice still works. */ }
-    showView();
+  const overview = document.createElement('div');
+  overview.className = 'work-overview';
+  overview.setAttribute('role', 'group');
+  overview.setAttribute('aria-labelledby', 'work-title');
+  const perPage = 6;
+  const pages = Math.ceil(cards.length / perPage);
+  let page = 0;
+  const announcement = document.createElement('span');
+  announcement.className = 'work-announcement';
+  announcement.setAttribute('aria-live', 'polite');
+  // Paging sits under the tiles: progress on the left, arrows on the right.
+  const progress = document.createElement('div');
+  progress.className = 'work-progress';
+  progress.setAttribute('aria-hidden', 'true');
+  const segments = Array.from({ length: pages }, (_, index) => {
+    const segment = document.createElement('button');
+    segment.type = 'button';
+    segment.tabIndex = -1;
+    segment.addEventListener('click', () => showPage(index));
+    return segment;
   });
+  progress.append(...segments);
+  const pageButtons = [-1, 1].map(direction => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="${direction < 0 ? 'M19 12H5m6-6-6 6 6 6' : 'M5 12h14m-6-6 6 6-6 6'}"/></svg>`;
+    button.addEventListener('click', () => showPage(page + direction));
+    return button;
+  });
+  const pager = document.createElement('div');
+  pager.className = 'work-pager';
+  pager.hidden = pages < 2;
+  pager.append(progress, ...pageButtons);
+  overview.append(grid, pager, announcement);
+  // Each page lays its tiles out as one large, one tall, two small and two wide.
+  const showPage = (target, quiet = false) => {
+    const previousPage = page;
+    page = Math.max(0, Math.min(target, pages - 1));
+    [...grid.children].forEach((item, index) => {
+      item.hidden = Math.floor(index / perPage) !== page;
+      item.dataset.slot = index % perPage;
+    });
+    pageButtons[0].disabled = page === 0;
+    pageButtons[1].disabled = page === pages - 1;
+    segments.forEach((segment, index) => segment.classList.toggle('is-current', index === page));
+    if (quiet || page === previousPage) return;
+    const greek = document.documentElement.lang === 'el';
+    announcement.textContent = `${greek ? 'Σελίδα' : 'Page'} ${page + 1} / ${pages}`;
+    if (reduced.matches) return;
+    // The new page slides in from the side it was asked for, tile by tile.
+    const direction = Math.sign(page - previousPage);
+    [...grid.children].filter(item => !item.hidden).forEach((item, index) => {
+      item.firstElementChild.animate([
+        { opacity: 0, transform: `translateX(${direction * 40}px)` },
+        { opacity: 1, transform: 'none' }
+      ], { duration: 520, delay: index * 40, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'backwards' });
+    });
+  };
+  const labelPager = () => {
+    const greek = document.documentElement.lang === 'el';
+    pageButtons[0].setAttribute('aria-label', greek ? 'Προηγούμενη σελίδα' : 'Previous page');
+    pageButtons[1].setAttribute('aria-label', greek ? 'Επόμενη σελίδα' : 'Next page');
+  };
+  overview.addEventListener('keydown', event => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    showPage(page + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+  let dragged = false;
+  // A swipe turns the page and never also opens the tile it started on.
+  grid.addEventListener('click', event => {
+    if (!dragged) return;
+    dragged = false;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+  grid.addEventListener('dragstart', event => event.preventDefault());
+  if (pages > 1) import('./vendor/use-gesture/vanilla-10.3.1.mjs').then(({ DragGesture }) => {
+    new DragGesture(grid, ({ last, tap, movement: [dx] }) => {
+      if (tap || !last || Math.abs(dx) <= 40) return;
+      dragged = true;
+      showPage(page - Math.sign(dx));
+    }, { axis: 'x', filterTaps: true, pointer: { capture: false, keys: false } });
+  }).catch(() => { /* Arrows and keyboard still turn the page. */ });
+  const stage = document.createElement('div');
+  stage.className = 'work-stage';
+  stage.append(folder, overview);
+  // Phones get the folder; wider screens get the bento, opened on the folder's current project.
+  const phone = window.matchMedia('(max-width: 600px)');
+  const showView = () => {
+    folder.hidden = !phone.matches;
+    overview.hidden = phone.matches;
+    if (!phone.matches) showPage(Math.floor(current / perPage), true);
+  };
+  phone.addEventListener('change', showView);
   const browse = () => {
     buttons.forEach((button, index) => {
       button.classList.toggle('is-current', index === current);
@@ -301,20 +383,14 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
     buttons.forEach((button, index) => {
       button.querySelector('.document-name').textContent = projects[index].querySelector('h3').textContent;
       button.querySelector('.document-kind').textContent = projects[index].querySelector('.project-kind').textContent;
-      button.querySelector('.document-open span').textContent = label;
       button.setAttribute('aria-label', `${label}: ${projects[index].querySelector('h3').textContent}`);
-      button.querySelector('.drawing-caption').textContent = drawingCaptions[greek ? 'el' : 'en'][index];
     });
     cards.forEach((card, index) => {
       card.querySelector('.document-name').textContent = projects[index].querySelector('h3').textContent;
       card.querySelector('.document-kind').textContent = projects[index].querySelector('.project-kind').textContent;
-      card.querySelector('.document-open span').textContent = label;
       card.setAttribute('aria-label', `${label}: ${projects[index].querySelector('h3').textContent}`);
     });
-    views.setAttribute('aria-label', greek ? 'Προβολή έργων' : 'Project view');
-    const [folderLabel, gridLabel] = views.querySelectorAll('span');
-    folderLabel.textContent = greek ? 'Φάκελος' : 'Folder';
-    gridLabel.textContent = greek ? 'Όλα τα έργα' : 'All projects';
+    labelPager();
     browse();
     dialog.querySelector('.document-close').setAttribute('aria-label', greek ? 'Κλείσιμο' : 'Close');
     if (selected !== -1) renderDocument();
@@ -327,7 +403,7 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
     heading.textContent = project.querySelector('h3').textContent;
     const visual = document.createElement('figure');
     visual.className = 'document-visual';
-    const sketch = buttons[selected].querySelector('.project-sketch').cloneNode(true);
+    const sketch = sketches[selected].cloneNode(true);
     sketch.setAttribute('aria-hidden', 'true');
     sketch.querySelector('pattern').id = 'document-grid';
     sketch.querySelector('.drawing-grid').setAttribute('fill', 'url(#document-grid)');
@@ -480,7 +556,7 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
     trigger?.focus({ preventScroll: true });
     closing = false;
   });
-  section.querySelector('h2').after(views, folder, grid);
+  section.querySelector('h2').after(stage);
   showView();
   projects.forEach(project => { project.hidden = true; });
   window.addEventListener('wcs:languagechange', localize);

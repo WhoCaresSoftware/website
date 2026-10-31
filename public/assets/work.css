@@ -57,7 +57,7 @@ html.work-reading { overflow: hidden; scrollbar-gutter: stable; }
    the artwork while the shared type scale supplies readable floors. */
 .work:has(.work-folder) { display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; }
 .work:has(.work-folder) > h2 { margin-bottom: 0; }
-.work:has(.work-folder) > .work-folder { grid-column: 1; justify-self: center; width: calc(100% - var(--folder-inline-clearance)); max-width: var(--content-width); margin: var(--folder-clearance-top) 0 var(--space-s) var(--space-xl); aspect-ratio: 1.85; }
+.work-stage > .work-folder { grid-column: 1; justify-self: center; width: calc(100% - var(--folder-inline-clearance)); max-width: var(--content-width); margin: var(--folder-clearance-top) 0 var(--space-s) var(--space-xl); aspect-ratio: 1.85; }
 .work-folder { padding: var(--space-s); background: var(--wcs-transparent); }
 /* Paint the front outline with its cover, above the negative-z back folders. */
 .work-folder::before { content: ''; position: absolute; inset: calc(-1 * var(--stroke-thin)); z-index: -1; border: var(--stroke-thin) solid var(--wcs-border); border-radius: inherit; background: var(--wcs-surface); }
@@ -123,7 +123,7 @@ html.work-reading { overflow: hidden; scrollbar-gutter: stable; }
 }
 @media (--stacked) {
   .work:has(.work-folder) { grid-template-columns: minmax(0, 1fr); gap: var(--space-m-plus); }
-  .work:has(.work-folder) > .work-folder { grid-column: 1; justify-self: start; width: calc(100% - var(--folder-inline-clearance-stacked)); max-width: var(--folder-width-stacked); margin: var(--folder-clearance-top) 0 0; aspect-ratio: 1.5; }
+  .work-stage > .work-folder { grid-column: 1; justify-self: start; width: calc(100% - var(--folder-inline-clearance-stacked)); max-width: var(--folder-width-stacked); margin: var(--folder-clearance-top) 0 0; aspect-ratio: 1.5; }
 }
 @media (hover: hover) and (pointer: fine) {
   .folder-side-previous:hover { transform: rotate(-2.5deg) translateX(calc(-1 * var(--travel-nudge))); border-color: var(--wcs-foreground-muted); }
@@ -131,7 +131,7 @@ html.work-reading { overflow: hidden; scrollbar-gutter: stable; }
 }
 @media (--phone) {
   .work-folder { --folder-clearance-top: var(--folder-clearance-compact); --folder-back-step: var(--folder-back-step-compact); --folder-back-lift: var(--folder-back-lift-compact); --folder-side-offset: var(--folder-side-offset-compact); padding: var(--space-xs) var(--space-2xs); }
-  .work:has(.work-folder) > .work-folder { width: calc(100% - var(--space-s)); aspect-ratio: 1.2; }
+  .work-stage > .work-folder { width: calc(100% - var(--space-s)); aspect-ratio: 1.2; }
   .work-folder .folder-documents { padding: var(--folder-documents-padding-compact); }
   .folder-back-near { transform: translate(var(--folder-back-step), calc(-1 * var(--folder-back-lift))) rotate(1deg); }
   .folder-back-far { transform: translate(calc(2 * var(--folder-back-step)), calc(-2 * var(--folder-back-lift))) rotate(2deg); }
@@ -195,4 +195,62 @@ html.work-reading { overflow: hidden; scrollbar-gutter: stable; }
 @media (prefers-reduced-motion: reduce) {
   .work-card { transition: none; }
   .work-card:hover, .work-card:active { transform: none; }
+}
+
+/* Phones retain the folder; wider screens use the project-poster spread.
+   Shared papers, dialogs, colours and controls inherit main's brand tokens. */
+.work-stage { display: grid; grid-template-columns: minmax(0, 1fr); align-items: start; min-width: 0; }
+.work .work-folder[hidden], .work-overview[hidden], .work-overview [hidden] { display: none; }
+.work-overview { min-width: 0; margin-top: var(--space-l-plus); }
+.work-announcement { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.folder-document { isolation: isolate; justify-content: flex-end; overflow: hidden; }
+.folder-document .project-poster { position: absolute; inset: 0; z-index: -2; display: block; width: 100%; height: 100%; }
+.work-stage > .work-folder { min-width: 0; }
+.work-folder .folder-document { min-height: 0; }
+.work-folder .document-kind { margin-top: var(--space-3xs); }
+.poster-bg { fill: var(--wcs-surface); }
+.poster-a { fill: var(--c); }
+.poster-b { fill: var(--wcs-foreground); }
+.poster-soft { opacity: .55; }
+.poster-line { fill: none; stroke: var(--wcs-foreground); stroke-opacity: .35; stroke-width: 1.5; }
+.work-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(3, clamp(160px, 15vw, 200px)); gap: var(--space-xs); margin: 0; touch-action: pan-y pinch-zoom; }
+.work-grid > [data-slot="0"] { grid-column: span 2; grid-row: span 2; }
+.work-grid > [data-slot="1"] { grid-row: span 2; }
+.work-grid > :is([data-slot="4"], [data-slot="5"]) { grid-column: span 2; }
+.work-card { position: relative; isolation: isolate; justify-content: flex-end; height: 100%; padding: var(--space-m); overflow: hidden; border-radius: var(--radius-medium); background: var(--wcs-surface); box-shadow: none; }
+.work-card .project-poster { position: absolute; inset: 0; z-index: -2; display: block; width: 100%; height: 100%; transition: transform 800ms var(--ease-out-emphasis); }
+.work-card .document-name { font-size: var(--lead); }
+.work-card .document-kind { margin-top: var(--space-3xs); font-size: var(--label); }
+.work-card:focus-visible { border-color: var(--wcs-accent); }
+.work-card:active { transform: translateY(calc(-1 * var(--travel-press))) scale(.99); }
+.work-grid > [data-slot="0"] .document-name { font-size: var(--dialog-title); }
+.work-grid > :is([data-slot="2"], [data-slot="3"]) .work-card { padding: var(--space-s); }
+.work-grid > :is([data-slot="4"], [data-slot="5"]) .project-poster { left: 38%; width: 62%; }
+.work-grid > :is([data-slot="2"], [data-slot="3"]) .poster-art { transform: translateY(-30px) scale(.8); transform-origin: 200px 170px; }
+.work-grid > :is([data-slot="4"], [data-slot="5"]) .poster-art { transform: scale(.8); transform-origin: 200px 170px; }
+.work-pager { display: flex; justify-content: flex-end; align-items: center; gap: var(--space-xs); margin-top: var(--space-m); }
+.work-pager button { display: grid; place-items: center; width: var(--control-size); height: var(--control-size); padding: 0; border: 0; border-radius: var(--radius-small); background: var(--wcs-surface); color: var(--wcs-accent); cursor: pointer; }
+.work-pager svg { width: var(--icon-size); height: var(--icon-size); }
+.work-pager button:disabled { opacity: .4; cursor: default; }
+.work-pager button:focus-visible { outline-offset: var(--focus-offset-tight); }
+.work-progress { display: flex; align-items: center; gap: var(--space-3xs); margin-right: auto; }
+.work-pager .work-progress button { width: var(--icon-size); height: var(--icon-size); border-radius: 0; background: var(--wcs-transparent); }
+.work-progress button::before { content: ''; display: block; width: 100%; height: var(--stroke-strong); background: var(--wcs-border); }
+.work-progress button.is-current::before { background: var(--wcs-accent); }
+@media (hover: hover) and (pointer: fine) {
+  .work-card:hover .project-poster { transform: scale(1.04); }
+  .work-pager button:not(:disabled):hover { background: var(--wcs-border); }
+  .work-pager .work-progress button:not(:disabled):hover { background: var(--wcs-transparent); }
+  .work-progress button:not(.is-current):hover::before { background: var(--wcs-foreground-muted); }
+}
+@media (--navigation) {
+  .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: 190px; }
+  .work-grid > [data-slot="1"] { grid-column: span 2; grid-row: auto; }
+  .work-grid > [data-slot="1"] .project-poster { left: 38%; width: 62%; }
+  .work-grid > :is([data-slot="1"], [data-slot="4"], [data-slot="5"]) .poster-art { transform: scale(.7); transform-origin: 200px 170px; }
+  .work-grid > :is([data-slot="2"], [data-slot="3"]) .poster-art { transform: translateY(-14px) scale(.7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-card .project-poster { transition: none; }
+  .work-card:hover .project-poster { transform: none; }
 }
