@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approach — more timeline concepts</title>
+<style>
+@font-face { font-family: "Source Sans 3"; src: url("../public/assets/fonts/source-sans-3-regular.woff2") format("woff2"); font-weight: 400; }
+@font-face { font-family: "Source Sans 3"; src: url("../public/assets/fonts/source-sans-3-semibold.woff2") format("woff2"); font-weight: 600; }
+:root {
+  --bg: #0C0F10; --band: #171D1E; --surface: #1C2324; --fg: #E8ECEB; --muted: #9FAAA8; --rule: #2A3335;
+  --accent: #6CC2B8; --amber: #D3B069; --blue: #88A8BD; --green: #8AA47F;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.55 "Source Sans 3", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.page { max-width: 1240px; margin: 0 auto; padding: 56px 32px 140px; }
+.page > header h1 { margin: 0; font-size: 40px; font-weight: 600; letter-spacing: -.02em; }
+.page > header p { margin: 8px 0 0; color: var(--muted); max-width: 70ch; }
+nav.jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+nav.jump a { padding: 6px 12px; border: 1px solid var(--rule); border-radius: 999px; color: var(--muted); font-size: 14px; text-decoration: none; }
+nav.jump a:hover { color: var(--accent); border-color: var(--accent); }
+section.concept { margin-top: 96px; scroll-margin-top: 24px; }
+.concept-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+.concept-head b { color: var(--accent); font-size: 14px; font-variant-numeric: tabular-nums; }
+.concept-head h2 { margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -.01em; }
+.concept > p.why { margin: 0 0 24px; color: var(--muted); max-width: 74ch; }
+.frame { padding: 64px 88px 72px; border-radius: 20px; background: var(--band); }
+.title { margin: 0 0 40px; font-size: clamp(32px, 4vw, 46px); line-height: 1.06; font-weight: 400; letter-spacing: -.025em; }
+.title span { color: var(--accent); }
+
+/* Timeline layout: an optional copy row above, the route band, and a copy row below. */
+.row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.row.top .cell { align-self: end; padding-bottom: 16px; }
+.row.bottom .cell { padding-top: 16px; }
+.cell { padding-inline: 18px; text-align: center; transition: opacity .4s; }
+.anim .cell:not(.on) { opacity: .35; }
+.cell .sk { display: block; width: 100px; height: auto; margin: 0 auto 10px; color: var(--muted); }
+.cap { margin: 0 0 6px; color: var(--muted); font-size: 15px; }
+.cap .num { color: var(--h); font-weight: 600; font-variant-numeric: tabular-nums; }
+.cell h3 { margin: 0 0 8px; font-size: 22px; font-weight: 600; letter-spacing: -.01em; }
+.cell .b { margin: 0 auto; max-width: 34ch; color: var(--muted); }
+.left .cell { text-align: left; }
+.left .cell .sk { margin-left: 0; }
+.left .cell .b { margin-left: 0; }
+.band { position: relative; }
+.canvas { position: absolute; inset: 0; }
+.canvas svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.canvas path { fill: none; stroke-width: 2; vector-effect: non-scaling-stroke; }
+.base path { stroke: var(--rule); }
+.base .ghost { stroke-dasharray: 3 7; }
+.lit { clip-path: inset(-20px calc(100% - var(--k, 1) * 100%) -20px 0); }
+.dot { position: absolute; z-index: 3; width: 12px; height: 12px; border-radius: 50%; background: var(--fg); transform: translate(-50%, -50%); box-shadow: 0 0 16px 3px #ffffff30; }
+
+/* Markers */
+.mk { position: absolute; z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--rule); border-radius: 50%; background: var(--band); color: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; transform: translate(-50%, -50%); transition: border-color .3s, color .3s; }
+.mk.on { border-color: var(--h); color: var(--h); }
+.mk::after { content: ""; position: absolute; inset: -1px; border: 1px solid var(--h); border-radius: inherit; opacity: 0; }
+.mk.ping::after { animation: ping 1.2s ease-out; }
+@keyframes ping { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(1.8); } }
+
+/* 02 Metro: thick line, small stations */
+.metro .canvas path { stroke-width: 5; stroke-linecap: round; }
+.metro .mk { width: 22px; height: 22px; border-width: 4px; font-size: 0; }
+.metro .mk.on { background: var(--fg); }
+
+/* 04 Road: marching dashes and dropping pins */
+.road .base path { stroke-dasharray: 10 12; animation: march 1s linear infinite; }
+@keyframes march { to { stroke-dashoffset: -22; } }
+.road .mk { width: 36px; height: 36px; border-radius: 50% 50% 50% 0; transform: translate(-50%, -100%) translateY(-6px) rotate(-45deg) translateY(-14px); opacity: .25; transition: transform .6s cubic-bezier(.34,1.56,.64,1), opacity .3s, border-color .3s, color .3s; }
+.road .mk span { transform: rotate(45deg); font-size: 13px; }
+.road .mk.on { opacity: 1; background: var(--h); color: var(--bg); transform: translate(-50%, -100%) translateY(-6px) rotate(-45deg); }
+.road .mk::after { display: none; }
+
+/* 05 Arch & 10 Rise: smaller markers */
+.small .mk { width: 36px; height: 36px; font-size: 13px; }
+
+/* 06 Pulse: no circles, numbers float above the line */
+.pulse .canvas path { stroke-width: 2; }
+.pulse .mk { width: 34px; height: 34px; font-size: 13px; }
+
+/* 07 Segments */
+.seg { position: absolute; top: 50%; height: 6px; border-radius: 6px; background: var(--rule); overflow: hidden; transform: translateY(-50%); }
+.seg i { position: absolute; inset: 0; background: var(--h); transform: scaleX(var(--f, 0)); transform-origin: left; }
+
+/* 08 Loop: return track stays dashed */
+.loop .base path { stroke-dasharray: 3 7; }
+
+@media (max-width: 900px) {
+  .frame { padding: 40px 24px; }
+  .cell { padding-inline: 8px; }
+  .cell .b { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="hues" x1="0" x2="1"><stop offset="0" stop-color="#D3B069"/><stop offset=".5" stop-color="#88A8BD"/><stop offset="1" stop-color="#8AA47F"/></linearGradient></defs></svg>
+<div class="page">
+  <header>
+    <h1>More timeline concepts</h1>
+    <p>Ten more takes on the single-timeline approach, all built the same way as the live winding path. They use the site's colours, keep the sketches always visible, loop continuously, and stay compact in height. Each one includes the headline plus all three steps with their captions, titles and copy.</p>
+    <nav class="jump" id="jump"></nav>
+  </header>
+  <div id="concepts"></div>
+</div>
+
+<script>
+const S = [
+  { n: '01', cap: 'A shared understanding.', t: 'Clarify the problem', b: 'Question assumptions and agree the scope before pricing the project.', h: 'var(--amber)' },
+  { n: '02', cap: 'The right pieces, working together.', t: 'Build around the work', b: 'Bring the right engineering skills together. We price projects, not developer headcount.', h: 'var(--blue)' },
+  { n: '03', cap: 'A handover. And a way forward.', t: 'Plan beyond delivery', b: 'Agree ownership, handover and ongoing support as part of a long-term partnership.', h: 'var(--green)' }
+];
+const SKETCHES = [
+  `<g transform="rotate(-9 76 91) translate(-5 5)"><path class="pp" d="M38 48h76v86H38z"/><path d="M52 66h38m-38 12h48m-48 12h28"/><path class="ac" d="m54 112 6 6 14-16"/></g>
+   <g transform="rotate(8 168 77) translate(3 -5)"><path class="pp" d="M130 34h76v86h-76z"/><path d="M144 52h40m-40 12h29m-29 12h46"/></g>
+   <path class="cn" d="M116 145h54q18 0 18-18v-1m0 1 5 6m-5-6-5 6"/>
+   <path class="pp" d="M224 57h80v87h-80z"/><path d="M239 77h40m-40 12h49m-49 12h30"/><path class="ac" d="M238 122h36"/>
+   <path class="ac" d="M216 45v-8h18m62 0h18v18m0 91v10h-18m-62 0h-18v-18"/>`,
+  `<path class="ac" d="M110 95h38m64 0h38M180 64V38h70"/>
+   <rect class="pp" x="46" y="64" width="64" height="62" rx="3"/><path d="M62 83h32m-32 12h23m-23 12h28"/>
+   <rect class="pp" x="148" y="64" width="64" height="62" rx="3"/><path d="m164 95 10-10m-10 10 10 10m22-10-10-10m10 10-10 10"/>
+   <rect class="pp" x="250" y="64" width="64" height="62" rx="3"/><path d="m268 96 9 9 19-21"/>
+   <path class="cn" d="M46 148v7h268v-7"/><circle class="ac" cx="255" cy="38" r="5"/>`,
+  `<path class="ac" d="M111 45h148q40 0 40 40v20m-6-7 6 7 6-7M249 151H101q-40 0-40-40V91m-6 7 6-7 6 7"/>
+   <rect class="pp" x="111" y="69" width="138" height="58" rx="3"/><path d="M157 69v58m46-58v58m-77-29h16m31-5 7-7 7 7m-14 10 7 7 7-7m30-5 7 7 12-15"/>
+   <circle class="pp" cx="95" cy="45" r="13"/><path d="m89 45 4 4 8-9"/>
+   <circle class="pp" cx="265" cy="151" r="13"/><path d="M259 151h12m-6-6v12"/>`
+];
+const sketch = i => `<svg class="sk" viewBox="0 0 360 190" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="--h:${S[i].h}">
+  <style>.pp{fill:var(--band)}.ac{stroke:var(--h)}.cn{stroke:var(--rule)}</style>${SKETCHES[i]}</svg>`;
+
+const CONCEPTS = [
+  { id: 'rail', name: 'Straight rail', H: 70, d: 'M0 35H1000',
+    why: 'The calmest version: one straight line, the dot runs left to right and each step lights up. Shortest possible height.' },
+  { id: 'metro', name: 'Metro line', H: 100, cls: 'metro', num: true, top: [0, 1, 0], d: 'M0 74H326Q350 74 350 50Q350 26 374 26H626Q650 26 650 50Q650 74 674 74H1000',
+    why: 'A transit-map line with a thick stroke, rounded corners and small stations. Step 02 sits on the raised section, so the copy alternates above and below.' },
+  { id: 'wave', name: 'Gentle wave', H: 80, d: 'M0 40C120 12 220 68 333 40S560 12 666 40S880 68 1000 40',
+    why: 'A low, regular wave with every step’s copy underneath. It keeps the movement of the winding path at about half the height.' },
+  { id: 'road', name: 'Road with pins', H: 96, cls: 'road', d: 'M0 84H1000',
+    why: 'A road with marching dashes. As the traveller reaches each step, a coloured map pin drops onto it. Playful and easy to read.' },
+  { id: 'arch', name: 'Arch', H: 110, cls: 'small', d: 'M0 104C260 -8 740 -8 1000 104',
+    why: 'One arch from start to finish with step 02 at the top, like a bridge. All the copy sits below in a single tidy row.' },
+  { id: 'pulse', name: 'Heartbeat', H: 90, cls: 'pulse', d: 'M0 56H86L96 36L104 82L112 18L120 66L126 56H420L430 36L438 82L446 18L454 66L460 56H753L763 36L771 82L779 18L787 66L793 56H1000',
+    why: 'The line is a heartbeat: a beat fires just before each step. A quiet nod to systems that keep running and to ongoing support.' },
+  { id: 'segments', name: 'Progress segments', H: 40, cls: 'left', num: true, custom: 'segments',
+    why: 'No route at all: three coloured bars fill one after the other, like stories or an install progress bar. Left-aligned copy, very compact.' },
+  { id: 'loop', name: 'Loop track', H: 110, cls: 'loop small', d: 'M100 24H900A36 36 0 0 1 900 96H100A36 36 0 0 1 100 24', litD: 'M100 24H900',
+    why: 'A racetrack: the dot runs through the three steps along the top, then returns underneath to the start. The way back shows that support carries on.' },
+  { id: 'branch', name: 'Branch and merge', H: 100, top: [0, 1, 0], d: 'M0 74H250C305 74 315 26 375 26H625C685 26 695 74 750 74H1000', extras: '<path class="ghost" d="M250 74H750"/>',
+    why: 'A git-style line: the work branches off for the build and merges back for the handover. The dashed main line shows the path not taken.' },
+  { id: 'rise', name: 'Rising steps', H: 110, cls: 'small', d: 'M0 92H230C275 92 275 56 320 56H560C605 56 605 20 650 20H1000',
+    why: 'The line climbs a step at each stage, so the project visibly rises from understanding to delivery and beyond.' }
+];
+
+const LAP = 7000;
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NODE_X = [166.67, 500, 833.33];
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+$('#jump').innerHTML = CONCEPTS.map((c, i) => `<a href="#${c.id}">${String(i + 1).padStart(2, '0')} ${c.name}</a>`).join('');
+
+const cell = (c, i) => `<div class="cell" style="--h:${S[i].h}">${sketch(i)}<p class="cap">${c.num ? `<span class="num">${S[i].n}</span> · ` : ''}${S[i].cap}</p><h3>${S[i].t}</h3><p class="b">${S[i].b}</p></div>`;
+const players = CONCEPTS.map((c, index) => {
+  const top = c.top || [0, 0, 0];
+  const section = document.createElement('section');
+  section.className = 'concept';
+  section.id = c.id;
+  section.innerHTML = `<div class="concept-head"><b>${String(index + 1).padStart(2, '0')}</b><h2>${c.name}</h2></div><p class="why">${c.why}</p>
+    <div class="frame"><h2 class="title">Understand first.<br><span>Build what matters.</span></h2>
+      <div class="tl ${c.cls || ''} ${reduced ? '' : 'anim'}">
+        ${top.some(Boolean) ? `<div class="row top">${S.map((_, i) => top[i] ? cell(c, i) : '<div></div>').join('')}</div>` : ''}
+        <div class="band" style="height:${c.H}px"><div class="canvas"></div></div>
+        <div class="row bottom">${S.map((_, i) => top[i] ? '<div></div>' : cell(c, i)).join('')}</div>
+      </div></div>`;
+  $('#concepts').append(section);
+  const canvas = $('.canvas', section);
+  const cells = S.map((_, i) => $$('.cell', section).find(el => el.style.getPropertyValue('--h') === S[i].h));
+
+  if (c.custom === 'segments') {
+    canvas.innerHTML = S.map((s, i) => `<span class="seg" style="--h:${s.h};left:calc(${i * 33.333}% + 18px);width:calc(33.333% - 36px)"><i></i></span>`).join('');
+    const segs = $$('.seg', canvas);
+    return { section, update(p) {
+      segs.forEach((seg, i) => seg.style.setProperty('--f', Math.min(1, Math.max(0, (p - i / 3) * 3 / .85))));
+      cells.forEach((el, i) => el.classList.toggle('on', p >= i / 3));
+    } };
+  }
+
+  canvas.innerHTML = `<svg class="base" viewBox="0 0 1000 ${c.H}" preserveAspectRatio="none">${c.extras || ''}<path class="route" d="${c.d}"/></svg>
+    <svg class="lit" viewBox="0 0 1000 ${c.H}" preserveAspectRatio="none"><path d="${c.litD || c.d}" stroke="url(#hues)"/></svg>
+    ${S.map((s, i) => `<span class="mk" style="--h:${s.h}"><span>${s.n}</span></span>`).join('')}<span class="dot"></span>`;
+  const route = $('.route', canvas), dot = $('.dot', canvas), lit = $('.lit', canvas), markers = $$('.mk', canvas);
+  const length = route.getTotalLength();
+  const samples = Array.from({ length: 801 }, (_, i) => route.getPointAtLength(i / 800 * length));
+  // Snap each step onto the route where it first reaches the step's column centre.
+  const stops = NODE_X.map((x, i) => {
+    const at = samples.findIndex(pt => pt.x >= x - .5);
+    markers[i].style.left = `${samples[at].x / 10}%`;
+    markers[i].style.top = `${samples[at].y / c.H * 100}%`;
+    return at / 800;
+  });
+  let maxX = 0, last = 0;
+  return { section, update(p) {
+    const pt = samples[Math.round(p * 800)];
+    if (p < last) maxX = 0;
+    maxX = Math.max(maxX, pt.x);
+    canvas.style.setProperty('--k', reduced ? 1 : maxX / 1000);
+    lit.style.opacity = reduced ? 1 : Math.min(1, (1 - p) / .04);
+    dot.style.left = `${pt.x / 10}%`;
+    dot.style.top = `${pt.y / c.H * 100}%`;
+    dot.style.opacity = reduced ? 0 : Math.min(1, p / .03, (1 - p) / .03);
+    stops.forEach((stop, i) => {
+      const on = p >= stop - .002;
+      if (on && !markers[i].classList.contains('on') && !reduced) {
+        markers[i].classList.remove('ping'); void markers[i].offsetWidth; markers[i].classList.add('ping');
+      }
+      markers[i].classList.toggle('on', on);
+      cells[i].classList.toggle('on', on);
+    });
+    last = p;
+  } };
+});
+
+// One clock; each concept advances only while it is on screen.
+const visible = new Set();
+const io = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting ? visible.add(e.target) : visible.delete(e.target)), { threshold: .2 });
+const state = new Map(players.map(p => [p, 0]));
+players.forEach(p => { io.observe(p.section); p.update(reduced ? .9999 : 0); });
+const fixed = new URLSearchParams(location.search).get('p');   // ?p=0.5 freezes every concept (for screenshots)
+if (fixed !== null) players.forEach(p => p.update(+fixed));
+else if (!reduced) {
+  let prev;
+  const tick = now => {
+    const dt = prev === undefined ? 0 : Math.min(64, now - prev);
+    prev = now;
+    if (!document.hidden) players.forEach(p => {
+      if (!visible.has(p.section)) return;
+      const t = (state.get(p) + dt / LAP) % 1;
+      state.set(p, t);
+      p.update(t);
+    });
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+</script>
+</body>
+</html>
