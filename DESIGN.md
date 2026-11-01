@@ -96,6 +96,18 @@ interaction decisions remain unchanged.
 
 ## Overview
 
+The navbar stays pinned but fades out during active scrolling in either direction,
+fading in place over 180ms; scrolls under 6px leave it in place. After a 320ms
+settling delay it drops back in from above the screen, sliding down over 460ms
+while fading in over 240ms. While visible,
+it keeps its original open, borderless appearance on a solid background matching
+the section beneath the header's midpoint: the page canvas or the neutral Services,
+Approach, and Contact band. There is no floating-glass treatment. Hidden navigation
+does not accept clicks or keyboard focus; an open mobile menu or existing keyboard
+focus keeps the header visible. Header dimensions remain unchanged to avoid layout
+jumps; section anchor offsets follow its measured height. The mobile menu keeps
+its full-screen treatment, and reduced motion disables transitions.
+
 **Creative North Star: Independent and plain-spoken.**
 
 Dark, muted and minimal, with warmth carried by real people, orchid emphasis and
@@ -123,6 +135,11 @@ and earlier `.impeccable` review briefs.
   arrow, and the footer's social links centred at the bottom. The page behind
   stops scrolling and leaves the focus order. The language and theme controls
   appear in the header bar beside the menu button only while the menu is open.
+- Desktop section links mark the current section with accent monospace
+  `[ ]` brackets instead of an underline. On fine-pointer hover or keyboard
+  focus the brackets slide 6px inwards and fade in over 220–360ms while the
+  text turns to full foreground. The full-screen mobile menu keeps its arrows
+  and accent current row without brackets; reduced motion removes the slide.
 - Supporting hues (theme palette blue, orchid, green, amber) give each service
   and approach step its own soft colour: a tinted icon tile per service and a
   tinted row with a solid edge for the current step. Text stays neutral in light
