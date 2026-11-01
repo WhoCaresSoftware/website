@@ -29,14 +29,36 @@
 .is-passing > .timeline-marker::after { animation: marker-ping 1200ms ease-out; }
 @keyframes marker-ping { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(1.8); } }
 
-/* Each step's sketch is a still drawing, always shown. */
-.route-sketch { display: block; width: 110px; height: auto; margin: 0 auto 10px; overflow: visible; color: var(--text-secondary); }
+/* Each step's sketch is a still drawing, always shown, across the route from its copy and tied to the marker by a stem. */
+.timeline-art { position: relative; grid-row: 1; grid-column: 1; align-self: end; padding: 0 20px 20px; }
+.approach-timeline li:nth-child(2) .timeline-art { grid-row: 3; align-self: start; padding: 20px 20px 0; }
+.timeline-art::after { content: ""; position: absolute; top: 100%; left: 50%; height: 52px; border-left: 1px dashed var(--rule); }
+.approach-timeline li:nth-child(2) .timeline-art::after { top: auto; bottom: 100%; }
+.route-sketch { display: block; width: 200px; max-width: 100%; height: auto; margin: 0 auto; overflow: visible; color: var(--text-secondary); }
 .route-sketch .sketch-paper { fill: var(--wcs-section-background); }
 .route-sketch .sketch-accent { stroke: var(--hue); }
 .route-sketch .sketch-connector { stroke: var(--rule); }
 .route-sketch .sketch-note { transform-box: fill-box; transform-origin: center; }
 .route-sketch .sketch-note-a { transform: translate(-5px, 5px) rotate(-9deg); }
 .route-sketch .sketch-note-b { transform: translate(3px, -5px) rotate(8deg); }
+
+/* When the dot arrives, the stem grows out of the marker, the sketch lifts in piece by piece and its accents redraw. */
+.timeline-art::after { transform-origin: bottom; }
+.approach-timeline li:nth-child(2) .timeline-art::after { transform-origin: top; }
+.is-passing > .timeline-art::after { animation: stem-grow 450ms ease-out both; }
+.is-passing .route-sketch { animation: sketch-lift 700ms cubic-bezier(.34, 1.56, .64, 1) 150ms both; }
+.is-passing .route-sketch > * { animation: sketch-piece 500ms ease-out both; }
+.is-passing .route-sketch > :nth-child(1) { animation-delay: 250ms; }
+.is-passing .route-sketch > :nth-child(2) { animation-delay: 350ms; }
+.is-passing .route-sketch > :nth-child(3) { animation-delay: 450ms; }
+.is-passing .route-sketch > :nth-child(4) { animation-delay: 550ms; }
+.is-passing .route-sketch > :nth-child(5) { animation-delay: 650ms; }
+.route-sketch .sketch-accent { stroke-dasharray: 1; }
+.is-passing .route-sketch .sketch-accent { animation: sketch-draw 900ms ease-in-out 600ms both; }
+@keyframes stem-grow { from { transform: scaleY(0); } }
+@keyframes sketch-lift { from { transform: translateY(10px) scale(.92); } }
+@keyframes sketch-piece { from { opacity: 0; translate: 0 6px; } }
+@keyframes sketch-draw { from { stroke-dashoffset: 1; } }
 .approach-timeline.is-paused *, .approach-timeline.is-paused *::after { animation-play-state: paused; }
 
 @media (max-width: 800px) {
@@ -47,7 +69,10 @@
   .timeline-marker, .approach-timeline li:nth-child(2) .timeline-marker { grid-row: 1; grid-column: 1; align-self: start; }
   .timeline-copy, .approach-timeline li:nth-child(2) .timeline-copy { grid-row: 1; grid-column: 2; align-self: start; padding: 8px 0 0; }
   .timeline-copy > p:last-child { margin-inline: 0; }
-  .route-sketch { width: 132px; margin: 0 0 12px; }
+  .timeline-art, .approach-timeline li:nth-child(2) .timeline-art { grid-row: 1; grid-column: 2; padding: 8px 0 12px; }
+  .timeline-art::after { display: none; }
+  .timeline-copy, .approach-timeline li:nth-child(2) .timeline-copy { grid-row: 2; padding-top: 0; }
+  .route-sketch { width: 132px; margin: 0; }
   .approach-route { display: none; }
   .approach-timeline li:not(:last-child)::before,
   .approach-timeline li:not(:last-child)::after { content: ""; position: absolute; top: 48px; bottom: 0; left: 23.5px; width: 1px; background: var(--rule); }

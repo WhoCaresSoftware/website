@@ -25,7 +25,10 @@
      <g><circle class="sketch-paper" cx="95" cy="45" r="13"/><path d="m89 45 4 4 8-9"/></g>
      <g><circle class="sketch-paper" cx="265" cy="151" r="13"/><path d="M259 151h12m-6-6v12"/></g>`
   ];
-  items.forEach((item, index) => item.querySelector('.timeline-copy').insertAdjacentHTML('afterbegin', svg('route-sketch', sketches[index])));
+  // Each sketch fills the space across the route from its step's copy.
+  items.forEach((item, index) => item.querySelector('.timeline-marker').insertAdjacentHTML('afterend', `<div class="timeline-art" aria-hidden="true">${svg('route-sketch', sketches[index])}</div>`));
+  // Normalise accent lengths so CSS can redraw them when the dot arrives.
+  timeline.querySelectorAll('.sketch-accent').forEach(accent => accent.setAttribute('pathLength', 1));
 
   // The route as cubic segments in a 1000×100 box: dips to steps 1 and 3, rises to step 2.
   const segments = [
@@ -70,7 +73,7 @@
   let previousLap = 0;
   let frame;
 
-  // Replay the marker ping and sketch bounce as the dot passes a step.
+  // Replay the marker ping and sketch entrance as the dot passes a step.
   function pass(item) {
     item.classList.remove('is-passing');
     void item.offsetWidth;
