@@ -78,6 +78,7 @@
   --travel-enter: 24px;
   --travel-sheet: 64px;
   --skip-link-hidden: -160%;
+  --header-height: 108px;
 
   /* Shared state feedback, distinct from authored illustration timelines. */
   --duration-fast: 180ms;
@@ -118,7 +119,7 @@
   --logo-symbol-size-compact: 42px;
   --logo-symbol-size-narrow: 34px;
   --menu-top: 100px;
-  --nav-separator-size: 3px;
+  --nav-bracket-travel: 6px;
   --menu-line-shift: 5px;
 }
 .hero-graph {

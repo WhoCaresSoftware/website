@@ -89,11 +89,11 @@
       '.footer-nav a[href="#approach"]': 'Προσέγγιση',
       '.footer-nav a[href="#people"]': 'Ομάδα',
       '.footer-nav a[href="#contact"]': 'Επικοινωνία',
-      '.site-nav a[href="#problems"]': 'Υπηρεσίες',
-      '.site-nav a[href="#work"]': 'Έργα',
-      '.site-nav a[href="#approach"]': 'Προσέγγιση',
-      '.site-nav a[href="#people"]': 'Ομάδα',
-      '.site-nav a[href="#contact"]': 'Επικοινωνία'
+      '.site-nav a[href="#problems"]': '<span class="nav-label">Υπηρεσίες</span>',
+      '.site-nav a[href="#work"]': '<span class="nav-label">Έργα</span>',
+      '.site-nav a[href="#approach"]': '<span class="nav-label">Προσέγγιση</span>',
+      '.site-nav a[href="#people"]': '<span class="nav-label">Ομάδα</span>',
+      '.site-nav a[href="#contact"]': '<span class="nav-label">Επικοινωνία</span>'
     };
     const entries = Object.entries(greek).map(([selector, el]) => {
       const node = document.querySelector(selector);

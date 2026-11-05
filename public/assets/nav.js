@@ -7,9 +7,19 @@ import { media } from './media.js';
   const menu = document.querySelector('.header-menu');
   const links = [...menu.querySelectorAll('.site-nav a')];
   const sections = links.map(link => document.querySelector(link.hash));
+  const backgrounds = [...document.querySelectorAll('main > section, footer')];
   const update = () => {
+    // Measure where the header rests, not where its hide animation has moved it.
+    const top = header.offsetTop - scrollY;
+    const bounds = { top, bottom: top + header.offsetHeight, height: header.offsetHeight };
+    const backgroundLine = bounds.top + bounds.height / 2;
+    const backgroundSection = backgrounds.find(section => {
+      const sectionBounds = section.getBoundingClientRect();
+      return sectionBounds.top <= backgroundLine && sectionBounds.bottom > backgroundLine;
+    });
+    header.classList.toggle('over-band', Boolean(backgroundSection?.matches('.services, .approach, .contact')));
     // The current section is the last one whose top has passed the header.
-    const line = header.getBoundingClientRect().bottom + parseFloat(getComputedStyle(sections[0]).scrollMarginTop);
+    const line = bounds.top + parseFloat(getComputedStyle(sections[0]).scrollMarginTop);
     let current = -1;
     sections.forEach((section, index) => { if (section.getBoundingClientRect().top <= line) current = index; });
     if (Math.ceil(innerHeight + scrollY) >= document.documentElement.scrollHeight) current = sections.length - 1;
@@ -22,8 +32,37 @@ import { media } from './media.js';
   const schedule = () => {
     if (!scheduled) { scheduled = true; requestAnimationFrame(() => { scheduled = false; update(); }); }
   };
-  addEventListener('scroll', schedule, { passive: true });
+  let scrollTimeout;
+  let scrollStart = null;
+  const stopScrolling = () => {
+    clearTimeout(scrollTimeout);
+    scrollStart = null;
+    update();
+    header.classList.remove('is-scrolling');
+  };
+  const scheduleScrollEnd = () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(stopScrolling, 320);
+  };
+  // Small nudges, such as a resting finger on a trackpad, leave the header in place.
+  addEventListener('scroll', () => {
+    if (!header.classList.contains('is-scrolling')) scrollStart ??= scrollY;
+    if (scrollY <= 0) header.classList.remove('is-scrolling');
+    else if (Math.abs(scrollY - scrollStart) > 6) header.classList.add('is-scrolling');
+    scheduleScrollEnd();
+    schedule();
+  }, { passive: true });
+  addEventListener('scrollend', scheduleScrollEnd);
   addEventListener('resize', schedule);
+  const measureHeader = () => {
+    document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+    if (header.classList.contains('menu-open')) {
+      header.style.setProperty('--menu-top', `${header.getBoundingClientRect().bottom}px`);
+    }
+    schedule();
+  };
+  new ResizeObserver(measureHeader).observe(header);
+  measureHeader();
   update();
 
   // Narrow screens fold the links behind a menu button; language and theme move
@@ -50,16 +89,13 @@ import { media } from './media.js';
     else menu.append(preferences);
   };
   // The open menu fills the screen beneath the header bar, so the page behind it
-  // stops scrolling and leaves the focus order. A partly scrolled-away header
-  // shifts down to the top of the screen while the menu is open.
+  // stops scrolling and leaves the focus order.
   const behind = [...document.querySelectorAll('main, footer')];
   const isOpen = () => menu.classList.contains('is-open');
   const setOpen = open => {
-    const { top, height } = header.getBoundingClientRect();
     if (open) {
-      header.style.top = top < 0 ? `${-top}px` : '';
-      header.style.setProperty('--menu-top', `${top < 0 ? height : top + height}px`);
-    } else header.style.top = '';
+      header.style.setProperty('--menu-top', `${header.getBoundingClientRect().bottom}px`);
+    }
     toggle.setAttribute('aria-expanded', String(open));
     menu.classList.toggle('is-open', open);
     header.classList.toggle('menu-open', open);

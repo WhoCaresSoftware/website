@@ -38,9 +38,19 @@ offer → services → work → approach → founders → contact.
 - Header uses the WC symbol and wordmark, section navigation and language/theme
   controls. Narrow layouts use a full-screen menu; its background is inert and
   scroll-locked while open.
+- The sticky header fades out in place during scrolling, then slides back down
+  after a 320ms settling delay. Scrolls under 6px leave it visible; keyboard
+  focus and an open menu keep it visible. Its opaque, full-width background
+  matches the section beneath its midpoint. Measured header height sets anchor
+  clearance without layout jumps; reduced motion disables transitions.
+- Desktop navigation uses accent `[ ]` brackets for the current section, hover
+  and keyboard focus, with no separator dots or underline. Brackets slide inward
+  and fade in; the mobile menu retains arrows and an accent current row instead.
 - Hero pairs the value proposition and contact action with a graph that resolves
   into the exact supplied WC symbol. The reveal runs once; reduced motion and
   no JavaScript show the completed symbol. The action remains usable throughout.
+  The wordmark loading highlight follows the running reveal and clears whenever
+  it pauses, so offscreen progress cannot leave a static accent in the header.
 - Services and approach use theme-supplied supporting hues and conceptual line
   illustrations. Neutral section bands establish rhythm without generic card shells.
 - Work supports folder and grid views. Project dialogs retain factual copy,
