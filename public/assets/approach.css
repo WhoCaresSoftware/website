@@ -8,12 +8,11 @@
 .timeline-marker { position: relative; z-index: 1; display: grid; grid-row: 2; grid-column: 1; align-self: end; justify-self: center; place-items: center; width: var(--flow-marker-size); height: var(--flow-marker-size); border: var(--stroke-thin) solid var(--wcs-border); border-radius: 50%; background: var(--wcs-section-background); color: var(--wcs-foreground-muted); font-size: var(--label); font-variant-numeric: tabular-nums; transition: border-color var(--duration-state) ease, color var(--duration-state) ease; }
 .approach-timeline li:nth-child(2) .timeline-marker { align-self: start; }
 .is-reached > .timeline-marker { border-color: var(--hue); color: var(--hue-ink); }
-.timeline-copy { grid-row: 3; grid-column: 1; padding: var(--space-s) var(--space-s-plus) 0; transition: opacity 400ms ease; }
+.timeline-copy { grid-row: 3; grid-column: 1; padding: var(--space-s) var(--space-s-plus) 0; }
 .approach-timeline li:nth-child(2) .timeline-copy { grid-row: 1; align-self: end; padding: 0 var(--space-s-plus) var(--space-s); }
 .timeline-copy > p:last-child { max-width: var(--flow-copy-measure); margin-inline: auto; }
 .timeline-caption { margin-bottom: var(--space-2xs); font-size: var(--label); }
 .approach-timeline h3 { margin-bottom: var(--flow-title-gap); }
-.is-animated li:not(.is-reached) .timeline-copy { opacity: .35; }
 
 /* The winding route lives in the middle step and spans all three columns. */
 .approach-route { position: relative; grid-row: 2; grid-column: 1; pointer-events: none; }
@@ -67,11 +66,10 @@
   .approach-timeline li { position: relative; grid-row: auto; grid-template-columns: var(--flow-marker-size) minmax(0, 1fr); grid-template-rows: none; column-gap: var(--space-m); padding-bottom: var(--space-l-plus); text-align: left; }
   .approach-timeline li:last-child { padding-bottom: 0; }
   .timeline-marker, .approach-timeline li:nth-child(2) .timeline-marker { grid-row: 1; grid-column: 1; align-self: start; }
-  .timeline-copy, .approach-timeline li:nth-child(2) .timeline-copy { grid-row: 1; grid-column: 2; align-self: start; padding: var(--space-2xs) 0 0; }
+  .timeline-copy, .approach-timeline li:nth-child(2) .timeline-copy { grid-row: 2; grid-column: 2; align-self: start; padding: 0; }
   .timeline-copy > p:last-child { margin-inline: 0; }
   .timeline-art, .approach-timeline li:nth-child(2) .timeline-art { grid-row: 1; grid-column: 2; padding: var(--space-2xs) 0 var(--space-xs); }
   .timeline-art::after { display: none; }
-  .timeline-copy, .approach-timeline li:nth-child(2) .timeline-copy { grid-row: 2; padding-top: 0; }
   .route-sketch { width: var(--flow-sketch-width-compact); margin: 0; }
   .approach-route { display: none; }
   .approach-timeline li:not(:last-child)::before,
@@ -82,6 +80,6 @@
   .approach-timeline li { column-gap: calc(var(--space-s) + var(--space-3xs) / 2); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .timeline-marker, .timeline-copy, .route-dot { transition: none; }
+  .timeline-marker { transition: none; }
   .approach-timeline *, .approach-timeline *::after { animation: none !important; }
 }

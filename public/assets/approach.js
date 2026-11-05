@@ -42,7 +42,7 @@
     const s = 1 - t;
     return s * s * s * p0[axis] + 3 * s * s * t * p1[axis] + 3 * s * t * t * p2[axis] + t * t * t * p3[axis];
   });
-  // Sample by arc length so the dot travels at an even speed.
+  // Sample by arc length in the SVG viewBox for approximately even travel.
   const samples = [{ length: 0, point: segments[0][0] }];
   const stepLengths = [];
   segments.forEach(segment => {
@@ -113,7 +113,6 @@
     cancelAnimationFrame(frame);
     previousTime = undefined;
     const running = visible && !document.hidden && !reduced.matches;
-    timeline.classList.toggle('is-animated', !reduced.matches);
     timeline.classList.toggle('is-paused', !running);
     if (reduced.matches) {
       show(1);
