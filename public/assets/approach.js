@@ -61,7 +61,7 @@
   route.setAttribute('aria-hidden', 'true');
   route.innerHTML = `<div class="route-canvas">
     <svg class="route-base" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="${d}"/></svg>
-    <svg class="route-lit" viewBox="0 0 1000 100" preserveAspectRatio="none"><defs><linearGradient id="approach-route-gradient" x1="0" x2="1"><stop offset="0" style="stop-color:var(--hue-plan)"/><stop offset=".5" style="stop-color:var(--hue-build)"/><stop offset="1" style="stop-color:var(--hue-run)"/></linearGradient></defs><path d="${d}" stroke="url(#approach-route-gradient)"/></svg>
+    <svg class="route-lit" viewBox="0 0 1000 100" preserveAspectRatio="none"><defs><linearGradient id="approach-route-gradient" x1="0" x2="1"><stop offset="0" style="stop-color:var(--wcs-plan)"/><stop offset=".5" style="stop-color:var(--wcs-build)"/><stop offset="1" style="stop-color:var(--wcs-run)"/></linearGradient></defs><path d="${d}" stroke="url(#approach-route-gradient)"/></svg>
     <span class="route-dot"></span></div>`;
   items[1].append(route);
   const dot = route.querySelector('.route-dot');
@@ -97,6 +97,7 @@
 
   // Every lap replays the whole route from the beginning.
   function advance(time) {
+    if (reduced.matches) { schedule(); return; }
     if (previousTime !== undefined) elapsed += Math.min(time - previousTime, 100);
     previousTime = time;
     const lap = (elapsed % duration) / duration;
@@ -124,7 +125,7 @@
   show(reduced.matches ? 1 : 0);
   schedule();
   new IntersectionObserver(entries => {
-    visible = entries[0].isIntersecting;
+    visible = entries[0].isIntersecting && entries[0].intersectionRatio >= .2;
     schedule();
   }, { threshold: 0.2 }).observe(section);
   document.addEventListener('visibilitychange', schedule);

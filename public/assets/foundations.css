@@ -139,13 +139,17 @@
 .back-top-slot { --back-top-width: 156px; }
 .service-list { --service-sketch-width: 112px; --service-sketch-compact: 72px; }
 .cloud-update { --service-update-origin: 154px 74px; }
-.approach-sketch {
-  --sketch-width: 360px;
-  --sketch-height-compact: 100px;
+.approach {
+  --flow-marker-size: var(--space-xl);
+  --flow-route-height: 100px;
+  --flow-sketch-width: 200px;
+  --flow-sketch-width-compact: 132px;
+  --flow-copy-measure: 34ch;
+  --flow-title-gap: 10px;
+  --flow-sketch-lift: 10px;
+  --flow-piece-lift: 6px;
   --sketch-note-a-transform: translate(-5px, 5px) rotate(-9deg);
   --sketch-note-b-transform: translate(3px, -5px) rotate(8deg);
-  --sketch-note-c-transform: translate(8px, 4px) rotate(5deg);
-  --sketch-part-shift: 12px;
 }
 .founder-section { --profile-label-width: 150px; }
 .composer {
