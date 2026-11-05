@@ -43,24 +43,22 @@ people, delivery process and ownership alongside concrete evidence.
 Who Cares Software. Slogan: “Who cares? We do.” Independent and opinionated,
 with warmth; plain language and practical value rather than internal-tool pitches.
 Use the approved lowercase whocares wordmark or standalone WC symbol, with no
-software descriptor in the logo. Preserve the approved dark, muted, minimal
-identity and orchid accent. Logo lettering does not dictate body/UI typography.
+software descriptor in the logo. Preserve the approved Deep Teal identity in
+light and dark modes. Logo lettering does not dictate body/UI typography.
 Canonical identity decisions and assets live in the sibling brand repository;
-theme tokens live in the brand repository's `theme/tokens/` directory.
+theme values and mappings live in the brand repository's `theme/theme.json`. Deep Teal
+is the single canonical theme; every interface color comes from its supplied
+variables or generated assets. Website owns spacing, typography and sizing.
 
 ## Evidence on Hand
 
-- Approved logo kit: ../../brand/brand_main/dist/.
-- Studio profile: ../../brand/brand_main/docs/PROFILE.md.
-- Identity decisions: ../../brand/brand_main/docs/DECISIONS.md.
-- Research and recommended website structure: ../../website-research.md.
+- Approved logo kit: ../../brand/brand_main/dist/identity/.
 - Current user-supplied branded founder portrait PNGs are available in
-  ../../brand/brand_main/assets/portraits/website/; provenance and dimensions
-  are recorded in the brand repository's assets/README.md.
+  ../../brand/brand_main/assets/portraits/website/.
   Website assets are quality-90 WebP derivatives, displayed XRS first, then Mike.
   Earlier 400 × 400 originals remain preserved in assets/portraits/originals/
   in the brand repository.
-- Project evidence: ../../project-evidence.md. The founder permits naming Hex
+- The founder permits naming Hex
   Mythica and Aigistos publicly. Hex Mythica was end-to-end game development
   through WhoCaresGames; retain that attribution. Aigistos uses the custom worksite
   ERP, with qualitative reports of improved efficiency, analytics and visibility.
@@ -86,8 +84,9 @@ dark preference and light otherwise. Manual choices are stored locally; denied
 storage still permits session choices. A segmented EN / ΕΛ radio control exposes
 the selected language directly; there is no manual reset action. Without JavaScript, the English page
 and native contact/navigation links remain usable with the system palette.
-Theme owns the website's light and dark color mappings as a generated adapter;
-brand owns the rationale and identity assets. Website consumes those outputs.
+The single brand package supplies the website's light/dark color variables,
+resolved metadata and identity assets. Website owns no color values or mappings;
+all styling uses the theme's supplied semantic variables directly.
 
 ## Product Principles
 

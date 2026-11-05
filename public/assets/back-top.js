@@ -1,4 +1,7 @@
 /* One link follows the mobile viewport, then returns to its footer position. */
+import { media } from './media.js';
+import { dragOptions, dragEdge, dismissDistance, dismissSwipe } from './gestures.js';
+
 (() => {
   const link = document.querySelector('.back-top');
   const slot = document.createElement('div');
@@ -6,7 +9,7 @@
   link.before(slot);
   slot.append(link);
   link.draggable = false;
-  const mobile = matchMedia('(max-width: 800px)');
+  const mobile = matchMedia(media.stacked);
   let dismissed = false;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   let interrupt = () => {};
@@ -14,7 +17,9 @@
   const update = () => {
     scheduled = false;
     // Use the reserved footer height, not the link's animated wrapping height.
-    const floating = mobile.matches && slot.getBoundingClientRect().top + 44 > innerHeight - 20;
+    const reservedHeight = parseFloat(getComputedStyle(slot).minHeight);
+    const inset = parseFloat(getComputedStyle(link).bottom);
+    const floating = mobile.matches && slot.getBoundingClientRect().top + reservedHeight > innerHeight - inset;
     if (!floating) interrupt();
     link.classList.toggle('is-floating', floating);
     link.classList.toggle('is-dismissed', floating && dismissed);
@@ -56,14 +61,14 @@
       const index = axis === 'y' ? 1 : 0;
       const distance = movement[index];
       if (active) {
-        const travel = distance > 0 ? distance : Math.max(-12, distance * .2);
+        const travel = distance > 0 ? distance : Math.max(-dragEdge, distance * .2);
         link.style.transform = reduced.matches ? 'none' : `translate${index ? 'Y' : 'X'}(${travel}px)`;
       }
       if (last) {
-        if (distance >= 28 || swipe[index] > 0) {
+        if (distance >= dismissDistance || swipe[index] > 0) {
           const from = getComputedStyle(link).transform;
           const bounds = link.getBoundingClientRect();
-          const exit = Math.max(0, distance) + (index ? innerHeight - bounds.top : innerWidth - bounds.left) + 12;
+          const exit = Math.max(0, distance) + (index ? innerHeight - bounds.top : innerWidth - bounds.left) + dragEdge;
           reset(false);
           if (reduced.matches) { dismissed = true; update(); }
           else {
@@ -77,9 +82,7 @@
         } else reset();
       }
     }, {
-      axis: 'lock', threshold: 6, axisThreshold: { mouse: 4, touch: 6, pen: 6 },
-      filterTaps: true, tapsThreshold: 6, pointer: { capture: false, keys: false },
-      swipe: { distance: 14, velocity: .25, duration: 350 }
+      ...dragOptions, axis: 'lock', swipe: dismissSwipe
     });
   }).catch(() => { /* The native back-to-top link remains usable. */ });
   update();

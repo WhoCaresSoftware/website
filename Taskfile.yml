@@ -1,0 +1,17 @@
+version: '3'
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+
+  dev:
+    desc: Start the local development server
+    cmds:
+      - npm run dev
+
+  lint:
+    desc: Run the website lints
+    cmds:
+      - npm run lint

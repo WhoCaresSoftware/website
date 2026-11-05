@@ -108,7 +108,7 @@
     dialog.showModal();
     dialog.scrollTop = 0;
     document.documentElement.classList.add('founder-reading');
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) dialog.animate([{opacity: .5, transform: 'translateY(16px)'}, {opacity: 1, transform: 'none'}], {duration: 280, easing: 'cubic-bezier(.16,1,.3,1)'});
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) dialog.animate([{opacity: .5, transform: 'translateY(var(--travel-medium))'}, {opacity: 1, transform: 'none'}], {duration: 280, easing: 'cubic-bezier(.16,1,.3,1)'});
   };
   document.querySelectorAll('.founder-portrait[data-founder]').forEach(portrait => {
     const key = portrait.dataset.founder;

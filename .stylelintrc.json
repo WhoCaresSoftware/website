@@ -1,11 +1,14 @@
 {
-  "overrides": [{
-    "files": ["public/assets/theme.css"],
-    "rules": { "color-no-hex": null }
-  }],
   "rules": {
+    "unit-disallowed-list": ["px", "rem", "em", "ex", "cap", "ch", "ic", "lh", "rlh", "vw", "vh", "vi", "vb", "vmin", "vmax", "svw", "svh", "lvw", "lvh", "dvw", "dvh", "cqw", "cqh", "cqi", "cqb", "cqmin", "cqmax", "cm", "mm", "in", "pt", "pc"],
     "color-no-hex": true,
     "color-named": "never",
     "function-disallowed-list": ["rgb", "rgba", "hsl", "hsla", "hwb", "lab", "lch", "oklab", "oklch", "color", "color-mix", "light-dark"]
-  }
+  },
+  "overrides": [{
+    "files": ["public/assets/foundations.css"],
+    "rules": {
+      "unit-disallowed-list": null
+    }
+  }]
 }

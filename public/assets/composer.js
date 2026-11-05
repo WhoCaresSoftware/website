@@ -79,7 +79,7 @@
   function closeDraft() {
     if (closing) return;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { dialog.close(); return; }
-    const animation = dialog.animate([{transform:'translateY(0)',opacity:1},{transform:'translateY(24px)',opacity:0}], {duration:180,easing:'cubic-bezier(.4,0,1,1)'});
+    const animation = dialog.animate([{transform:'translateY(0)',opacity:1},{transform:'translateY(var(--travel-enter))',opacity:0}], {duration:180,easing:'cubic-bezier(.4,0,1,1)'});
     closing = animation;
     animation.finished.then(() => { if (closing === animation) { closing = null; dialog.close(); } }).catch(() => {});
   }

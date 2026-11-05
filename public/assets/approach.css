@@ -1,50 +1,54 @@
 .approach-intro { min-width: 0; }
-.approach-sketch { max-width: 360px; margin-top: 28px; color: var(--text-secondary); }
+.approach-sketch { max-width: var(--sketch-width); margin-top: var(--space-m-plus); color: var(--wcs-foreground-muted); }
 .approach-sketch svg { display: block; width: 100%; height: auto; overflow: visible; }
-.sketch-caption { margin-top: 4px; font-size: var(--label); }
+.sketch-caption { margin-top: var(--space-3xs); font-size: var(--label); }
 .sketch-paper { fill: var(--wcs-background); }
 .sketch-accent { stroke: var(--wcs-accent); }
-.sketch-connector { stroke: var(--rule); }
-.sketch-scene { opacity: 0; visibility: hidden; transition: opacity 180ms ease, visibility 180ms; }
+.sketch-connector { stroke: var(--wcs-border); }
+.sketch-scene { opacity: 0; visibility: hidden; transition: opacity var(--duration-fast) ease, visibility var(--duration-fast); }
 [data-approach-step="0"] [data-scene="0"],
 [data-approach-step="1"] [data-scene="1"],
 [data-approach-step="2"] [data-scene="2"] { opacity: 1; visibility: visible; }
 .sketch-note, .sketch-part { transition: transform 360ms cubic-bezier(.16,1,.3,1); transform-box: fill-box; transform-origin: center; }
-.sketch-note-a { transform: translate(-5px, 5px) rotate(-9deg); }
-.sketch-note-b { transform: translate(3px, -5px) rotate(8deg); }
-.sketch-note-c { transform: translate(8px, 4px) rotate(5deg); }
+.sketch-note-a { transform: var(--sketch-note-a-transform); }
+.sketch-note-b { transform: var(--sketch-note-b-transform); }
+.sketch-note-c { transform: var(--sketch-note-c-transform); }
 [data-approach-step="0"] .sketch-note-c { transform: none; }
-.sketch-part-a { transform: translateX(-12px); }
-.sketch-part-c { transform: translateX(12px); }
+.sketch-part-a { transform: translateX(calc(-1 * var(--sketch-part-shift))); }
+.sketch-part-c { transform: translateX(var(--sketch-part-shift)); }
 [data-approach-step="1"] .sketch-part { transform: none; }
 .sketch-frame, .sketch-connection, .sketch-loop { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 460ms cubic-bezier(.16,1,.3,1); }
 [data-approach-step="0"] .sketch-frame,
 [data-approach-step="1"] .sketch-connection,
 [data-approach-step="2"] .sketch-loop { stroke-dashoffset: 0; }
-.approach-interactive .steps { padding-left: 44px; }
-.steps li:nth-child(1) { --hue: var(--hue-plan); }
-.steps li:nth-child(2) { --hue: var(--hue-build); }
-.steps li:nth-child(3) { --hue: var(--hue-run); }
-.approach-interactive .steps li { position: relative; isolation: isolate; padding: 16px 20px 16px 12px; }
-.approach-interactive .steps li::before { content: ""; position: absolute; inset: 0 0 0 -44px; z-index: -1; border-radius: 4px; background: var(--hue); opacity: 0; transition: opacity 240ms ease; }
-.approach-interactive .steps li::after { content: ""; position: absolute; inset: 0 auto 0 -44px; width: 3px; border-radius: 4px 0 0 4px; background: var(--hue); opacity: 0; transition: opacity 240ms ease; }
-.approach-interactive .steps li h3, .approach-interactive .steps li p { transition: color 240ms ease; }
-.approach-interactive .steps li.is-current::before { opacity: var(--hue-tint); }
-.approach-interactive .steps li.is-current::after { opacity: 1; }
-.approach-interactive .steps li.is-current h3 { color: var(--hue-ink); }
+.approach-interactive .steps { --marker-gutter: calc(var(--space-l) + var(--space-xs)); padding-left: var(--marker-gutter); }
+.steps li:nth-child(1)::before { background: var(--wcs-plan-tint); }
+.steps li:nth-child(2)::before { background: var(--wcs-build-tint); }
+.steps li:nth-child(3)::before { background: var(--wcs-run-tint); }
+.steps li:nth-child(1)::after { background: var(--wcs-plan); }
+.steps li:nth-child(2)::after { background: var(--wcs-build); }
+.steps li:nth-child(3)::after { background: var(--wcs-run); }
+.steps li:nth-child(1).is-current h3, .steps li:nth-child(1).is-current::marker { color: var(--wcs-plan-foreground); }
+.steps li:nth-child(2).is-current h3, .steps li:nth-child(2).is-current::marker { color: var(--wcs-build-foreground); }
+.steps li:nth-child(3).is-current h3, .steps li:nth-child(3).is-current::marker { color: var(--wcs-run-foreground); }
+.approach-interactive .steps li { position: relative; isolation: isolate; padding: var(--space-s) var(--space-s-plus) var(--space-s) var(--space-xs); }
+.approach-interactive .steps li::before { content: ""; position: absolute; inset: 0 0 0 calc(-1 * var(--marker-gutter)); z-index: -1; border-radius: var(--radius-small); opacity: 0; transition: opacity var(--duration-state) ease; }
+.approach-interactive .steps li::after { content: ""; position: absolute; inset: 0 auto 0 calc(-1 * var(--marker-gutter)); width: var(--stroke-accent); border-radius: var(--radius-small) 0 0 var(--radius-small); opacity: 0; transition: opacity var(--duration-state) ease; }
+.approach-interactive .steps li h3, .approach-interactive .steps li p { transition: color var(--duration-state) ease; }
+.approach-interactive .steps li.is-current::before, .approach-interactive .steps li.is-current::after { opacity: 1; }
 .approach-interactive .steps li.is-current p { color: var(--wcs-foreground); }
-.approach-interactive .steps li + li { margin-top: 12px; }
+.approach-interactive .steps li + li { margin-top: var(--space-xs); }
 .approach-interactive .steps li::marker { font-variant-numeric: tabular-nums; }
-.approach-interactive .steps li.is-current::marker { color: var(--hue-ink); font-weight: 600; }
-@media (max-width: 800px) {
+.approach-interactive .steps li.is-current::marker { font-weight: var(--weight-semibold); }
+@media (--stacked) {
   .approach-intro { display: contents; }
-  .approach-sketch { position: sticky; top: 0; z-index: 2; max-width: none; margin-top: 0; padding-block: 12px; isolation: isolate; background: var(--page-background); border-bottom: 1px solid var(--rule); }
-  .approach-sketch::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--band); opacity: var(--band-tint); }
-  .approach-sketch svg { width: auto; height: 100px; margin-inline: auto; }
+  .approach-sketch { position: sticky; top: 0; z-index: 2; max-width: none; margin-top: 0; padding-block: var(--space-xs); isolation: isolate; background: var(--wcs-page-background); border-bottom: var(--stroke-thin) solid var(--wcs-border); }
+  .approach-sketch::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--wcs-section-background); }
+  .approach-sketch svg { width: auto; height: var(--sketch-height-compact); margin-inline: auto; }
   .sketch-caption { margin-top: 0; }
-  .approach-interactive { gap: 20px; }
+  .approach-interactive { gap: var(--space-s-plus); }
 }
-@media (max-width: 800px) and (max-height: 500px) {
+@media (--short-stacked) {
   .approach-sketch { position: static; isolation: auto; background: none; }
   .approach-sketch::before { content: none; }
 }

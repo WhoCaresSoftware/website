@@ -3,32 +3,33 @@ import handlebars from 'vite-plugin-handlebars';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { relative, resolve } from 'node:path';
+import { media } from './public/assets/media.js';
 
 const asset = name => fileURLToPath(import.meta.resolve(`@whocaressoftware/brand/${name}`));
-const websiteAsset = name => ({
-  'whocares-symbol-ink.svg': 'website-symbol-light.svg',
-  'whocares-symbol-orchid.svg': 'website-symbol-dark.svg',
-  'whocares-wordmark-ink.svg': 'website-wordmark-light.svg',
-  'whocares-wordmark-paper.svg': 'website-wordmark-dark.svg'
-}[name] || name);
-const symbol = readFileSync(asset('website-symbol-light.svg'), 'utf8')
-  .replace('role="img" aria-label="whocares symbol"', 'aria-hidden="true"')
-  .replace(/fill="#[A-Fa-f0-9]+"/g, 'fill="currentColor"');
+const symbol = readFileSync(asset('whocares-symbol.svg'), 'utf8')
+  .replace('role="img" aria-label="whocares symbol"', 'aria-hidden="true"');
 
 export default defineConfig(({ command }) => ({
   root: 'public',
   publicDir: '../static',
-  resolve: {
-    alias: {
-      '/theme-assets': fileURLToPath(import.meta.resolve('@whocaressoftware/theme/css')).replace(/\/whocares\.css$/, '')
-    }
-  },
+  // CSS variables cannot be used in media conditions. Expand named conditions
+  // from the same table used by JavaScript, in development and production.
+  css: { postcss: { plugins: [{
+    postcssPlugin: 'website-media',
+    AtRule: { media(rule) {
+      rule.params = rule.params.replace(/\(--([a-z-]+)\)/g, (_, name) => {
+        if (!Object.hasOwn(media, name)) throw rule.error(`Unknown website media condition: ${name}`);
+        return media[name];
+      });
+    } }
+  }] } },
   plugins: [handlebars({
     helpers: { brandSymbol: (className, size) => symbol.replace('<svg ', `<svg class="${className}" width="${size}" height="${size}" `),
       brandAsset: name => command === 'serve'
-      ? `/@fs/${asset(websiteAsset(name))}`
-      : relative(resolve('public'), asset(websiteAsset(name))) },
+      ? `/@fs/${asset(name)}`
+      : relative(resolve('public'), asset(name)) },
     context: {
+      theme: JSON.parse(readFileSync(asset('theme.json'), 'utf8')),
       symbolParts: readFileSync(asset('symbol-parts.html'), 'utf8')
     }
   })],

@@ -10,11 +10,12 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "lint": "stylelint 'public/assets/*.css'"
+    "lint": "stylelint 'public/assets/*.css'",
+    "check:brand": "node --test scripts/check-brand.mjs",
+    "check": "npm run lint && npm run build && npm run check:brand"
   },
   "dependencies": {
-    "@whocaressoftware/brand": "file:packages/whocaressoftware-brand-0.4.0.tgz",
-    "@whocaressoftware/theme": "file:packages/whocaressoftware-theme-0.4.0.tgz"
+    "@whocaressoftware/brand": "0.7.0"
   },
   "devDependencies": {
     "stylelint": "17.16.0",
