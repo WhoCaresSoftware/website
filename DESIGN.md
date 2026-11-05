@@ -53,8 +53,11 @@ offer → services → work → approach → founders → contact.
   it pauses, so offscreen progress cannot leave a static accent in the header.
 - Services and approach use theme-supplied supporting hues and conceptual line
   illustrations. Neutral section bands establish rhythm without generic card shells.
-- Work supports folder and grid views. Project dialogs retain factual copy,
-  attribution and localized captions. Schematics are conceptual, not client outputs.
+- Work uses the editorial collage covers in the desktop grid, mobile folder and
+  project dialogs. Teal overprints, warm monochrome photography and amber routes
+  unite the set; Coding Agents and AI Employees have distinct covers. No study
+  controls or temporary captions ship. Project dialogs retain factual copy and
+  the Hex Mythica gallery's original artwork, attribution and localized captions.
   Folder dragging must preserve native vertical scrolling and pinch zoom.
 - Founder portraits remain XRS first, then Mike. Preserve supplied artwork and
   alpha transparency; decode lazy-loaded portraits before review screenshots.

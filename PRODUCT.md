@@ -69,8 +69,10 @@ variables or generated assets. Website owns spacing, typography and sizing.
 
 ## Visitor preferences
 
-Selected work also includes Private LLM Gateway, Brand Image Pipelines, and AI
-Workflows & Agents. The founder confirms these were built for clients and are used
+Selected work also includes Private LLM Gateway, Brand Image Pipelines, Coding
+Agents, and AI Employees. Coding Agents covers software development; AI Employees
+covers the existing AI-assisted legal and accounting workflows, not a claim of
+autonomous staff. The founder confirms these were built for clients and are used
 internally in production. Describe private models whose inputs are excluded from
 training, brand-asset-aware image workflows, engineering agents across the SDLC,
 and AI-assisted legal/accounting workflows. Client identities remain confidential.
