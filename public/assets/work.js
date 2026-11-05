@@ -1,5 +1,7 @@
 /* Progressive enhancement: the original project articles remain the content source. */
 import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './gestures.js';
+import { media } from './media.js';
+import { projectArtwork } from './work-art.js';
 (() => {
   'use strict';
   if (!window.HTMLDialogElement || !HTMLDialogElement.prototype.showModal) return;
@@ -38,103 +40,14 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
   position.setAttribute('aria-atomic', 'true');
   navigation.append(position);
   folder.append(navigation);
-  const drawingCaptions = {
-    en: ['Worksites. One shared system.', 'A world built to play.', 'Applications. Gateway. Private models.', 'Brand references into imagery.', 'Tasks, tools and human review.', 'Demo placeholder.', 'Demo placeholder.'],
-    el: ['Εργοτάξια σε ένα κοινό σύστημα.', 'Ένας κόσμος για παιχνίδι.', 'Εφαρμογές, πύλη, ιδιωτικά μοντέλα.', 'Από το υλικό της μάρκας σε εικόνες.', 'Εργασίες, εργαλεία και ανθρώπινος έλεγχος.', 'Δοκιμαστικό έργο.', 'Δοκιμαστικό έργο.']
-  };
-  // Concept sketches communicate the work, without claiming implementation detail.
-  const projectSketches = [null,
-    `<image href="assets/images/hex-mythica-environment.webp" x="62" y="10" width="276" height="157" preserveAspectRatio="xMidYMid meet"/>
-     <path class="drawing-connections" d="M54 28V2h26m240 0h26v26M54 150v26h26m240 0h26v-26"/>`,
-    `<g class="drawing-paper"><rect x="24" y="24" width="64" height="48" rx="2"/><rect x="24" y="108" width="64" height="48" rx="2"/><path d="M24 38h64m-54-7h3m-3 19h23m-23 10h40M24 122h64m-54-7h3m-3 19h23m-23 10h40"/></g>
-     <g class="drawing-connections"><path d="M88 48h35v42h37m-72 42h35V90m117 0h38V48h34m-34 42v42h34"/><circle cx="123" cy="90" r="3"/><circle cx="278" cy="90" r="3"/></g>
-     <path class="drawing-paper" d="M160 42h80v96h-80z"/><path d="M171 53h58m-58 74h58"/>
-     <g class="drawing-connections"><path d="m200 65 19 8v18c0 13-19 24-19 24s-19-11-19-24V73Z"/><path d="m191 89 6 6 12-14"/></g>
-     <g class="drawing-paper"><path d="m312 33 26-13 36 18v30l-26 13-36-18Zm0 84 26-13 36 18v30l-26 13-36-18Z"/><path d="m312 33 36 18 26-13m-26 13v30m-36 36 36 18 26-13m-26 13v30"/></g>`,
-    `<g class="drawing-paper"><rect x="22" y="30" width="108" height="120" rx="2"/></g>
-     <path class="drawing-guides" d="M22 101h108M80 30v71"/>
-     <g class="drawing-connections"><path d="M38 79V63a13 13 0 0 1 26 0v16H51V65"/>
-        <path class="drawing-swatch" d="M92 48h24v12H92z"/><path class="drawing-swatch-muted" d="M92 70h24v12H92z"/></g>
-     <path d="M36 116h72m-72 9h52m-52 9h34"/>
-     <g class="drawing-connections"><path d="M130 90h34m0 0V58h38m-38 32v70h166v-10m-134-97 6 5-6 5m123 91 5-6 5 6"/><circle cx="164" cy="90" r="3"/></g>
-     <rect class="drawing-paper" x="202" y="20" width="70" height="112" rx="2"/>
-      <path class="drawing-connections-muted" d="M211 86V54a25 25 0 0 1 50 0v32"/>
-     <path class="drawing-guides" d="M210 101h54"/>
-     <g class="drawing-paper"><path d="M230 52h14v10l5 7v27h-24V69l5-7Z"/></g>
-     <path d="M230 58h14m-19 15h24m-24 16h24"/>
-     <path class="drawing-connections" d="M234 85v-5a3 3 0 0 1 6 0v5h-3v-4"/>
-     <path d="M214 113h31m-31 7h20"/>
-     <rect class="drawing-paper" x="282" y="74" width="96" height="76" rx="2"/>
-      <path class="drawing-connections-muted" d="M333 139v-35a17 17 0 0 1 34 0v35"/>
-     <path class="drawing-guides" d="M290 139h80"/>
-     <g class="drawing-paper"><path d="M344 99h12v9l4 6v22h-20v-22l4-6Z"/></g>
-     <path d="M344 104h12m-16 14h20m-20 12h20M292 91h26m-26 8h19"/>
-     <path class="drawing-connections" d="M347 127v-4a3 3 0 0 1 6 0v4h-3v-3"/>`,
-    `<path class="drawing-paper" d="M22 57h62v78H22z"/><path d="M34 72h38m-38 12h26m-26 12h38m-38 12h21"/>
-     <g class="drawing-connections"><path d="M84 96h44V46h38m-38 50v50h38m55-100h36v50h35m-71 50h36V96"/><circle cx="128" cy="96" r="3"/><circle cx="257" cy="96" r="3"/></g>
-     <g class="drawing-paper"><path d="M166 24h55v44h-55zM166 124h55v44h-55z"/></g>
-     <path d="m182 38-8 8 8 8m23-16 8 8-8 8m-10-19-4 22M180 136h27m-27 9h19m-19 10h27"/>
-     <circle class="drawing-paper" cx="327" cy="90" r="35"/><circle cx="327" cy="80" r="10"/><path d="M308 109v-6c0-13 38-13 38 0v6"/>
-     <g class="drawing-connections"><path d="m349 120 7 7 14-16M327 132v28h-70"/><path d="m263 154-6 6 6 6"/></g>`
-  ];
-  // DEMO posters: one shared concept for every project — flat geometric shapes in the project's colour
-  // and the text colour — until real project artwork exists. The detailed drawings stay in the reading view.
-  const posterColours = ['--wcs-accent', '--wcs-palette-amber', '--wcs-palette-blue', '--wcs-palette-rose', '--wcs-palette-green'];
-  // Every composition stays inside the centre of the poster, so no tile shape crops it.
-  const compositions = [
-    '<circle class="poster-line" cx="200" cy="160" r="92"/><circle class="poster-a" cx="200" cy="160" r="70"/><rect class="poster-b" x="110" y="222" width="180" height="14" rx="7"/>',
-    '<path class="poster-a" d="M120 225a80 80 0 0 1 160 0Z"/><circle class="poster-b" cx="276" cy="122" r="18"/><path class="poster-line" d="M100 240h200"/>',
-    '<rect class="poster-a" x="115" y="105" width="46" height="135" rx="23"/><rect class="poster-b" x="177" y="135" width="46" height="105" rx="23"/><rect class="poster-a poster-soft" x="239" y="160" width="46" height="80" rx="23"/>',
-    '<path class="poster-a" d="M130 240V110a130 130 0 0 1 130 130Z"/><rect class="poster-line" x="222" y="100" width="62" height="62" rx="3"/><circle class="poster-b" cx="154" cy="216" r="12"/>',
-    '<circle class="poster-a" cx="168" cy="170" r="62"/><circle class="poster-b poster-soft" cx="232" cy="170" r="62"/>',
-    '<path class="poster-a" d="M200 96 284 240H116Z"/><circle class="poster-b" cx="200" cy="192" r="28"/>',
-    '<circle class="poster-line" cx="200" cy="170" r="88"/><circle class="poster-a" cx="200" cy="170" r="64"/><path class="poster-b" d="M122 163h156v14H122z"/>'
-  ];
-  const poster = index => `<svg class="project-poster" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="--c: var(${posterColours[index % posterColours.length]})"><rect class="poster-bg" width="400" height="400"/><g class="poster-art">${compositions[index % compositions.length]}</g></svg>`;
-  const sketches = [];
   const buttons = projects.map((project, index) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'folder-document';
+    button.className = 'folder-document has-project-artwork';
     button.setAttribute('aria-haspopup', 'dialog');
     // Each card is a poster, a title and a subtitle.
     button.innerHTML = '<span class="document-name"></span><span class="document-kind"></span>';
-    {
-      // Conceptual worksite drawing, not a map of the client's implementation.
-      const drawing = document.createElement('span');
-      drawing.innerHTML = `<svg class="aigistos-drawing" viewBox="0 0 400 180" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
-        <defs><pattern id="aigistos-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path class="drawing-grid-line" d="M20 0H0V20" fill="none" stroke-width=".5"/></pattern></defs>
-        <path class="drawing-grid" fill="url(#aigistos-grid)" stroke="none" d="M10 0h380v180H10z"/>
-        <g class="drawing-guides"><path d="M10 10h8m-4-4v8m368-4h8m-4-4v8M10 170h8m-4-4v8m368-4h8m-4-4v8"/></g>
-        <g class="drawing-sites">
-          <path class="drawing-paper" d="m26 31 32-16 42 21v30L68 82 26 61Z"/>
-          <path d="m26 31 42 21 32-16M68 52v30M40 38v30m14-23v30M78 47v16l12-6V41"/>
-          <path class="drawing-paper" d="m90 94 32-16 42 21v30l-32 16-42-21Z"/>
-          <path d="m90 94 42 21 32-16m-32 16v30m-28-44v30m14-23v30m24-28v16l12-6v-16"/>
-          <path class="drawing-paper" d="m24 126 24-12 32 16v24l-24 12-32-16Z"/>
-          <path d="m24 126 32 16 24-12m-24 12v24m-20-34v24m30-19v12l7-4v-12"/>
-        </g>
-        <g class="drawing-connections"><path d="M100 51h94v39h48M164 114h30V90M80 146h114v-32"/><circle cx="194" cy="90" r="3"/><circle cx="194" cy="114" r="3"/></g>
-        <g class="drawing-system">
-          <rect class="drawing-paper" x="242" y="35" width="130" height="110" rx="2"/>
-          <path d="M242 57h130m-118-11h3m6 0h3M279 57v88"/>
-          <path class="drawing-guides" d="M252 71h17m-17 12h12m-12 12h17m-17 12h12M291 113h68m-68 12h42"/>
-          <g class="drawing-connections"><path d="M291 72h18v25h-18zM316 72h18v25h-18zM341 72h18v25h-18z"/><path d="m296 84 3 3 5-6m17 3 3 3 5-6m17 3 3 3 5-6"/></g>
-        </g>
-      </svg>`;
-      const svg = drawing.querySelector('svg');
-      svg.classList.replace('aigistos-drawing', 'project-sketch');
-      const gridID = `project-grid-${index}`;
-      svg.querySelector('pattern').id = gridID;
-      svg.querySelector('.drawing-grid').setAttribute('fill', `url(#${gridID})`);
-      if (projectSketches[index]) {
-        svg.querySelectorAll('.drawing-sites, .drawing-system, :scope > .drawing-connections').forEach(element => element.remove());
-        svg.insertAdjacentHTML('beforeend', projectSketches[index]);
-      }
-      svg.setAttribute('aria-hidden', 'true');
-      sketches.push(svg);
-      button.insertAdjacentHTML('afterbegin', poster(index));
-    }
+    button.prepend(projectArtwork(project.id));
     button.addEventListener('click', () => open(index));
     folder.querySelector('.folder-documents').append(button);
     return button;
@@ -146,10 +59,10 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
     const item = document.createElement('li');
     const card = document.createElement('button');
     card.type = 'button';
-    card.className = 'work-card';
+    card.className = 'work-card has-project-artwork';
     card.setAttribute('aria-haspopup', 'dialog');
     card.innerHTML = '<span class="document-name"></span><span class="document-kind"></span>';
-    card.insertAdjacentHTML('afterbegin', poster(index));
+    card.prepend(projectArtwork(projects[index].id));
     card.addEventListener('click', () => open(index, card));
     item.append(card);
     grid.append(item);
@@ -243,7 +156,7 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
   stage.className = 'work-stage';
   stage.append(folder, overview);
   // Phones get the folder; wider screens get the bento, opened on the folder's current project.
-  const phone = window.matchMedia('(max-width: 600px)');
+  const phone = window.matchMedia(media.phone);
   const showView = () => {
     folder.hidden = !phone.matches;
     overview.hidden = phone.matches;
@@ -403,13 +316,7 @@ import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './ge
     heading.textContent = project.querySelector('h3').textContent;
     const visual = document.createElement('figure');
     visual.className = 'document-visual';
-    const sketch = sketches[selected].cloneNode(true);
-    sketch.setAttribute('aria-hidden', 'true');
-    sketch.querySelector('pattern').id = 'document-grid';
-    sketch.querySelector('.drawing-grid').setAttribute('fill', 'url(#document-grid)');
-    const caption = document.createElement('figcaption');
-    caption.textContent = drawingCaptions[document.documentElement.lang === 'el' ? 'el' : 'en'][selected];
-    visual.append(sketch, caption);
+    visual.append(projectArtwork(project.id, 'document-artwork'));
     content.append(project.querySelector('.project-kind').cloneNode(true), visual, project.querySelector('.project-copy').cloneNode(true));
     if (selected === 0) {
       const greek = document.documentElement.lang === 'el';

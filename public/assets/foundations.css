@@ -180,7 +180,6 @@
   --folder-stack-back-inset: 12px 30px 32px;
   --folder-stack-front-shift: 9px;
   --folder-lift: 10px;
-  --folder-document-height: 280px;
   --folder-documents-padding: 4cqw 9cqw 3cqw;
   --folder-documents-padding-compact: 0 7cqw;
   --folder-paper-padding: 3cqw;
@@ -190,5 +189,10 @@
   --folder-turn-y: calc(var(--travel-small) + var(--travel-press));
   --folder-enter-x: calc(var(--travel-medium) + var(--travel-press));
 }
-.project-drawing { --drawing-height: 100px; }
 .video-toggle { --chevron-size: 8px; }
+
+/* Our work: responsive project-cover overview. */
+.work {
+  --work-grid-row: clamp(160px, 15vw, 200px);
+  --work-grid-row-stacked: 190px;
+}

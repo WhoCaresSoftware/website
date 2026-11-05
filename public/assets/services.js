@@ -21,8 +21,8 @@
      <path class="service-accent" d="m23 111 6 6 12-14"/>`
   ];
   const labels = {
-    en: ['Explore Aigistos', 'Explore AI workflows', 'Explore the LLM gateway'],
-    el: ['Δείτε το Aigistos', 'Δείτε αυτοματισμούς με AI', 'Δείτε την πύλη LLM']
+    en: ['Explore Aigistos', 'Explore AI Employees', 'Explore the LLM gateway'],
+    el: ['Δείτε το Aigistos', 'Δείτε το AI Employees', 'Δείτε την πύλη LLM']
   };
   const links = articles.map((article, index) => {
     const sketch = document.createElement('div');
@@ -34,7 +34,7 @@
     const link = document.createElement('a');
     link.className = 'service-work-link';
     link.href = '#work';
-    link.dataset.projectIndex = [0, 4, 2][index];
+    link.dataset.projectIndex = [0, 5, 2][index];
     link.innerHTML = '<span></span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
     article.append(link);
     return link;
