@@ -60,8 +60,10 @@
   const clamp = x => Math.max(0, Math.min(1, x));
   const heights = [[25, 52, 36], [58, 25, 45], [38, 59, 28], finalHeights];
   const announce = progress => {
+    const running = !complete && visible && !document.hidden && !reduced.matches;
     graph.dataset.progress = progress;
-    document.dispatchEvent(new CustomEvent('wcs:hero-progress', { detail: { progress } }));
+    graph.dataset.running = String(running);
+    document.dispatchEvent(new CustomEvent('wcs:hero-progress', { detail: { progress, running } }));
   };
   const draw = progress => {
     const stage = Math.min(progress / .64 * 3, 3);
@@ -99,6 +101,8 @@
     last = null;
     if (reduced.matches) { finish(); return; }
     if (!complete && visible && !document.hidden) frame = requestAnimationFrame(tick);
+    // Publish pauses as well as frames so the header cannot retain a frozen light.
+    announce(Number(graph.dataset.progress));
   };
   if (reduced.matches) finish();
   else { graph.dataset.state = 'playing'; draw(0); }

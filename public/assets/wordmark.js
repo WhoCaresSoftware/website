@@ -40,6 +40,7 @@
     const pulses = new Set();
     const hero = document.querySelector('.hero-graph');
     let heroProgress = Number(hero?.dataset.progress ?? 1);
+    let heroRunning = hero?.dataset.running === 'true';
     const loadingLayers = letters.map(letter => {
       const layer = letter.querySelector('path').cloneNode();
       layer.style.fill = 'var(--wcs-accent)';
@@ -49,7 +50,7 @@
       return layer;
     });
     const paintLoading = () => {
-      const active = heroProgress < 1 && !reduced.matches && visible && !document.hidden && !interacting && !logo.contains(document.activeElement);
+      const active = heroRunning && heroProgress < 1 && !reduced.matches && visible && !document.hidden && !interacting && !logo.contains(document.activeElement);
       const position = (1 - Math.cos(heroProgress * Math.PI * 4)) * 3.5;
       loadingLayers.forEach((layer, index) => {
         layer.style.opacity = active ? Math.max(0, 1 - Math.abs(index - position) / 1.65) : 0;
@@ -58,6 +59,7 @@
     document.addEventListener('wcs:hero-progress', event => {
       const wasLoading = heroProgress < 1;
       heroProgress = event.detail.progress;
+      heroRunning = event.detail.running;
       paintLoading();
       if (wasLoading && heroProgress === 1) schedule();
     });
