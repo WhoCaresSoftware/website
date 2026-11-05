@@ -29,7 +29,7 @@
       hit.setAttribute('y', svg.viewBox.baseVal.y);
       hit.setAttribute('width', bounds.width + 50);
       hit.setAttribute('height', svg.viewBox.baseVal.height);
-      hit.setAttribute('fill', 'transparent');
+      hit.setAttribute('fill', 'var(--wcs-transparent)');
       group.append(hit);
     });
     logo.classList.add('has-wordmark');

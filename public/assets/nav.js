@@ -1,4 +1,6 @@
 /* Marks the section in view and folds the header links into a menu on narrow screens. */
+import { media } from './media.js';
+
 (() => {
   'use strict';
   const header = document.querySelector('.top');
@@ -7,10 +9,10 @@
   const sections = links.map(link => document.querySelector(link.hash));
   const update = () => {
     // The current section is the last one whose top has passed the header.
-    const line = header.getBoundingClientRect().bottom + 24;
+    const line = header.getBoundingClientRect().bottom + parseFloat(getComputedStyle(sections[0]).scrollMarginTop);
     let current = -1;
     sections.forEach((section, index) => { if (section.getBoundingClientRect().top <= line) current = index; });
-    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) current = sections.length - 1;
+    if (Math.ceil(innerHeight + scrollY) >= document.documentElement.scrollHeight) current = sections.length - 1;
     links.forEach((link, index) => {
       if (index === current) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
@@ -38,7 +40,7 @@
   actions.append(toggle);
   menu.before(actions);
   header.classList.add('has-menu');
-  const narrow = matchMedia('(max-width: 1000px)');
+  const narrow = matchMedia(media.navigation);
   const preferences = menu.querySelector('.preferences');
   // The open menu ends with the footer's social links, copied so they stay in one place.
   const social = document.querySelector('.footer-social')?.cloneNode(true);

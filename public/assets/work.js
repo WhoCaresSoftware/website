@@ -1,5 +1,6 @@
 /* Progressive enhancement: the original project articles remain the content source. */
 import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
+import { dragOptions, dragEdge, pageTurnDistance, pageFlickDistance } from './gestures.js';
 (() => {
   'use strict';
   if (!window.HTMLDialogElement || !HTMLDialogElement.prototype.showModal) return;
@@ -54,18 +55,18 @@ import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
     `<g class="drawing-paper"><rect x="22" y="30" width="108" height="120" rx="2"/></g>
      <path class="drawing-guides" d="M22 101h108M80 30v71"/>
      <g class="drawing-connections"><path d="M38 79V63a13 13 0 0 1 26 0v16H51V65"/>
-       <path d="M92 48h24v12H92z" fill="currentColor" fill-opacity=".22"/><path d="M92 70h24v12H92z" fill="currentColor" fill-opacity=".07"/></g>
+        <path class="drawing-swatch" d="M92 48h24v12H92z"/><path class="drawing-swatch-muted" d="M92 70h24v12H92z"/></g>
      <path d="M36 116h72m-72 9h52m-52 9h34"/>
      <g class="drawing-connections"><path d="M130 90h34m0 0V58h38m-38 32v70h166v-10m-134-97 6 5-6 5m123 91 5-6 5 6"/><circle cx="164" cy="90" r="3"/></g>
      <rect class="drawing-paper" x="202" y="20" width="70" height="112" rx="2"/>
-     <path class="drawing-connections" d="M211 86V54a25 25 0 0 1 50 0v32" stroke-opacity=".45"/>
+      <path class="drawing-connections-muted" d="M211 86V54a25 25 0 0 1 50 0v32"/>
      <path class="drawing-guides" d="M210 101h54"/>
      <g class="drawing-paper"><path d="M230 52h14v10l5 7v27h-24V69l5-7Z"/></g>
      <path d="M230 58h14m-19 15h24m-24 16h24"/>
      <path class="drawing-connections" d="M234 85v-5a3 3 0 0 1 6 0v5h-3v-4"/>
      <path d="M214 113h31m-31 7h20"/>
      <rect class="drawing-paper" x="282" y="74" width="96" height="76" rx="2"/>
-     <path class="drawing-connections" d="M333 139v-35a17 17 0 0 1 34 0v35" stroke-opacity=".45"/>
+      <path class="drawing-connections-muted" d="M333 139v-35a17 17 0 0 1 34 0v35"/>
      <path class="drawing-guides" d="M290 139h80"/>
      <g class="drawing-paper"><path d="M344 99h12v9l4 6v22h-20v-22l4-6Z"/></g>
      <path d="M344 104h12m-16 14h20m-20 12h20M292 91h26m-26 8h19"/>
@@ -90,7 +91,7 @@ import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
       drawing.className = 'project-drawing';
       drawing.setAttribute('aria-hidden', 'true');
       drawing.innerHTML = `<svg class="aigistos-drawing" viewBox="0 0 400 180" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
-        <defs><pattern id="aigistos-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="currentColor" stroke-width=".5"/></pattern></defs>
+        <defs><pattern id="aigistos-grid" width="20" height="20" patternUnits="userSpaceOnUse"><path class="drawing-grid-line" d="M20 0H0V20" fill="none" stroke-width=".5"/></pattern></defs>
         <path class="drawing-grid" fill="url(#aigistos-grid)" stroke="none" d="M10 0h380v180H10z"/>
         <g class="drawing-guides"><path d="M10 10h8m-4-4v8m368-4h8m-4-4v8M10 170h8m-4-4v8m368-4h8m-4-4v8"/></g>
         <g class="drawing-sites">
@@ -201,12 +202,12 @@ import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
       outgoing.classList.add('is-leaving');
       const retreat = outgoing.animate([
         { transform: outgoingTransform, opacity: 1 },
-        { transform: `translate(${direction * -12}px, 10px) rotate(${direction * -2}deg) scale(.97)`, opacity: 0 }
+        { transform: `translate(calc(${-direction} * var(--folder-turn-x)), var(--folder-turn-y)) rotate(${direction * -2}deg) scale(.97)`, opacity: 0 }
       ], { duration: 240, easing: 'cubic-bezier(.4,0,1,1)' });
       retreat.onfinish = () => outgoing.classList.remove('is-leaving');
       button.animate([
-        { transform: `translate(${direction * 18}px, 12px) rotate(${direction * 2}deg) scale(.96)`, opacity: 0, offset: 0 },
-        { transform: `translate(${direction * 12}px, -24px) rotate(${direction * 1.2}deg) scale(1.01)`, opacity: 1, offset: .48 },
+        { transform: `translate(calc(${direction} * var(--folder-enter-x)), var(--folder-turn-x)) rotate(${direction * 2}deg) scale(.96)`, opacity: 0, offset: 0 },
+        { transform: `translate(calc(${direction} * var(--folder-turn-x)), calc(-1 * var(--travel-enter))) rotate(${direction * 1.2}deg) scale(1.01)`, opacity: 1, offset: .48 },
         { transform: getComputedStyle(button).transform, opacity: 1, offset: 1 }
       ], { duration: 460, easing: 'cubic-bezier(.16,1,.3,1)' });
     }
@@ -259,7 +260,7 @@ import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
         });
         dragged = buttons[current];
         const bounds = dragged.getBoundingClientRect();
-        dragLimit = Math.max(12, Math.min(dragged.clientWidth * .38, bounds.left - 12, innerWidth - bounds.right - 12));
+        dragLimit = Math.max(dragEdge, Math.min(dragged.clientWidth * .38, bounds.left - dragEdge, innerWidth - bounds.right - dragEdge));
         cancelDrag = cancel;
         dragSamples = [{ x: 0, time: event.timeStamp }];
         documents.classList.add('is-dragging');
@@ -277,11 +278,11 @@ import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
         documents.dataset.direction = dx < 0 ? 'next' : 'previous';
       }
       if (last) {
-        const threshold = Math.min(40, dragged.clientWidth * .12);
+        const threshold = Math.min(pageTurnDistance, dragged.clientWidth * .12);
         const sample = dragSamples[0];
         const elapsed = event.timeStamp - sample.time;
         const velocity = elapsed > 0 ? (dx - sample.x) / elapsed : 0;
-        const flick = Math.abs(dx) >= 16 && Math.abs(velocity) >= .15 && Math.sign(velocity) === Math.sign(dx);
+        const flick = Math.abs(dx) >= pageFlickDistance && Math.abs(velocity) >= .15 && Math.sign(velocity) === Math.sign(dx);
         const direction = Math.abs(dx) >= threshold || flick ? Math.sign(dx) : 0;
         const from = getComputedStyle(dragged).transform;
         resetDrag(!direction);
@@ -291,9 +292,7 @@ import symbolArtwork from '@whocaressoftware/brand/whocares-symbol.svg?raw';
         }
       }
     }, {
-      axis: 'x', threshold: 6, axisThreshold: { mouse: 4, touch: 6, pen: 6 },
-      filterTaps: true, tapsThreshold: 6,
-      pointer: { capture: false, keys: false }
+      ...dragOptions, axis: 'x'
     });
   }).catch(() => { /* Side buttons and keyboard navigation remain available. */ });
   const localize = () => {
