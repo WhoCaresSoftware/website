@@ -36,7 +36,7 @@
       slot.hidden = !visible;
     };
     reset.push(() => { pinned = false; show(false); });
-    leave.push(() => { if (!pinned && !button.matches(':focus-visible')) show(false); });
+    leave.push(() => { if (!pinned && !button.matches(':focus-visible') && !slot.contains(document.activeElement)) show(false); });
     show(false);
     member.addEventListener('pointerenter', event => {
       if (event.pointerType !== 'touch') show(true);
@@ -44,7 +44,13 @@
     button.addEventListener('focus', () => {
       if (button.matches(':focus-visible')) { show(true); revealCaption(); }
     });
-    button.addEventListener('blur', () => {
+    button.addEventListener('blur', event => {
+      if (slot.contains(event.relatedTarget)) return;
+      pinned = false;
+      show(false);
+    });
+    slot.addEventListener('focusout', event => {
+      if (slot.contains(event.relatedTarget) || event.relatedTarget === button) return;
       pinned = false;
       show(false);
     });

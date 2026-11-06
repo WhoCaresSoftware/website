@@ -33,8 +33,9 @@
 .collective-enhanced .collective-member:nth-child(2) { left: 77%; top: 10%; }
 .collective-enhanced .collective-member:nth-child(3) { left: 7%; top: var(--collective-side-top); }
 .collective-enhanced .collective-member:nth-child(4) { left: 93%; top: var(--collective-side-top); }
-.collective-enhanced .collective-member:nth-child(5) { left: 25%; top: 91%; }
-.collective-enhanced .collective-member:nth-child(6) { left: 76%; top: 92%; }
+.collective-enhanced .collective-member:nth-child(5) { left: 15%; top: 91%; }
+.collective-enhanced .collective-member:nth-child(6) { left: 85%; top: 92%; }
+.collective-enhanced .collective-member:nth-child(7) { left: 50%; top: 92%; }
 .collective-enhanced .collective-member:has([aria-expanded="true"]) { z-index: 4; }
 .collective-enhanced .collective-person { padding: 0; gap: 0; border-radius: 50%; }
 .collective-enhanced .collective-person img { width: 100%; border: var(--stroke-strong) solid var(--wcs-background); box-shadow: var(--shadow-floating); }
