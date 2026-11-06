@@ -1,0 +1,30 @@
+.service-list article { display: grid; grid-template-columns: var(--service-sketch-width) minmax(0, 1fr); column-gap: var(--space-m-l); align-items: start; }
+.service-list h3 { grid-column: 2; grid-row: 1; }
+.service-list p, .service-work-link { grid-column: 2; }
+.service-sketch { grid-column: 1; grid-row: 1 / span 3; align-self: start; justify-self: center; width: 100%; max-width: var(--service-sketch-width); aspect-ratio: 3 / 2; display: grid; place-items: center; }
+.service-sketch svg { display: block; width: 100%; height: auto; }
+.service-list p { max-width: var(--measure-body); }
+.service-work-link { display: inline-flex; align-items: center; justify-self: start; gap: var(--space-2xs); min-height: var(--control-size); margin-top: var(--space-2xs); font-size: var(--label); text-decoration: underline; text-underline-offset: var(--underline-offset-compact); }
+.service-work-link svg { flex: 0 0 var(--icon-size-small); width: var(--icon-size-small); height: var(--icon-size-small); }
+.service-work-link:active { color: var(--wcs-accent); }
+@media (hover: hover) and (pointer: fine) { .service-work-link:hover { color: var(--wcs-accent); } }
+@media (prefers-reduced-motion: no-preference) {
+  .service-sketch:not(.is-visible) svg *, .service-sketch.is-paused svg * { animation-play-state: paused; }
+}
+@media (--services-columns) {
+  .service-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--space-l-xl); row-gap: 0; }
+  .service-list article { grid-row: span 4; grid-template-columns: minmax(0, 1fr); grid-template-rows: subgrid; }
+  .service-list article + article { margin-top: 0; }
+  .service-list .service-sketch { grid-column: 1; grid-row: 1; justify-self: start; align-self: end; margin-bottom: var(--space-m); }
+  .service-list h3 { grid-column: 1; grid-row: 2; }
+  .service-list p { grid-column: 1; grid-row: 3; }
+  .service-list .service-work-link { grid-column: 1; grid-row: 4; margin-top: var(--space-s); }
+}
+@media (--stacked) {
+  .service-list { --service-sketch-width: var(--service-sketch-compact); }
+  .service-list article { grid-template-columns: var(--service-sketch-width) minmax(0, 1fr); column-gap: var(--space-s-plus); }
+  .service-sketch { grid-column: 1; grid-row: 1; align-self: center; }
+  .service-list h3 { grid-row: 1; align-self: center; max-width: none; }
+  .service-list p, .service-work-link { grid-column: 1 / -1; }
+  .service-list p { margin-top: var(--space-xs); }
+}

@@ -1,0 +1,61 @@
+/* A small invitation outside; a paper draft unfolding inside. */
+body:has(.composer[open]) { overflow: hidden; }
+.composer { position: fixed; inset: auto 0 0; margin: 0 auto; width: min(var(--composer-width), 100%); max-width: 100%; max-height: var(--composer-height); padding: 0; border: var(--stroke-thin) solid var(--wcs-border); border-bottom: 0; border-radius: var(--composer-radius) var(--composer-radius) 0 0; background: var(--wcs-surface); color: var(--wcs-foreground); box-shadow: var(--shadow-composer); overflow: clip; }
+.composer::backdrop { background: var(--wcs-backdrop-composer); }
+.composer-titlebar { display: flex; flex-shrink: 0; align-items: center; gap: var(--space-xs); min-height: var(--composer-titlebar-height); padding: var(--control-inset) var(--space-s-plus); background: var(--wcs-surface); border-bottom: var(--stroke-thin) solid var(--wcs-border); }
+.composer-titlebar .mail-icon { width: var(--icon-size); height: var(--icon-size); flex-shrink: 0; color: var(--wcs-accent); }
+.composer .composer-titlebar h2 { font-size: var(--lead); font-weight: var(--weight-semibold); line-height: var(--leading-title); letter-spacing: 0; }
+.composer-titlebar .dismiss { margin-left: auto; }
+.composer .composer-titlebar .dismiss { background: var(--wcs-transparent); }
+@media (hover: hover) and (pointer: fine) {
+  .composer .composer-titlebar .dismiss:hover { background: var(--wcs-border); }
+}
+.composer .composer-titlebar .dismiss:active { color: var(--wcs-accent); }
+:is(input, textarea)::placeholder { color: var(--wcs-foreground-muted); opacity: 1; }
+.composer-titlebar :focus-visible { outline-offset: var(--focus-offset-tight); }
+.composer[open] { display: flex; flex-direction: column; animation: paper-open 520ms var(--ease-out-emphasis); }
+@keyframes paper-open { from { transform: translateY(var(--travel-sheet)); } to { transform: translateY(0); } }
+.composer-paper { position: relative; flex: 0 1 auto; min-height: 0; margin: 0; overflow-y: auto; overflow-x: hidden; scrollbar-gutter: stable; overscroll-behavior: contain; scroll-padding-block: var(--space-s-plus); padding: var(--space-m) var(--space-l) max(var(--space-m-plus), env(safe-area-inset-bottom)); background: var(--wcs-background); }
+.composer-heading { display: grid; grid-template-columns: minmax(0, 1fr) var(--control-size); align-items: start; gap: var(--space-2xs) var(--space-s); margin-bottom: var(--space-s-plus); }
+.composer-heading > div { display: contents; }
+.composer-heading h2 { grid-column: 1; grid-row: 1; }
+.composer-heading .dismiss { grid-column: 2; grid-row: 1; }
+.composer-heading .recipient { grid-column: 1 / -1; margin-top: 0; }
+.composer h2 { font-size: var(--dialog-title); }
+.composer p, .composer label, .composer button, .composer a, .composer input, .composer textarea { font-size: var(--label); }
+.composer .recipient { margin-top: var(--space-2xs); overflow-wrap: anywhere; }
+.composer button, .composer .email-draft { min-height: var(--control-size); padding: var(--control-inset) var(--space-s); border: var(--stroke-thin) solid var(--wcs-border); border-radius: var(--radius-small); background: var(--wcs-background); color: var(--wcs-foreground); font-family: inherit; cursor: pointer; }
+@media (hover: hover) and (pointer: fine) {
+  .composer button:hover { background: var(--wcs-surface); }
+}
+.composer .dismiss { flex: 0 0 var(--control-size); width: var(--control-size); padding: var(--control-inset); border: 0; }
+.dismiss svg { display: block; width: var(--icon-size); height: var(--icon-size); }
+.composer label { display: block; margin-bottom: var(--space-2xs); }
+.composer input[type=text], .composer textarea { width: 100%; padding: var(--space-xs); border: var(--stroke-thin) solid var(--wcs-foreground-muted); border-radius: var(--radius-small); color: var(--wcs-foreground); background: var(--wcs-background); font-family: inherit; line-height: var(--leading-lead); caret-color: var(--wcs-accent); }
+.composer textarea { min-height: var(--message-height); resize: vertical; }
+.draft-field { margin-top: var(--space-s); }
+.file-drop { margin-top: var(--space-s-plus); padding: var(--space-s); border: var(--stroke-thin) dashed var(--wcs-foreground-muted); border-radius: var(--radius-small); }
+.file-drop.dragging { background: var(--wcs-surface); outline: var(--stroke-strong) solid var(--wcs-focus); }
+.file-drop input { max-width: 100%; width: 100%; color: var(--wcs-foreground-muted); font: inherit; }
+.file-drop input::file-selector-button { min-height: var(--control-size); border: var(--stroke-thin) solid var(--wcs-border); border-radius: var(--radius-small); padding: var(--space-2xs) var(--space-xs); margin-right: var(--space-xs); background: var(--wcs-surface); color: var(--wcs-foreground); font: inherit; cursor: pointer; }
+.file-list { margin: var(--space-2xs) 0 0; padding: 0; list-style: none; }
+.file-list li { display: flex; justify-content: space-between; align-items: center; gap: var(--space-xs); padding-block: var(--space-2xs); border-bottom: var(--stroke-thin) solid var(--wcs-border); }
+.file-list span { min-width: 0; overflow-wrap: anywhere; font-size: var(--label); }
+.file-list button { flex-shrink: 0; }
+.composer-note { margin-top: var(--space-xs); }
+.composer-actions { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-m); }
+.composer .email-draft { display: inline-flex; align-items: center; background: var(--wcs-accent); color: var(--wcs-on-accent); border-color: var(--wcs-transparent); text-decoration: none; font-weight: var(--weight-semibold); }
+@media (hover: hover) and (pointer: fine) {
+  .composer .email-draft:hover { background: var(--wcs-accent-active); }
+}
+.composer [hidden] { display: none !important; }
+.composer-status:not(:empty) { margin-top: var(--space-s); }
+.copy-fallback { margin-top: var(--space-xs); }
+@media (--narrow) { .composer-paper { padding: var(--space-s-plus) var(--space-s-plus) max(var(--space-m), env(safe-area-inset-bottom)); } .composer-actions > * { width: 100%; justify-content: center; } }
+@media (--wide) {
+  .composer { inset: 0; margin: auto; width: min(var(--dialog-width), calc(100% - var(--space-xl))); max-height: calc(var(--viewport-height) - var(--space-2xl)); border: var(--stroke-thin) solid var(--wcs-border); border-radius: var(--radius-medium); box-shadow: var(--shadow-dialog); }
+  .composer-titlebar { padding-inline: var(--space-m-plus); }
+  .composer-paper { padding: var(--space-m) var(--dialog-padding) var(--space-l); }
+  .composer-heading { padding-bottom: var(--space-s); border-bottom: var(--stroke-thin) solid var(--wcs-border); }
+}
+@media(prefers-reduced-motion:reduce) { .composer[open] { animation: none; } .cta .cta-arrow { transform: none !important; transition: none; } }

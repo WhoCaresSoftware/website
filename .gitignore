@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+dist/
+_site/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Local working files and review artifacts (never publish)
+.impeccable/
+
+# Local credentials and production metadata
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.webp.json
+public/assets/*prompts*.json
+docs/*-generation.json

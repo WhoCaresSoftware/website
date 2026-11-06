@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" data-project-page data-title-el="{{project.name}} — Who Cares Software">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>try { const t = localStorage.getItem('wcs-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.wcsTheme = t; } catch {}</script>
+  <title>{{project.name}} — Who Cares Software</title>
+  <meta name="description" content="{{project.summary.en}}" data-el="{{project.summary.el}}">
+  <meta name="theme-color" content="{{theme.modes.light.page-background}}" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="{{theme.modes.dark.page-background}}" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://whocaressoftware.com/work/{{project.slug}}/">
+  <meta property="og:title" content="{{project.name}} — Who Cares Software">
+  <meta property="og:description" content="{{project.summary.en}}" data-el="{{project.summary.el}}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://whocaressoftware.com/work/{{project.slug}}/">
+  <link rel="icon" href="{{brandAsset 'favicon.svg'}}" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/source-sans-3-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{brandAsset 'theme.css'}}">
+  <link rel="stylesheet" href="/assets/foundations.css">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <link rel="stylesheet" href="/assets/project.css">
+  <script type="module" src="/assets/project.js"></script>
+</head>
+<body class="case-page" id="top" data-project="{{project.slug}}">
+  <a class="skip-link" href="#main" data-el="Μετάβαση στο περιεχόμενο">Skip to content</a>
+  <header class="case-rail">
+    <div class="case-identity">
+      <a class="case-brand" href="/" aria-label="Who Cares Software — Home" data-el-aria="Who Cares Software — Αρχική">{{{brandSymbol 'case-symbol' 34}}}<img class="brand-light" src="{{brandAsset 'website-wordmark-light.svg'}}" alt="whocares" width="120" height="23"><img class="brand-dark" src="{{brandAsset 'website-wordmark-dark.svg'}}" alt="whocares" width="120" height="23"></a>
+      <a class="case-back" href="/#work"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 12H5m6-6-6 6 6 6"/></svg><span data-el="Όλα τα έργα">All work</span></a>
+    </div>
+    <nav class="case-index" aria-label="Project story" data-el-aria="Η ιστορία του έργου">
+      <a class="case-back case-back-mobile" href="/#work"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 12H5m6-6-6 6 6 6"/></svg><span data-el="Όλα τα έργα">All work</span></a>
+      <a href="#story" data-el="Το πλαίσιο">The context</a>
+      <a href="#showcase" data-el="Η δουλειά">Inside the work</a>
+      <a href="#difference" data-el="Το αποτέλεσμα">The result</a>
+    </nav>
+    <div class="case-rail-bottom">
+      <a class="case-discuss" href="mailto:whocaressoftware@gmail.com"><span data-el="Ας μιλήσουμε">Let’s talk</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+      <div class="preferences" hidden><div class="preference-buttons">
+        <fieldset id="language" aria-label="Language"><label><input type="radio" name="language" value="en" aria-label="EN — English"><span lang="en">EN</span></label><label><input type="radio" name="language" value="el" aria-label="ΕΛ — Ελληνικά"><span lang="el">ΕΛ</span></label></fieldset>
+        <button id="theme" type="button" aria-label="Switch to dark theme"><svg class="theme-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></svg><svg class="theme-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
+      </div></div>
+    </div>
+  </header>
+  <main class="case-main" id="main" tabindex="-1">
+    <section class="case-opening" aria-labelledby="project-title">
+      <div class="case-meta"><span data-el="{{project.kind.el}}">{{project.kind.en}}</span></div>
+      <h1 id="project-title">{{project.name}}</h1>
+      <p class="case-hook" data-el="{{project.hook.el}}">{{project.hook.en}}</p>
+      <figure class="case-cover">
+        <picture><source media="(max-width: 600px)" srcset="{{project.heroCompactSmall}} 400w, {{project.heroCompact}} 800w" sizes="calc(100vw - 48px)" width="800" height="{{project.heroCompactHeight}}"><img src="{{project.hero}}" srcset="{{project.heroSmall}} 1200w, {{project.hero}} {{project.heroWidth}}w" sizes="(max-width: 1000px) calc(100vw - 80px), (max-width: 1600px) calc(100vw - 358px), 1242px" width="{{project.heroWidth}}" height="{{project.heroHeight}}" alt="" fetchpriority="high"></picture>
+      </figure>
+      <div class="case-story" id="story">
+        <h2 data-el="{{project.intro.title.el}}">{{project.intro.title.en}}</h2>
+        <div><p data-el="{{project.intro.body.el}}">{{project.intro.body.en}}</p><p class="case-summary" data-el="{{project.delivery.el}}">{{project.delivery.en}}</p></div>
+      </div>
+    </section>
+    <section class="case-showcase" id="showcase" aria-labelledby="showcase-title">
+      <div class="case-section-intro"><h2 id="showcase-title" data-el="{{project.showcaseTitle.el}}">{{project.showcaseTitle.en}}</h2><p data-el="{{project.showcaseBody.el}}">{{project.showcaseBody.en}}</p></div>
+      {{#if project.aigistos}}
+      <figure class="erp-study">
+        <div class="erp-stage">
+          <div class="erp-overview">
+            <div class="erp-toolbar"><strong>Aigistos</strong><span data-el="Επισκόπηση στόλου">Fleet overview</span></div>
+            <div class="erp-overview-body"><h3 data-el="Η εικόνα του στόλου.">The fleet, in context.</h3>
+              <table><caption data-el="Κατανομή εξοπλισμού">Equipment distribution</caption><thead><tr><th scope="col" data-el="Εξοπλισμός">Equipment</th><th scope="col" data-el="Εργοτάξιο">Worksite</th><th scope="col" data-el="Κατάσταση">Entry status</th></tr></thead><tbody><tr><td data-el="Εκσκαφέας Α">Excavator A</td><td data-el="Βόρεια">North</td><td data-el="Προς έλεγχο">Review entry</td></tr><tr><td data-el="Φορτωτής Β">Loader B</td><td data-el="Νότια">South</td><td data-el="Καταχωρίστηκε">Recorded</td></tr><tr><td data-el="Φορτηγό Γ">Truck C</td><td data-el="Βόρεια">North</td><td data-el="Καταχωρίστηκε">Recorded</td></tr></tbody></table>
+              <div class="erp-costs"><span data-el="Καύσιμα">Fuel</span><span data-el="Συντήρηση">Maintenance</span><span data-el="Μισθώσεις">Rentals</span><span data-el="Λειτουργικά κόστη">Operating costs</span></div>
+            </div>
+          </div>
+          <div class="erp-entry">
+            <h3 data-el="Καταχώριση καυσίμου">Fuel entry</h3><p data-el="Χωρητικότητα δεξαμενής · 80 L">Tank capacity · 80 L</p>
+            <form class="fuel-demo" hidden>
+              <label for="fuel-amount" data-el="Προσθήκη καυσίμου (λίτρα)">Fuel added (litres)</label><div class="fuel-input"><input id="fuel-amount" name="fuel" type="number" min="0.1" step="0.1" value="100" required inputmode="decimal" aria-describedby="fuel-result"><span aria-hidden="true">L</span></div>
+              <button type="submit" class="case-button"><span data-el="Έλεγχος καταχώρισης">Check entry</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m5 12 4 4L19 6"/></svg></button>
+            </form>
+            <p class="fuel-static" data-el="100 L καταχώριση / 80 L χωρητικότητα: απαιτείται έλεγχος.">100 L entered / 80 L capacity: review needed.</p>
+            <p id="fuel-result" class="fuel-result" role="status" aria-live="polite" data-el="100 L ξεπερνούν τη χωρητικότητα των 80 L. Η καταχώριση χρειάζεται έλεγχο.">100 L exceeds the 80 L capacity. This entry needs review.</p>
+          </div>
+          <svg class="study-thread" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true" fill="none"><path d="M20 400H320Q350 400 350 370V110Q350 80 380 80H880Q910 80 910 110V190"/></svg>
+        </div>
+      </figure>
+      {{/if}}
+      {{#if project.hex}}
+      <div class="case-game-gallery">
+        <figure><img src="/assets/images/project-showcase/hex-cards.webp" srcset="/assets/images/project-showcase/hex-cards-800.webp 800w, /assets/images/project-showcase/hex-cards.webp 1600w" sizes="(max-width: 1000px) 90vw, 75vw" width="1600" height="878" loading="lazy" alt="Hex Mythica cards: Spirit of Inspiration and Druid’s Runic Dirk, with the game’s ornate card back." data-el-alt="Κάρτες του Hex Mythica: Spirit of Inspiration και Druid’s Runic Dirk, μαζί με την περίτεχνη πίσω όψη τους."><figcaption><span data-el="Κάρτες και εικαστικό προώθησης · ">Cards &amp; promotional artwork · </span><a href="https://www.artstation.com/artwork/9EoxER">Tanya Podolskaia / ArtStation</a></figcaption></figure>
+        <figure><img src="/assets/images/project-showcase/hex-environment.webp" srcset="/assets/images/project-showcase/hex-environment-800.webp 800w, /assets/images/project-showcase/hex-environment.webp 1600w" sizes="(max-width: 1000px) 90vw, 65vw" width="1600" height="908" loading="lazy" alt="An isometric Hex Mythica room with a carved fireplace, bookshelves, magical objects and a character." data-el-alt="Ισομετρικό δωμάτιο του Hex Mythica με σκαλιστό τζάκι, βιβλιοθήκες, μαγικά αντικείμενα και έναν χαρακτήρα."><figcaption><span data-el="Περιβάλλον παιχνιδιού · ">Game environment · </span><a href="https://games.gg/hex-mythica/">Hex Mythica / MYTH CENTRAL · GAMES.GG</a></figcaption></figure>
+        <figure><img src="/assets/images/project-showcase/hex-characters.webp" srcset="/assets/images/project-showcase/hex-characters-800.webp 800w, /assets/images/project-showcase/hex-characters.webp 1600w" sizes="(max-width: 1000px) 90vw, 75vw" width="1600" height="878" loading="lazy" alt="Thieves Guild character development: an alchemist, an armored tank and a hooded thief, with accessory studies." data-el-alt="Σχεδιασμός χαρακτήρων της συντεχνίας κλεφτών: αλχημιστής, θωρακισμένος πολεμιστής και κλέφτρα με κουκούλα, μαζί με αξεσουάρ."><figcaption><span data-el="Χαρακτήρες · Thieves Guild · ">Character development · Thieves Guild · </span><a href="https://www.artstation.com/artwork/9EoxER">Tanya Podolskaia / ArtStation</a></figcaption></figure>
+        <figure><img src="/assets/images/project-showcase/hex-props.webp" srcset="/assets/images/project-showcase/hex-props-800.webp 800w, /assets/images/project-showcase/hex-props.webp 1600w" sizes="(max-width: 1000px) 90vw, 65vw" width="1600" height="878" loading="lazy" alt="Hex Mythica prop studies including enchanted books, a preserved professor and an alchemist’s table." data-el-alt="Σχέδια αντικειμένων του Hex Mythica: μαγεμένα βιβλία, ένας διατηρημένος καθηγητής και το τραπέζι ενός αλχημιστή."><figcaption><span data-el="Αντικείμενα και λεπτομέρειες του κόσμου · ">Props &amp; world details · </span><a href="https://www.artstation.com/artwork/9EoxER">Tanya Podolskaia / ArtStation</a></figcaption></figure>
+      </div>
+      <div class="case-film"><button class="case-button" id="load-film" type="button" aria-expanded="false" aria-controls="development-film" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m9 5 11 7-11 7Z"/></svg><span data-el="Δείτε την πορεία ανάπτυξης">Watch the development journey</span></button><div id="development-film" hidden></div><a class="case-text-link" href="https://www.youtube.com/watch?v=r5dA7W-qCfE" data-el="Δείτε το βίντεο στο YouTube">Watch on YouTube</a></div>
+      {{/if}}
+      {{#if project.sdlc}}
+      {{> coding-showcase project}}
+      {{else}}
+      {{#unless project.aigistos}}{{#unless project.hex}}<div class="case-concept-stage">{{{projectDiagram project.slug}}}</div>{{/unless}}{{/unless}}
+      <div class="case-workflow{{#unless project.aigistos}}{{#unless project.hex}} case-workflow-stage{{/unless}}{{/unless}}">
+        {{#each project.workflow}}<article><span class="workflow-node" aria-hidden="true"></span><h3 data-el="{{title.el}}">{{title.en}}</h3><p data-el="{{body.el}}">{{body.en}}</p></article>{{/each}}
+      </div>
+      {{/if}}
+    </section>
+    <section class="case-outcome" id="difference" aria-labelledby="outcome-title"><h2 id="outcome-title" data-el="{{project.outcome.title.el}}">{{project.outcome.title.en}}</h2><div><p data-el="{{project.outcome.body.el}}">{{project.outcome.body.en}}</p>{{#if project.links}}<div class="case-links">{{#each project.links}}<a href="{{href}}" class="case-text-link"><span data-el="{{label.el}}">{{label.en}}</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 18 18 6M6 6h12v12"/></svg></a>{{/each}}</div>{{/if}}</div></section>
+    <section class="case-contact" aria-labelledby="case-contact-title"><h2 id="case-contact-title" data-el="Τι χρειάζεται να δουλεύει καλύτερα;">What needs to work better?</h2><a href="mailto:whocaressoftware@gmail.com" class="case-text-link"><span data-el="Ας συζητήσουμε το έργο σας">Discuss your project</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a></section>
+    <nav class="case-next" aria-label="More projects" data-el-aria="Περισσότερα έργα"><a href="/work/{{nextProject.slug}}/" class="case-next-project"><div><span data-el="Επόμενο έργο">Next project</span><strong>{{nextProject.name}}</strong></div><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a><a class="case-back" href="/#work"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 12H5m6-6-6 6 6 6"/></svg><span data-el="Όλα τα έργα">All work</span></a></nav>
+    <footer class="case-footer"><p>© 2026 Who Cares Software</p><a class="back-top" href="#top"><span data-el="Επιστροφή στην αρχή">Back to top</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></a></footer>
+  </main>
+</body>
+</html>

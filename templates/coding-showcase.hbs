@@ -1,0 +1,35 @@
+<div class="sdlc-showcase">
+  {{#with sdlc}}
+  <section class="sdlc-lifecycle" aria-labelledby="sdlc-title">
+    <div class="sdlc-heading"><h3 id="sdlc-title" data-el="{{title.el}}">{{title.en}}</h3><p data-el="{{intro.el}}">{{intro.en}}</p></div>
+    <ol class="sdlc-route" role="list">
+      {{#each stages}}<li><h4 data-el="{{title.el}}">{{title.en}}</h4><p data-el="{{body.el}}">{{body.en}}</p></li>{{/each}}
+    </ol>
+  </section>
+  {{#with example}}
+  <section class="sdlc-example" aria-labelledby="sdlc-example-title">
+    <div class="sdlc-heading"><h3 id="sdlc-example-title" data-el="{{title.el}}">{{title.en}}</h3><p data-el="{{intro.el}}">{{intro.en}}</p></div>
+    <div class="sdlc-artifacts">
+      <article class="sdlc-spec" aria-labelledby="sdlc-spec-title">
+        <h4 id="sdlc-spec-title" data-el="{{specTitle.el}}">{{specTitle.en}}</h4>
+        <dl>
+          <dt data-el="{{goalLabel.el}}">{{goalLabel.en}}</dt><dd data-el="{{goal.el}}">{{goal.en}}</dd>
+          <dt data-el="{{criteriaLabel.el}}">{{criteriaLabel.en}}</dt><dd><ul>{{#each criteria}}<li data-el="{{el}}">{{en}}</li>{{/each}}</ul></dd>
+          <dt data-el="{{scopeLabel.el}}">{{scopeLabel.en}}</dt><dd data-el="{{scope.el}}">{{scope.en}}</dd>
+          <dt data-el="{{testsLabel.el}}">{{testsLabel.en}}</dt><dd data-el="{{tests.el}}">{{tests.en}}</dd>
+        </dl>
+      </article>
+      <figure class="sdlc-architecture">
+        <figcaption data-el="{{architectureTitle.el}}">{{architectureTitle.en}}</figcaption>
+        <ol role="list">{{#each components}}<li><strong data-el="{{title.el}}">{{title.en}}</strong><p data-el="{{body.el}}">{{body.en}}</p></li>{{/each}}</ol>
+      </figure>
+    </div>
+    <p class="sdlc-handoff" data-el="{{handoff.el}}">{{handoff.en}}</p>
+  </section>
+  {{/with}}
+  {{/with}}
+  <section class="sdlc-support" aria-labelledby="sdlc-support-title">
+    <div class="sdlc-heading"><h3 id="sdlc-support-title" data-el="{{sdlc.supportTitle.el}}">{{sdlc.supportTitle.en}}</h3><p data-el="{{sdlc.supportIntro.el}}">{{sdlc.supportIntro.en}}</p></div>
+    <div class="case-workflow">{{#each workflow}}<article><span class="workflow-node" aria-hidden="true"></span><h4 data-el="{{title.el}}">{{title.en}}</h4><p data-el="{{body.el}}">{{body.en}}</p></article>{{/each}}</div>
+  </section>
+</div>

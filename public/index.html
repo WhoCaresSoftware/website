@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    // Apply a saved preference before styles paint; CSS handles system defaults.
+    try {
+      const theme = localStorage.getItem('wcs-theme');
+      if (theme === 'light' || theme === 'dark') document.documentElement.dataset.wcsTheme = theme;
+    } catch { /* Storage may be unavailable. */ }
+  </script>
+  <script type="module" src="assets/main.js"></script>
+  <title>Who Cares Software — Software that makes work easier</title>
+  <meta name="description" content="An independent software studio led by Mike and XRS. Custom software, practical AI and dependable platforms, built around your business.">
+  <meta name="theme-color" content="{{theme.modes.light.page-background}}" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="{{theme.modes.dark.page-background}}" media="(prefers-color-scheme: dark)">
+  <link rel="canonical" href="https://whocaressoftware.com/">
+  <meta property="og:title" content="Who Cares Software — Software that makes work easier">
+  <meta property="og:description" content="Custom software, practical AI and dependable platforms. Meet Mike and XRS, the people behind Who Cares Software.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://whocaressoftware.com/">
+  <link rel="icon" href="{{brandAsset 'favicon.svg'}}" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/source-sans-3-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{brandAsset 'theme.css'}}">
+  <link rel="stylesheet" href="assets/foundations.css">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/composer.css">
+  <link rel="stylesheet" href="assets/work.css">
+  <link rel="stylesheet" href="assets/people.css">
+  <link rel="stylesheet" href="assets/illustrations.css">
+  <link rel="stylesheet" href="assets/approach.css">
+  <link rel="stylesheet" href="assets/hero.css">
+  <link rel="stylesheet" href="assets/services.css">
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="top">
+    <button class="logo" type="button" aria-label="Who Cares Software — animate wordmark">{{{brandSymbol 'logo-symbol' 52}}}<img class="brand-light" src="{{brandAsset 'website-wordmark-light.svg'}}" width="190" height="36" alt="whocares"><img class="brand-dark" src="{{brandAsset 'website-wordmark-dark.svg'}}" width="190" height="36" alt="whocares"></button>
+    <div class="header-menu" id="header-menu">
+      <nav class="site-nav" aria-label="Sections">
+        <a href="#problems"><span class="nav-label">Services</span></a><a href="#work"><span class="nav-label">Work</span></a><a href="#approach"><span class="nav-label">Approach</span></a><a href="#people"><span class="nav-label">Team</span></a><a href="#contact"><span class="nav-label">Contact</span></a>
+      </nav>
+      <div class="preferences" hidden>
+        <div class="preference-buttons">
+          <fieldset id="language" aria-label="Language"><label><input type="radio" name="language" value="en" aria-label="EN — English"><span lang="en">EN</span></label><label><input type="radio" name="language" value="el" aria-label="ΕΛ — Ελληνικά"><span lang="el">ΕΛ</span></label></fieldset>
+          <button id="theme" type="button" aria-label="Switch to dark theme">
+            <svg class="theme-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></svg>
+            <svg class="theme-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="intro-copy">
+        <h1 id="intro-title"><span class="accent">Software</span> that makes work <span class="accent">easier.</span></h1>
+        <p class="lead">We’re building custom software, practical AI and dependable platforms around your business.</p>
+        <a class="cta" href="mailto:whocaressoftware@gmail.com?subject=Let%E2%80%99s%20discuss%20a%20project&amp;body=Hi%20Mike%20and%20XRS%2C%0D%0A%0D%0AI%E2%80%99m%20working%20on%3A%20%0D%0AWhat%20I%E2%80%99d%20like%20help%20with%3A%20%0D%0A%0D%0AThanks%2C%0D%0A"><span class="cta-label">Discuss your project</span><span class="cta-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span></a>
+      </div>
+      <div class="hero-graph" aria-hidden="true">
+        <svg viewBox="3.5 -4.5 420 360" fill="none">
+          <g class="hero-guides" opacity=".16"><path d="M40 74H392M40 148H392M40 222H392M114 28V318M188 28V318M262 28V318M336 28V318"/></g>
+          <g class="hero-axes" opacity=".3"><path d="M40 28V318H392M35 33L40 28L45 33M387 313L392 318L387 323M35 74H45M35 148H45M35 222H45M114 313V323M188 313V323M262 313V323M336 313V323"/></g>
+          <g class="hero-symbol" transform="translate(69 24) scale(3.2)">
+            {{{symbolParts}}}
+          </g>
+        </svg>
+      </div>
+    </section>
+    <section class="services section" id="problems" aria-labelledby="services-title">
+      <h2 id="services-title">How we help</h2>
+      <div class="service-list">
+        <article><h3>Custom software</h3><p>Internal tools and customer applications built around your business, or improvements to software you already use.</p></article>
+        <article><h3>Automation &amp; AI</h3><p>Connect your tools and reduce repetitive work, using AI where it helps.</p></article>
+        <article><h3>Cloud &amp; reliability</h3><p>Build and improve the infrastructure behind your software, so it’s easier to run, update and maintain.</p></article>
+      </div>
+    </section>
+    <section class="work section" id="work" aria-labelledby="work-title">
+      <h2 id="work-title">Our work</h2>
+      <article class="project" id="work-aigistos">
+        <div><h3><a href="/work/aigistos/">Aigistos</a></h3><p class="project-kind">Custom worksite ERP</p></div>
+        <div class="project-copy"><p>A purpose-built system for managing worksites in Greece, now in use by the Aigistos team.</p><p>Better worksite visibility and analytics, with more efficient day-to-day management.</p><p class="note">Qualitative outcomes reported by our team.</p></div>
+      </article>
+      <article class="project" id="work-hex">
+        <div><h3><a href="/work/hex-mythica/">Hex Mythica</a></h3><p class="project-kind">Game development · WhoCaresGames</p></div>
+        <div class="project-copy"><p>End-to-end development of a roguelite deck-building game: gameplay, backend services, multiplayer systems and infrastructure.</p><p>Delivered through our WhoCaresGames work.</p><a class="text-link" href="https://www.youtube.com/watch?v=r5dA7W-qCfE">Watch the development journey <span class="link-context">on YouTube</span></a></div>
+      </article>
+      <article class="project" id="work-llm">
+        <div><h3><a href="/work/private-llm-gateway/">Private LLM Gateway</a></h3><p class="project-kind">Private AI for your organization</p></div>
+        <div class="project-copy"><p>An organization-wide gateway to private language models, with your data excluded from model training.</p><p>Give your team access to AI for their work while keeping organizational context within a private model setup.</p><p class="note">Built for clients and used in production internally.</p></div>
+      </article>
+      <article class="project" id="work-images">
+        <div><h3><a href="/work/brand-image-pipelines/">Brand Image Pipelines</a></h3><p class="project-kind">Context-aware imagery from your assets</p></div>
+        <div class="project-copy"><p>Custom image-generation workflows for branding teams. Upload your own assets and create context-aware images that place them in different scenes and scenarios.</p><p>Built around visual consistency and brand identity, with art direction that avoids a generic AI-generated look.</p><p class="note">Built for clients and used in production internally.</p></div>
+      </article>
+      <article class="project" id="work-agents">
+        <div><h3><a href="/work/coding-agents/">Coding Agents</a></h3><p class="project-kind">AI-assisted software development</p></div>
+        <div class="project-copy"><p>AI tools and coding agents integrated across the software development lifecycle, from planning and implementation to testing and maintenance.</p><p class="note">Built for clients and used in production internally.</p></div>
+      </article>
+      <article class="project" id="work-employees">
+        <div><h3><a href="/work/ai-employees/">AI Employees</a></h3><p class="project-kind">AI-assisted legal &amp; accounting workflows</p></div>
+        <div class="project-copy"><p>AI-assisted workflows for legal and accounting work, shaped around the context and tasks of the people using them.</p><p class="note">Built for clients and used in production internally.</p></div>
+      </article>
+    </section>
+    <section class="approach section" id="approach" aria-labelledby="approach-title">
+      <h2 id="approach-title">Understand first.<br><span class="accent">Build what matters.</span></h2>
+      <ol class="steps approach-timeline" role="list">
+        <li><span class="timeline-marker" aria-hidden="true">01</span><div class="timeline-copy"><h3>Clarify the problem</h3><p>Question assumptions and agree the scope before pricing the project.</p></div></li>
+        <li><span class="timeline-marker" aria-hidden="true">02</span><div class="timeline-copy"><h3>Build around the work</h3><p>Bring together the skills your project needs, with pricing based on scope, not headcount.</p></div></li>
+        <li><span class="timeline-marker" aria-hidden="true">03</span><div class="timeline-copy"><h3>Plan beyond delivery</h3><p>Agree who owns what, how we hand over and what support comes next.</p></div></li>
+      </ol>
+    </section>
+    <section class="people section" id="people" aria-labelledby="people-title">
+      <div class="people-intro">
+      <h2 id="people-title">The people<br><span class="accent">behind the work.</span></h2>
+      <div class="people-copy"><p>Mike and XRS are co-founders and platform engineers, backed by a collective of trusted specialists. We stay hands-on, from understanding your problem to building the systems behind your business.</p><p class="signoff">{{{brandSymbol 'signoff-symbol' 48}}}<span>Who cares? <span class="accent">We do.</span></span></p>
+      </div>
+      </div>
+      <div class="people-stage">
+      <div class="people-orbit">
+        <div class="portrait-pair" aria-label="Meet the co-founders">
+          <figure><a class="founder-portrait founder-cutout" data-founder="xrs" href="https://www.linkedin.com/in/chriskarpousis/" aria-label="XRS — LinkedIn"><img src="assets/images/xrs-cutout.webp" alt="XRS" width="1122" height="1402" loading="lazy"></a><figcaption>XRS <span>Co-founder</span></figcaption></figure>
+          <figure><a class="founder-portrait founder-cutout" data-founder="mike" href="https://www.linkedin.com/in/mbastakis/" aria-label="Mike — LinkedIn"><img src="assets/images/mike-cutout.webp" alt="Mike" width="1122" height="1402" loading="lazy"></a><figcaption>Mike <span>Co-founder</span></figcaption></figure>
+      <details class="collective">
+        <summary><span class="collective-label">Who else cares?</span><svg class="collective-toggle" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5v14"/></svg></summary>
+        <ul class="collective-members" id="collective-members" aria-label="The collective">
+          <li class="collective-member">
+            <button class="collective-person" type="button" aria-expanded="true" aria-controls="eva-expertise">
+              <img src="assets/images/eva-chrysostomaki.webp" alt="" width="400" height="400" loading="lazy">
+              <span>Eva Chrysostomaki</span>
+            </button>
+            <div class="collective-role-slot"><p class="collective-role" id="eva-expertise">Full-Stack Developer</p></div>
+          </li>
+          <li class="collective-member">
+            <button class="collective-person" type="button" aria-expanded="true" aria-controls="marileni-expertise">
+              <img src="assets/images/marileni-sinioraki.webp" alt="" width="400" height="400" loading="lazy">
+              <span>Marileni Sinioraki</span>
+            </button>
+            <div class="collective-role-slot"><p class="collective-role" id="marileni-expertise">Data Scientist</p></div>
+          </li>
+          <li class="collective-member">
+            <button class="collective-person" type="button" aria-expanded="true" aria-controls="kikidimop-expertise">
+              <img src="assets/images/kikidimop.webp" alt="" width="400" height="400" loading="lazy">
+              <span>KikiDimop</span>
+            </button>
+            <div class="collective-role-slot"><p class="collective-role" id="kikidimop-expertise">Mobile App Developer</p></div>
+          </li>
+          <li class="collective-member">
+            <button class="collective-person" type="button" aria-expanded="true" aria-controls="stratos-expertise">
+              <img src="assets/images/stratos-avatar.webp" alt="" width="400" height="400" loading="lazy">
+              <span>Stratos</span>
+            </button>
+            <div class="collective-role-slot"><p class="collective-role" id="stratos-expertise">Art direction · Cinematography · VR/AR</p></div>
+          </li>
+          <li class="collective-member">
+            <button class="collective-person" type="button" aria-expanded="true" aria-controls="giannis-expertise">
+              <img src="assets/images/giannis-avatar.webp" alt="" width="400" height="400" loading="lazy">
+              <span>Giannis</span>
+            </button>
+            <div class="collective-role-slot"><p class="collective-role" id="giannis-expertise">Music direction · Creative</p></div>
+          </li>
+          <li class="collective-member">
+            <button class="collective-person" type="button" aria-expanded="true" aria-controls="teo-expertise">
+              <img src="assets/images/teo-avatar.webp" alt="" width="400" height="400" loading="lazy">
+              <span>Teo</span>
+            </button>
+            <div class="collective-role-slot"><p class="collective-role" id="teo-expertise">Software Engineer</p></div>
+          </li>
+        </ul>
+      </details>
+        </div>
+      </div>
+      <div class="collective-readout" hidden><div class="collective-caption"><div class="collective-caption-content"><p class="collective-hint">Pick a face.</p></div></div></div>
+      </div>
+    </section>
+    <section class="contact section" id="contact" tabindex="-1" aria-labelledby="contact-title">
+      <h2 id="contact-title">What needs to<br><span class="accent">work better?</span></h2>
+      <div><p>You don’t need a finished brief. Tell Mike and XRS what you’re working on and what’s getting in the way.</p><a class="email" href="mailto:whocaressoftware@gmail.com">whocaressoftware@gmail.com</a></div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-main">
+      <div class="footer-intro"><div class="footer-brand" role="img" aria-label="Who Cares Software">{{{brandSymbol 'footer-symbol' 40}}}<img class="footer-wordmark brand-light" src="{{brandAsset 'website-wordmark-light.svg'}}" alt="" width="120" aria-hidden="true"><img class="footer-wordmark brand-dark" src="{{brandAsset 'website-wordmark-dark.svg'}}" alt="" width="120" aria-hidden="true"></div><p class="footer-tagline">Who cares? <span class="accent">We do.</span></p>
+      </div>
+      <div class="footer-links">
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="#problems">Services</a><a href="#work">Work</a><a href="#approach">Approach</a><a href="#people">Team</a><a href="#contact">Contact</a>
+        </nav>
+        <div class="footer-connect">
+          <a class="footer-email" href="mailto:whocaressoftware@gmail.com">whocaressoftware@gmail.com</a>
+          <ul class="footer-social">
+          <li><a href="https://www.linkedin.com/company/whocaressoftware/" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 11v5M8 8v.01M12 16v-5m4 5v-3a2 2 0 0 0-4 0"/></svg></a></li>
+          <li><a href="https://github.com/WhoCaresSoftware" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Who Cares Software</p><a class="back-top" href="#top"><span>Back to top</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></a></div>
+  </footer>
+</body>
+</html>

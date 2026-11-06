@@ -1,0 +1,44 @@
+Hex Mythica — published artwork credits and sources
+
+Game / studio: Hex Mythica / MYTH CENTRAL.
+Website development attribution: WhoCaresGames (not authorship of all artwork).
+
+Banner and environment image sourced from https://games.gg/hex-mythica/
+
+Cards, Thieves Guild character studies and prop studies:
+Tanya Podolskaia (sorcerix)
+https://www.artstation.com/artwork/9EoxER
+https://www.artstation.com/tanyapodolskaia
+
+The artist's project also credits collaborators:
+Nia Kovalevski — character design and card illustrations
+Matti Marttinen — environment design
+Xenia Sepelevici — card illustrations and icons
+These are project-wide credits, not a verified per-image authorship mapping.
+
+Published artwork is resized and encoded as WebP; compositions and visible
+artist marks remain intact.
+Attribution is not a claim of a redistribution licence or transfer of ownership.
+
+Asset mapping (paths relative to public/assets/images/project-showcase/):
+
+hex-cards.webp, hex-cards-800.webp, hex-mythica-mobile.webp,
+hex-mythica-mobile-400.webp:
+  Tanya Podolskaia (sorcerix), ArtStation project 9EoxER.
+  https://cdna.artstation.com/p/assets/images/images/077/219/866/large/tanya-podolskaia-sorcerix-hm-cardspromo-tanyapodolskaia.jpg?1718881365
+
+hex-characters.webp, hex-characters-800.webp:
+  Tanya Podolskaia (sorcerix), ArtStation project 9EoxER.
+  https://cdna.artstation.com/p/assets/images/images/077/384/694/large/tanya-podolskaia-sorcerix-hm-characters-thievesguild-tanyapodolskaia.jpg?1779121823
+
+hex-props.webp, hex-props-800.webp:
+  Tanya Podolskaia (sorcerix), ArtStation project 9EoxER.
+  https://cdna.artstation.com/p/assets/images/images/099/894/172/large/tanya-podolskaia-sorcerix-hm-props-tanyapodolskaia.webp?1781265526
+
+hex-environment.webp, hex-environment-800.webp:
+  Hex Mythica / MYTH CENTRAL, sourced from GAMES.GG.
+  https://assets.games.gg/HEX_MYTHICA_screen_c82ff15e56/HEX_MYTHICA_screen_c82ff15e56.webp
+
+hex-mythica-wide.webp, hex-mythica-wide-1200.webp:
+  Hex Mythica / MYTH CENTRAL, sourced from GAMES.GG.
+  https://assets.games.gg/HEX_MYTHICA_banner_936ec91b83/HEX_MYTHICA_banner_936ec91b83.jpg

@@ -1,0 +1,25 @@
+/* Shared illustration grammar. Identity artwork and functional icons are separate. */
+.editorial-art { display: block; width: 100%; height: auto; color: var(--wcs-foreground-muted); }
+.editorial-art :is(path, circle) { vector-effect: non-scaling-stroke; stroke-width: var(--stroke-thin); }
+.editorial-art .art-field { fill: var(--wcs-automate-tint); stroke: none; }
+.editorial-art .art-paper { fill: var(--wcs-section-background); }
+.editorial-art .art-solid { fill: var(--wcs-accent); stroke: none; }
+.editorial-art .art-inverse { stroke: var(--wcs-on-accent); }
+.editorial-art .art-ink { fill: var(--wcs-accent); stroke: none; }
+.editorial-art .art-route { stroke: var(--wcs-plan); stroke-width: var(--stroke-strong); }
+.editorial-art .art-detail { stroke-width: var(--stroke-strong); }
+.editorial-art .art-mask { mask-type: alpha; }
+.editorial-art .art-reveal { vector-effect: none; stroke-width: 8; }
+.service-sketch:not(.is-visible), .service-sketch.is-paused,
+.approach-timeline.is-paused { --art-play-state: paused; }
+@media (prefers-reduced-motion: no-preference) {
+  :is(.is-revealed, .is-passing) .editorial-art .art-reveal-shaft { animation: art-thread 1800ms cubic-bezier(.42, 0, .28, 1) both; }
+  :is(.is-revealed, .is-passing) .editorial-art .art-reveal-head { animation: art-thread 320ms cubic-bezier(.22, 1, .36, 1) 1800ms both; }
+  :is(.is-revealed, .is-passing) .editorial-art .art-reveal { animation-play-state: var(--art-play-state, running); }
+}
+/* Only the scaling mask is dashed. Visible ink stays continuous at every size. */
+@keyframes art-thread {
+  from { opacity: 0; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  1% { opacity: 1; }
+  to { opacity: 1; stroke-dasharray: 1; stroke-dashoffset: 0; }
+}

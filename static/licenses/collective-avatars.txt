@@ -1,0 +1,22 @@
+Collective avatars
+==================
+
+Stratos: cropped from "Catwithacigar.jpg", artwork by Louis Wain.
+Source: https://commons.wikimedia.org/wiki/File:Catwithacigar.jpg
+Image: https://upload.wikimedia.org/wikipedia/commons/6/66/Catwithacigar.jpg
+Public domain, as declared on the source file page.
+Adaptation: square crop, resized to 400 x 400 and converted to WebP.
+
+Giannis: cropped from "L. Wain's psychedelic cat.jpg", artwork by Louis Wain.
+Source: https://commons.wikimedia.org/wiki/File:L._Wain%27s_psychedelic_cat.jpg
+Image: https://upload.wikimedia.org/wikipedia/commons/f/f4/L._Wain%27s_psychedelic_cat.jpg
+Public domain, as declared on the source file page.
+Adaptation: centered square crop, resized to 400 x 400 and converted to WebP.
+
+Teo: fantasy pig-warrior avatar.
+Original authorship and licensing were not supplied; this notice does not claim
+that the work is public domain or grant third-party rights.
+Adaptation: centered square crop, resized to 400 x 400 and converted to WebP.
+
+Eva Chrysostomaki, Marileni Sinioraki and KikiDimop: contributor portraits/avatars.
+No third-party reuse rights are granted by this notice.

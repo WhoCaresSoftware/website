@@ -1,0 +1,238 @@
+/* Website dimensions live here. Components select tokens, never raw lengths.
+   Fluid scale: 320–1600px. Shared scales first, component geometry below. */
+:root {
+  /* Spacing rhythm; half-steps are derived rather than independent values. */
+  --space-3xs: .25rem;
+  --space-2xs: .5rem;
+  --space-xs: .75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-m-l: clamp(1.5rem, 1.375rem + .625vw, 2rem);
+  --space-l-xl: clamp(2rem, 1.75rem + 1.25vw, 3rem);
+  --space-xl-2xl: clamp(3rem, 2.75rem + 1.25vw, 4rem);
+  --space-m-4xl: clamp(1.5rem, .375rem + 5.625vw, 6rem);
+  --space-l-3xl: clamp(2rem, 1.25rem + 3.75vw, 5rem);
+  --layout-max: 100rem;
+  --gutter: var(--space-m-4xl);
+  --column-gap: var(--space-l-3xl);
+  --section-space: var(--space-xl-2xl);
+  --stack-gap: var(--space-m-l);
+  --display: clamp(2.75rem, 2.1875rem + 2.8125vw, 5rem);
+  --section-title: clamp(2rem, 1.875rem + .625vw, 2.5rem);
+  --item-title: clamp(1.5rem, 1.4688rem + .1563vw, 1.625rem);
+  --body: 1.125rem;
+  --lead: 1.25rem;
+  --label: 1rem;
+  --hero-top: clamp(1.75rem, 1.25rem + 2.5vw, 3.75rem);
+  --hero-bottom: var(--space-l-3xl);
+  --hero-gap: clamp(1.5rem, .875rem + 3.125vw, 4rem);
+
+  /* Fixed half-steps for compact UI rhythm, derived from the space scale.
+     These extensions are site-authored, not additional Utopia output. */
+  --space-s-plus: calc(var(--space-s) + var(--space-3xs));
+  --space-m-plus: calc(var(--space-m) + var(--space-3xs));
+  --space-l-plus: calc(var(--space-l) + var(--space-2xs));
+  --dialog-padding: var(--space-l-plus);
+
+  /* Shared UI geometry stays fixed when text is enlarged. */
+  --control-size: 44px;
+  --control-size-compact: 36px;
+  --control-size-large: 60px;
+  --icon-size: 24px;
+  --icon-size-small: 20px;
+  --control-inset: calc((var(--control-size) - var(--icon-size)) / 2);
+  --stroke-thin: 1px;
+  --stroke-strong: 2px;
+  --stroke-accent: 3px;
+  --focus-offset: 7px;
+  --focus-offset-tight: 2px;
+  --underline-offset: 5px;
+  --underline-offset-compact: 4px;
+  --radius-small: 4px;
+  --radius-medium: 8px;
+  --radius-large: 16px;
+  --radius-portrait: 24px;
+  --radius-pill: 999px;
+  --segmented-inset: calc(var(--radius-medium) - var(--radius-small) - var(--stroke-thin));
+  --dialog-width: 720px;
+  --dialog-width-wide: 800px;
+  --content-width: 880px;
+  --viewport-height: 100dvh;
+  --full-bleed: 100vmax;
+  --visually-hidden-size: 1px;
+  --shadow-dialog: 0 24px 80px var(--wcs-shadow-dialog);
+  --shadow-sheet: 0 6px 16px var(--wcs-shadow-sheet);
+  --shadow-paper: 0 8px 18px var(--wcs-shadow-paper);
+  --shadow-portrait: 0 12px 24px var(--wcs-shadow-portrait);
+  --shadow-floating: 0 4px 14px var(--wcs-shadow-floating);
+  --shadow-composer: 0 -12px 60px var(--wcs-shadow-composer);
+
+  /* Fixed motion distances also serve scripted Web Animations. */
+  --travel-press: 2px;
+  --travel-nudge: 4px;
+  --travel-small: 8px;
+  --travel-medium: 16px;
+  --travel-enter: 24px;
+  --travel-sheet: 64px;
+  --skip-link-hidden: -160%;
+  --header-height: 108px;
+
+  /* Shared state feedback, distinct from authored illustration timelines. */
+  --duration-fast: 180ms;
+  --duration-state: 240ms;
+  --duration-move: 280ms;
+  --ease-out-emphasis: cubic-bezier(.16,1,.3,1);
+
+  /* Stable reading/UI roles share the same face and real font weights. */
+  --font-body: "Source Sans 3", Arial, sans-serif;
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --leading-body: 1.6;
+  --leading-lead: 1.5;
+  --leading-display: 1.04;
+  --leading-section: 1.15;
+  --leading-title: 1.2;
+  --leading-compact: 1.35;
+  --leading-caption: 1.25;
+  --tracking-display: -.03em;
+  --tracking-section: -.02em;
+  --tracking-title: -.01em;
+  --measure-body: 65ch;
+  --measure-summary: 56ch;
+  --measure-lead: 44ch;
+  --measure-display: 18ch;
+  --measure-display-compact: 13ch;
+  --dialog-title: 2rem;
+}
+
+/* Project showcases share one responsive editorial system. */
+.case-page {
+  --case-rail-width: 230px;
+  --case-display: clamp(2.75rem, 1.75rem + 3.5vw, 6rem);
+  --case-hook-size: clamp(1.5rem, 1.25rem + .6vw, 2rem);
+  --case-inset: clamp(24px, 4vw, 64px);
+  --case-section-space: clamp(48px, 5vw, 80px);
+  --case-rail-logo-width: 120px;
+  --case-rail-symbol: 34px;
+  --case-next-size: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  --case-stage-min: 460px;
+  --case-phone-entry-width: 300px;
+  --case-demo-large: 2.5rem;
+  --case-demo-shadow: 0 16px 40px var(--wcs-shadow-paper);
+  --case-workflow-node: 10px;
+  --case-thread-length: 1300;
+}
+
+/* Component geometry: explicit names for the few dimensions outside the scale.
+   Keep coupled sizes together; derive clearance and offsets from them. */
+.top {
+  --wordmark-width: 190px;
+  --wordmark-width-compact: 150px;
+  --wordmark-width-narrow: clamp(100px, 32vw, 150px);
+  --wordmark-width-min: 90px;
+  --logo-symbol-size: 52px;
+  --logo-symbol-size-compact: 42px;
+  --logo-symbol-size-narrow: 34px;
+  --menu-top: 100px;
+  --nav-bracket-travel: 6px;
+  --menu-line-shift: 5px;
+}
+.hero-graph {
+  --hero-graph-width: 460px;
+  --hero-graph-compact: min(100%, 320px, 36svh);
+  --hero-graph-landscape: min(100%, 280px, 65svh);
+}
+.portrait-pair {
+  --portrait-width: 520px;
+  --portrait-radius: var(--radius-portrait);
+  --portrait-lift: -6px;
+  --portrait-backing-inset: 15%;
+}
+.signoff { --symbol-size: 48px; }
+.collective {
+  --collective-portrait-size: 96px;
+  --collective-member-width: 128px;
+  --collective-role-height: 3em;
+}
+.people-stage {
+  --collective-pair-gap: var(--space-s-plus);
+  --collective-side-top: calc(var(--collective-orbit-clearance) + (100cqw - 2 * var(--collective-orbit-inset) - var(--collective-pair-gap)) * .40625);
+  --collective-bubble-size: 80px;
+  --collective-bubble-compact: 68px;
+  --collective-orbit-inset: 84px;
+  --collective-orbit-inset-compact: 40px;
+  --collective-orbit-clearance: 96px;
+  --collective-readout-height: 112px;
+  --collective-expand-duration: 520ms;
+  --collective-collapse-duration: 360ms;
+  --collective-layout-ease: cubic-bezier(.4,0,.2,1);
+}
+.footer-brand { --symbol-size: 40px; --wordmark-width: 120px; }
+.back-top { --floating-size: 48px; }
+.back-top-slot { --back-top-width: 156px; }
+.service-list { --service-sketch-width: 192px; --service-sketch-compact: 108px; }
+.cloud-update { --service-update-origin: 154px 74px; }
+.approach {
+  --flow-marker-size: var(--space-xl);
+  --flow-route-height: 100px;
+  --flow-sketch-width: 240px;
+  --flow-sketch-width-compact: 180px;
+  --flow-copy-measure: 34ch;
+  --flow-title-gap: 10px;
+  --flow-sketch-lift: 10px;
+  --flow-piece-lift: 6px;
+  --sketch-note-a-transform: translate(-5px, 5px) rotate(-9deg);
+  --sketch-note-b-transform: translate(3px, -5px) rotate(8deg);
+}
+.founder-section { --profile-label-width: 150px; }
+.composer {
+  --composer-width: 760px;
+  --composer-height: min(900px, 94dvh);
+  --composer-radius: 20px;
+  --composer-titlebar-height: calc(var(--control-size) + 2 * var(--control-inset));
+  --message-height: 10rem;
+}
+.work-folder {
+  --folder-radius: var(--radius-large);
+  --folder-tab-width: 160px;
+  --folder-tab-height: 32px;
+  --folder-clearance-top: 120px;
+  --folder-clearance-compact: 108px;
+  --folder-back-step: 32px;
+  --folder-back-step-wide: 12px;
+  --folder-back-step-compact: 6px;
+  --folder-back-lift: 42px;
+  --folder-back-lift-compact: 40px;
+  --folder-back-lift-far: 90px;
+  --folder-inline-clearance: 144px;
+  --folder-inline-clearance-stacked: 80px;
+  --folder-width-stacked: 640px;
+  --folder-side-offset: 8px;
+  --folder-side-offset-compact: 2px;
+  --folder-chevron-shift: 6px;
+  --folder-side-clearance: 76px;
+  --folder-side-top: 22px;
+  --folder-side-bottom: 28px;
+  --folder-stack-front-inset: 16px 24px 28px;
+  --folder-stack-back-inset: 12px 30px 32px;
+  --folder-stack-front-shift: 9px;
+  --folder-lift: 10px;
+  --folder-documents-padding: 4cqw 9cqw 3cqw;
+  --folder-documents-padding-compact: 0 7cqw;
+  --folder-paper-padding: 3cqw;
+  --folder-title-size: clamp(var(--body), 4.2cqw, var(--item-title));
+  --folder-kind-size: clamp(var(--label), 3cqw, var(--body));
+  --folder-turn-x: calc(var(--travel-small) + var(--travel-nudge));
+  --folder-turn-y: calc(var(--travel-small) + var(--travel-press));
+  --folder-enter-x: calc(var(--travel-medium) + var(--travel-press));
+}
+.video-toggle { --chevron-size: 8px; }
+
+/* Our work: responsive project-cover overview. */
+.work {
+  --work-grid-row: clamp(160px, 15vw, 200px);
+  --work-grid-row-stacked: 190px;
+}
