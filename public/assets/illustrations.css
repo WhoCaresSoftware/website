@@ -13,8 +13,8 @@
 .service-sketch:not(.is-visible), .service-sketch.is-paused,
 .approach-timeline.is-paused { --art-play-state: paused; }
 @media (prefers-reduced-motion: no-preference) {
-  :is(.is-revealed, .is-passing) .editorial-art .art-reveal-shaft { animation: art-thread 1800ms cubic-bezier(.42, 0, .28, 1) both; }
-  :is(.is-revealed, .is-passing) .editorial-art .art-reveal-head { animation: art-thread 320ms cubic-bezier(.22, 1, .36, 1) 1800ms both; }
+  :is(.is-revealed, .is-passing) .editorial-art .art-reveal-shaft { animation: art-thread var(--duration-draw) var(--ease-draw) both; }
+  :is(.is-revealed, .is-passing) .editorial-art .art-reveal-head { animation: art-thread var(--duration-draw-tip) var(--ease-out-emphasis) var(--duration-draw) both; }
   :is(.is-revealed, .is-passing) .editorial-art .art-reveal { animation-play-state: var(--art-play-state, running); }
 }
 /* Only the scaling mask is dashed. Visible ink stays continuous at every size. */

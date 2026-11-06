@@ -31,8 +31,13 @@ Product facts and content constraints live in `PRODUCT.md`.
   Keep this family separate from illustrations and supplied identity artwork;
   brand symbols and wordmarks retain their approved geometry. `--symbol-ink-shift`
   offsets the symbol's built-in viewBox padding so its ink meets the layout edge.
+- **Motion:** foundations owns CSS durations and easing curves: the
+  `--duration-*` scale runs 180, 240, 280, 360, 500 and 800ms, plus longer pulse
+  and draw timelines. Use named `--ease-*` curves. Scripted Web Animations keep
+  their own choreography in JavaScript.
 - **Enforcement:** Stylelint rejects literal colors and color recipes, plus
-  length units outside foundations. `npm run check` also builds and checks
+  length units, times and `cubic-bezier()` outside foundations. Foundations'
+  fixed artwork overlays are the one marked color exception. `npm run check` also builds and checks
   brand pinning, metadata, bundled artwork and consumed theme roles.
 
 ## Homepage

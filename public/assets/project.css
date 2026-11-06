@@ -97,7 +97,7 @@
 .fuel-result[data-state="within-capacity"] { border-color: var(--wcs-run); }
 .study-thread { position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; stroke: var(--wcs-plan); stroke-width: 2; overflow: visible; }
 .study-thread path { vector-effect: non-scaling-stroke; }
-.thread-arrives .study-thread path { stroke-dasharray: var(--case-thread-length); animation: case-thread 1800ms var(--ease-out-emphasis) both; }
+.thread-arrives .study-thread path { stroke-dasharray: var(--case-thread-length); animation: case-thread var(--duration-draw) var(--ease-out-emphasis) both; }
 @keyframes case-thread { from { stroke-dashoffset: var(--case-thread-length); } to { stroke-dashoffset: 0; } }
 .case-game-gallery { display: grid; gap: var(--space-xl); }
 .case-game-gallery figure:nth-child(even) { width: 85%; justify-self: end; }

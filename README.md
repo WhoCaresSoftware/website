@@ -42,7 +42,7 @@ the repository. Serving and deploying the website does not require the brand che
 ## Editing
 
 - `public/index.html`: source content and English fallback.
-- `public/assets/foundations.css`: all CSS spacing, type, sizing and motion-distance variables.
+- `public/assets/foundations.css`: all CSS spacing, type, sizing, motion-distance and timing variables.
 - `public/assets/media.js`: named responsive conditions shared by CSS and JavaScript.
 - `public/assets/gestures.js`: shared pointer thresholds for folder and floating-link gestures.
 - `public/assets/styles.css`: shared layout and token-consuming typography.

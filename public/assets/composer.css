@@ -13,7 +13,7 @@ body:has(.composer[open]) { overflow: hidden; }
 .composer .composer-titlebar .dismiss:active { color: var(--wcs-accent); }
 :is(input, textarea)::placeholder { color: var(--wcs-foreground-muted); opacity: 1; }
 .composer-titlebar :focus-visible { outline-offset: var(--focus-offset-tight); }
-.composer[open] { display: flex; flex-direction: column; animation: paper-open 520ms var(--ease-out-emphasis); }
+.composer[open] { display: flex; flex-direction: column; animation: paper-open var(--duration-slow) var(--ease-out-emphasis); }
 @keyframes paper-open { from { transform: translateY(var(--travel-sheet)); } to { transform: translateY(0); } }
 .composer-paper { position: relative; flex: 0 1 auto; min-height: 0; margin: 0; overflow-y: auto; overflow-x: hidden; scrollbar-gutter: stable; overscroll-behavior: contain; scroll-padding-block: var(--space-s-plus); padding: var(--space-m) var(--space-l) max(var(--space-m-plus), env(safe-area-inset-bottom)); background: var(--wcs-background); }
 .composer-heading { display: grid; grid-template-columns: minmax(0, 1fr) var(--control-size); align-items: start; gap: var(--space-2xs) var(--space-s); margin-bottom: var(--space-s-plus); }

@@ -24,7 +24,7 @@
 
 /* Each time the dot passes a step, its marker pings. */
 .timeline-marker::after { content: ""; position: absolute; inset: calc(-1 * var(--stroke-thin)); border: var(--stroke-thin) solid var(--hue); border-radius: 50%; opacity: 0; pointer-events: none; }
-.is-passing > .timeline-marker::after { animation: marker-ping 1200ms ease-out; }
+.is-passing > .timeline-marker::after { animation: marker-ping var(--duration-pulse) ease-out; }
 @keyframes marker-ping { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(1.8); } }
 
 /* Each step's sketch is a still drawing, always shown, across the route from its copy and tied to the marker by a stem. */
@@ -37,7 +37,7 @@
 /* The amber thread redraws on arrival; the paper composition stays still. */
 .timeline-art::after { transform-origin: bottom; }
 .approach-timeline li:nth-child(2) .timeline-art::after { transform-origin: top; }
-.is-passing > .timeline-art::after { animation: stem-grow 450ms ease-out both; }
+.is-passing > .timeline-art::after { animation: stem-grow var(--duration-slow) ease-out both; }
 @keyframes stem-grow { from { transform: scaleY(0); } }
 .approach-timeline.is-paused *, .approach-timeline.is-paused *::after { animation-play-state: paused; }
 
