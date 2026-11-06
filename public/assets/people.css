@@ -36,6 +36,7 @@
 .collective-enhanced .collective-member:nth-child(5) { left: 15%; top: 91%; }
 .collective-enhanced .collective-member:nth-child(6) { left: 85%; top: 92%; }
 .collective-enhanced .collective-member:nth-child(7) { left: 50%; top: 92%; }
+.collective-enhanced .collective-member:nth-child(8) { left: 50%; top: 8%; }
 .collective-enhanced .collective-member:has([aria-expanded="true"]) { z-index: 4; }
 .collective-enhanced .collective-person { padding: 0; gap: 0; border-radius: 50%; }
 .collective-enhanced .collective-person img { width: 100%; border: var(--stroke-strong) solid var(--wcs-background); box-shadow: var(--shadow-floating); }
