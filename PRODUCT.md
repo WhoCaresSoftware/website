@@ -7,6 +7,10 @@ owners, operations leads and technical leaders understand the studio's services,
 explore selected work and start a conversation, even without a finished brief.
 
 Use plain language at entry, with concrete engineering detail where useful.
+The voice is dry, direct and confident, and it leans into the name: short
+sentences, concrete nouns, a little wit, no agency filler. Wit never replaces or
+stretches a fact. Greek keeps the same tone in the formal plural, as its own
+copy rather than a literal translation.
 Services cover workflow automation, custom software and cloud/platform engineering.
 
 ## Website

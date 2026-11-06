@@ -4,7 +4,7 @@ const step = (title, body) => ({ title, body });
 
 export const codingShowcase = {
   title: t('The lifecycle we designed.', 'Ο κύκλος ανάπτυξης που σχεδιάσαμε.'),
-  intro: t('The proposed process connects the work before, during and after coding. Each stage has an output for the next; engineers and product leads shape the decisions and review responsibilities around their team.', 'Η διαδικασία που προτείναμε συνδέει τη δουλειά πριν, κατά τη διάρκεια και μετά τη συγγραφή κώδικα. Κάθε στάδιο δίνει αποτέλεσμα στο επόμενο. Οι μηχανικοί και οι υπεύθυνοι προϊόντος προσαρμόζουν τις αποφάσεις και τις αρμοδιότητες ελέγχου στην ομάδα τους.'),
+  intro: t('The proposed process connects the work before, during and after coding. Each stage hands something to the next. Engineers and product leads shape the decisions and review responsibilities around their team.', 'Η διαδικασία που προτείναμε συνδέει τη δουλειά πριν, κατά τη διάρκεια και μετά τον κώδικα. Κάθε στάδιο παραδίδει κάτι στο επόμενο. Οι μηχανικοί και οι υπεύθυνοι προϊόντος προσαρμόζουν τις αποφάσεις και τις αρμοδιότητες ελέγχου στην ομάδα τους.'),
   stages: [
     step(t('Request', 'Αίτημα'), t('Describe the need and the intended outcome.', 'Περιγραφή της ανάγκης και του επιθυμητού αποτελέσματος.')),
     step(t('Specification', 'Προδιαγραφή'), t('Draft the scope, constraints and acceptance criteria.', 'Προσχέδιο με αντικείμενο, περιορισμούς και κριτήρια αποδοχής.')),
@@ -16,7 +16,7 @@ export const codingShowcase = {
   ],
   example: {
     title: t('A worked example: customer discount approvals.', 'Ένα παράδειγμα στην πράξη: έγκριση εκπτώσεων πελατών.'),
-    intro: t('Imagine a sales team chasing discount approvals through emails and calls. The business request: give each request a responsible manager and a visible decision. Here is how that need becomes a clear brief and a design the team can build.', 'Ας πάρουμε μια ομάδα πωλήσεων που αναζητά εγκρίσεις εκπτώσεων μέσα από email και τηλεφωνήματα. Το επιχειρηματικό αίτημα: κάθε αίτημα να έχει υπεύθυνο και ορατή απόφαση. Έτσι η ανάγκη γίνεται σαφής προδιαγραφή και σχέδιο που μπορεί να υλοποιήσει η ομάδα.'),
+    intro: t('Imagine a sales team chasing discount approvals through emails and calls. The business asks for one thing: each request gets a responsible manager and a visible decision. Here is how that becomes a clear brief and a design the team can build.', 'Ας πάρουμε μια ομάδα πωλήσεων που κυνηγά εγκρίσεις εκπτώσεων με email και τηλεφωνήματα. Η επιχείρηση ζητά ένα πράγμα: κάθε αίτημα να έχει υπεύθυνο και ορατή απόφαση. Έτσι αυτό γίνεται σαφής προδιαγραφή και σχέδιο που μπορεί να υλοποιήσει η ομάδα.'),
     specTitle: t('Request and approve a discount', 'Αίτημα και έγκριση έκπτωσης'),
     goalLabel: t('Business goal', 'Επιχειρηματικός στόχος'),
     goal: t('Help salespeople get a clear decision before sending a customer offer, without chasing updates across messages.', 'Οι πωλητές να λαμβάνουν σαφή απόφαση πριν στείλουν προσφορά στον πελάτη, χωρίς να αναζητούν ενημερώσεις σε διάσπαρτα μηνύματα.'),
@@ -37,8 +37,8 @@ export const codingShowcase = {
       step(t('Decision record', 'Αρχείο αποφάσεων'), t('Keep the status, explanation and who decided together.', 'Καταγραφή της κατάστασης, της αιτιολόγησης και του υπευθύνου της απόφασης.')),
       step(t('Team notifications', 'Ειδοποιήσεις ομάδας'), t('Alert the manager to a new request and the salesperson to the decision.', 'Ενημέρωση του υπευθύνου για νέο αίτημα και του πωλητή για την απόφαση.'))
     ],
-    handoff: t('The business team can review the rules before coding starts. Engineers and coding agents then work from the same brief, and reviewers check the finished feature against the agreed customer journey.', 'Η επιχειρηματική ομάδα μπορεί να ελέγξει τους κανόνες πριν ξεκινήσει η υλοποίηση. Μηχανικοί και coding agents δουλεύουν έπειτα με την ίδια προδιαγραφή και όσοι ελέγχουν τη λειτουργία τη συγκρίνουν με τη συμφωνημένη διαδρομή χρήσης.')
+    handoff: t('The business team reviews the rules before coding starts. Engineers and coding agents then work from the same brief, and reviewers check the finished feature against the agreed customer journey.', 'Η επιχειρηματική ομάδα ελέγχει τους κανόνες πριν ξεκινήσει η υλοποίηση. Μηχανικοί και coding agents δουλεύουν μετά με την ίδια προδιαγραφή και όσοι ελέγχουν τη λειτουργία τη συγκρίνουν με τη συμφωνημένη διαδρομή χρήσης.')
   },
-  supportTitle: t('The work around the workflow.', 'Η υποστήριξη γύρω από τη ροή.'),
-  supportIntro: t('A lifecycle diagram is only one part of the engagement. Shared tooling, automation and hands-on support help the team put the approach to work.', 'Το διάγραμμα του κύκλου ανάπτυξης είναι μόνο ένα μέρος της συνεργασίας. Τα κοινά εργαλεία, οι αυτοματισμοί και η πρακτική υποστήριξη βοηθούν την ομάδα να εφαρμόσει την προσέγγιση.')
+  supportTitle: t('The work around the workflow.', 'Η δουλειά γύρω από τη ροή.'),
+  supportIntro: t('A diagram doesn’t change how a team works. Shared tooling, automation and hands-on support do.', 'Ένα διάγραμμα δεν αλλάζει τον τρόπο που δουλεύει μια ομάδα. Τα κοινά εργαλεία, οι αυτοματισμοί και η πρακτική υποστήριξη το αλλάζουν.')
 };
