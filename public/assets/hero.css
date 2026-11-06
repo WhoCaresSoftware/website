@@ -1,25 +1,29 @@
-.intro { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); align-items: center; gap: var(--hero-gap); }
-.hero-graph { width: 100%; max-width: var(--hero-graph-width); justify-self: end; color: var(--wcs-accent); }
+/* The argument takes the full measure; the offer and the symbol share the row beneath it. */
+.intro { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto; gap: var(--space-m) var(--hero-gap); }
+.intro-copy { display: contents; }
+#intro-title { grid-column: 1 / -1; max-width: 100%; }
+:lang(el) #intro-title { font-size: var(--display-greek); }
+.intro .lead { grid-column: 1; grid-row: 2; align-self: end; margin-top: 0; }
+.intro .cta { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 0; }
+.hero-graph { grid-column: 2; grid-row: 2 / 4; align-self: end; width: 100%; max-width: var(--hero-graph-width); justify-self: end; color: var(--wcs-accent); }
 .hero-graph svg { display: block; width: 100%; height: auto; overflow: visible; }
 .hero-axes { fill: none; stroke: var(--wcs-foreground-muted); stroke-width: 1; }
 .hero-guides { fill: none; stroke: var(--wcs-border); stroke-width: 1; stroke-dasharray: 2 7; }
 .hero-symbol { fill: currentColor; }
 #intro-title .accent { color: var(--wcs-accent); }
 @media (--stacked) {
-  .intro { grid-template-columns: minmax(0, 1fr); gap: var(--stack-gap); padding-block: var(--space-s) var(--space-l); }
-  .intro-copy { display: contents; }
-  #intro-title { grid-row: 1; max-width: 100%; }
-  .hero-graph { grid-row: 2; width: var(--hero-graph-compact); justify-self: center; }
-  .intro .lead { grid-row: 3; margin-top: 0; }
-  .intro .cta { grid-row: 4; justify-self: start; margin-top: 0; }
+  .intro { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: var(--stack-gap); padding-block: var(--space-s) var(--space-l); }
+  #intro-title { grid-column: 1; grid-row: 1; }
+  .hero-graph { grid-column: 1; grid-row: 2; width: var(--hero-graph-compact); justify-self: center; }
+  .intro .lead { grid-column: 1; grid-row: 3; }
+  .intro .cta { grid-column: 1; grid-row: 4; }
 }
 /* Short landscape screens use the available width instead of stacking the graph. */
 @media (--short-landscape) {
   .top { padding-block: var(--space-xs); }
-  .intro { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--space-s-plus) var(--space-m); padding-block: var(--space-xs) var(--space-l); }
-  .intro-copy { display: contents; }
-  #intro-title { grid-column: 1; grid-row: 1; max-width: 100%; }
-  .hero-graph { grid-column: 2; grid-row: 1; width: var(--hero-graph-landscape); justify-self: center; }
+  .intro { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); grid-template-rows: none; gap: var(--space-s-plus) var(--space-m); padding-block: var(--space-xs) var(--space-l); }
+  #intro-title { grid-column: 1; grid-row: 1; }
+  .hero-graph { grid-column: 2; grid-row: 1; align-self: center; width: var(--hero-graph-landscape); justify-self: center; }
   .intro .lead { grid-column: 1 / -1; grid-row: 2; margin-top: 0; }
   .intro .cta { grid-column: 1 / -1; grid-row: 3; justify-self: start; margin-top: 0; }
 }

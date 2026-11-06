@@ -6,7 +6,7 @@
 .case-rail { position: sticky; top: 0; height: var(--viewport-height); min-height: fit-content; padding: var(--space-l) var(--space-m); border-right: var(--stroke-thin) solid var(--wcs-border); display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-l); }
 .case-brand { display: flex; gap: var(--space-2xs); align-items: center; min-height: var(--control-size); }
 .case-brand img { width: var(--case-rail-logo-width); height: auto; }
-.case-symbol { width: var(--case-rail-symbol); height: var(--case-rail-symbol); color: var(--wcs-brand-symbol); }
+.case-symbol { width: var(--case-rail-symbol); height: var(--case-rail-symbol); margin-inline-start: calc(var(--case-rail-symbol) * var(--symbol-ink-shift)); color: var(--wcs-brand-symbol); }
 .case-back, .case-discuss { display: inline-flex; gap: var(--space-xs); align-items: center; min-height: var(--control-size); font-size: var(--label); }
 .case-identity .case-back { margin-top: var(--space-l); }
 .case-index { display: flex; flex-direction: column; gap: var(--space-2xs); }
@@ -22,7 +22,7 @@
 .case-opening { padding: var(--space-l) var(--case-inset) var(--case-section-space); background: var(--wcs-accent); color: var(--wcs-on-accent); }
 .case-opening p { color: inherit; }
 .case-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--space-xs) var(--space-l); padding-bottom: var(--space-s); border-bottom: var(--stroke-thin) solid var(--wcs-on-accent); font-size: var(--label); line-height: var(--leading-compact); }
-.case-opening h1 { font-size: var(--case-display); font-weight: var(--weight-semibold); max-width: 100%; margin-top: var(--space-l); }
+.case-opening h1 { font-size: var(--case-display); max-width: 100%; margin-top: var(--space-l); }
 .case-hook { margin-top: var(--space-m); font-size: var(--case-hook-size); white-space: pre-line; line-height: var(--leading-title); max-width: var(--measure-lead); }
 .case-cover { margin-top: var(--space-l); }
 .case-cover picture { display: block; }
@@ -109,9 +109,10 @@
 .case-outcome h2 { white-space: pre-line; }
 .case-links { display: flex; flex-wrap: wrap; gap: var(--space-xs) var(--space-l); margin-top: var(--space-m); }
 .case-text-link { display: inline-flex; align-items: center; gap: var(--space-xs); min-height: var(--control-size); text-decoration: underline; }
-.case-contact { display: flex; align-items: center; justify-content: space-between; gap: var(--space-l); flex-wrap: wrap; }
+.case-contact { display: flex; align-items: center; justify-content: space-between; gap: var(--space-l); flex-wrap: wrap; background: var(--wcs-accent); color: var(--wcs-on-accent); }
 .case-contact h2 { max-width: var(--measure-display); }
-.case-contact > a { color: var(--wcs-accent); }
+.case-contact > a { color: inherit; }
+.case-contact :focus-visible { outline-color: var(--wcs-on-accent); }
 .case-next { border-top: var(--stroke-thin) solid var(--wcs-border); padding-top: var(--space-l); padding-bottom: var(--space-l); }
 .case-next-project { display: flex; align-items: center; justify-content: space-between; gap: var(--space-m); min-height: var(--control-size-large); }
 .case-next-project span { font-size: var(--label); color: var(--wcs-foreground-muted); }

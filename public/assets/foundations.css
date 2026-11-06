@@ -18,13 +18,16 @@
   --layout-max: 100rem;
   --gutter: var(--space-m-4xl);
   --column-gap: var(--space-l-3xl);
-  --section-space: var(--space-xl-2xl);
+  --section-space: clamp(4rem, 3rem + 5vw, 7rem);
   --stack-gap: var(--space-m-l);
-  --display: clamp(2.75rem, 2.1875rem + 2.8125vw, 5rem);
-  --section-title: clamp(2rem, 1.875rem + .625vw, 2.5rem);
+  --display: clamp(2.5rem, 1.75rem + 3.25vw, 4.75rem);
+  --display-greek: calc(var(--display) * .9);
+  --signoff: clamp(2rem, 1.5rem + 2.5vw, 3.75rem);
+  --section-title: clamp(2rem, 1.75rem + 1.25vw, 3.25rem);
   --item-title: clamp(1.5rem, 1.4688rem + .1563vw, 1.625rem);
   --body: 1.125rem;
   --lead: 1.25rem;
+  --hero-lead: clamp(1.25rem, 1.125rem + .625vw, 1.75rem);
   --label: 1rem;
   --hero-top: clamp(1.75rem, 1.25rem + 2.5vw, 3.75rem);
   --hero-bottom: var(--space-l-3xl);
@@ -43,6 +46,7 @@
   --control-size-large: 60px;
   --icon-size: 24px;
   --icon-size-small: 20px;
+  --symbol-ink-shift: -.11; /* The approved symbol's artwork starts 11% inside its viewBox. */
   --control-inset: calc((var(--control-size) - var(--icon-size)) / 2);
   --stroke-thin: 1px;
   --stroke-strong: 2px;
@@ -92,7 +96,7 @@
   --weight-semibold: 600;
   --leading-body: 1.6;
   --leading-lead: 1.5;
-  --leading-display: 1.04;
+  --leading-display: 1.08;
   --leading-section: 1.15;
   --leading-title: 1.2;
   --leading-compact: 1.35;
@@ -111,7 +115,8 @@
 /* Project showcases share one responsive editorial system. */
 .case-page {
   --case-rail-width: 230px;
-  --case-display: clamp(2.75rem, 1.75rem + 3.5vw, 6rem);
+  --section-title: clamp(1.875rem, 1.625rem + 1vw, 2.75rem);
+  --case-display: clamp(2.5rem, 1.75rem + 3vw, 4.5rem);
   --case-hook-size: clamp(1.5rem, 1.25rem + .6vw, 2rem);
   --case-inset: clamp(24px, 4vw, 64px);
   --case-section-space: clamp(48px, 5vw, 80px);
@@ -141,7 +146,7 @@
   --menu-line-shift: 5px;
 }
 .hero-graph {
-  --hero-graph-width: 460px;
+  --hero-graph-width: 340px;
   --hero-graph-compact: min(100%, 320px, 36svh);
   --hero-graph-landscape: min(100%, 280px, 65svh);
 }
@@ -151,7 +156,6 @@
   --portrait-lift: -6px;
   --portrait-backing-inset: 15%;
 }
-.signoff { --symbol-size: 48px; }
 .collective {
   --collective-portrait-size: 96px;
   --collective-member-width: 128px;

@@ -22,14 +22,15 @@ Product facts and content constraints live in `PRODUCT.md`.
 - **Typography:** foundations defines the family, weights, leading, tracking and
   reading measures. Self-host Source Sans 3 regular/semibold, including Greek.
   Labels are 16px, body 18px, lead 20px, item titles 24–26px, section titles
-  32–40px and display 44–80px. Body measure is capped at 65ch.
+  32–52px and display 40–76px. Body measure is capped at 65ch.
 - **Responsive behavior:** `public/assets/media.js` defines named conditions
   shared by CSS and JavaScript; Vite expands CSS conditions. Scripts measure
   actual layout where needed; `gestures.js` shares pointer thresholds.
 - **Functional icons:** website UI glyphs share a 24 × 24 viewBox, `currentColor`,
   1.5-unit strokes and round caps/joins, normalized in `public/assets/styles.css`.
   Keep this family separate from illustrations and supplied identity artwork;
-  brand symbols and wordmarks retain their approved geometry.
+  brand symbols and wordmarks retain their approved geometry. `--symbol-ink-shift`
+  offsets the symbol's built-in viewBox padding so its ink meets the layout edge.
 - **Enforcement:** Stylelint rejects literal colors and color recipes, plus
   length units outside foundations. `npm run check` also builds and checks
   brand pinning, metadata, bundled artwork and consumed theme roles.
@@ -50,7 +51,9 @@ offer → services → work → approach → founders → contact.
 - Desktop navigation uses accent `[ ]` brackets for the current section, hover
   and keyboard focus, with no separator dots or underline. Brackets slide inward
   and fade in; the mobile menu retains arrows and an accent current row instead.
-- Hero pairs the value proposition and contact action with a graph that resolves
+- Hero sets the argument at full width in regular display type; the offer,
+  contact action and graph share the row beneath it. Section titles use a dark
+  line then an accent line. The graph resolves
   into the exact supplied WC symbol. The reveal runs once; reduced motion and
   no JavaScript show the completed symbol. The action remains usable throughout.
   The wordmark loading highlight follows the running reveal and clears whenever
@@ -100,6 +103,9 @@ offer → services → work → approach → founders → contact.
   Portrait shirt prints use brand Deep Teal, preserving the original ink texture;
   all other portrait pixels and alpha remain unchanged. Portfolio imagery retains
   its baked-in colors.
+- The homepage ends on its one inverse Deep Teal band: the contact question, the
+  address, then "Who cares? We do." as the only semibold display line. That line
+  appears only here, and project pages close their contact prompt on the same band.
 - Contact opens a native draft composer: centered on desktop, bottom sheet on
   phones. Dismissal preserves the in-memory draft. No backend sends messages or
   uploads files; email attachments require reattachment, and Web Share is optional.

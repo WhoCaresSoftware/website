@@ -96,7 +96,6 @@
       '#contact-title': 'Τι χρειάζεται να<br><span class="accent">δουλεύει καλύτερα;</span>',
       '.contact-body p': 'Δεν χρειάζεται έτοιμο σχέδιο. Πείτε στον Mike και στον XRS με τι ασχολείστε και τι σας εμποδίζει.',
       '.back-top span': 'Επιστροφή στην αρχή',
-      '.footer-tagline': 'Ποιος νοιάζεται; <span class="accent">Εμείς.</span>',
       '.footer-nav a[href="#problems"]': 'Υπηρεσίες',
       '.footer-nav a[href="#work"]': 'Έργα',
       '.footer-nav a[href="#approach"]': 'Προσέγγιση',

@@ -17,7 +17,7 @@ import { media } from './media.js';
       const sectionBounds = section.getBoundingClientRect();
       return sectionBounds.top <= backgroundLine && sectionBounds.bottom > backgroundLine;
     });
-    header.classList.toggle('over-band', Boolean(backgroundSection?.matches('.services, .approach, .contact')));
+    header.classList.toggle('over-band', Boolean(backgroundSection?.matches('.services, .approach')));
     // The current section is the last one whose top has passed the header.
     const line = bounds.top + parseFloat(getComputedStyle(sections[0]).scrollMarginTop);
     let current = -1;
