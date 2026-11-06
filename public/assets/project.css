@@ -16,7 +16,8 @@
 .case-index a[aria-current]::before { content: '['; margin-right: var(--space-2xs); }
 .case-index a[aria-current]::after { content: ']'; margin-left: var(--space-2xs); }
 .case-rail-bottom { display: grid; gap: var(--space-m); }
-.case-rail .preferences { margin: 0; }
+.case-rail .preferences { display: flex; align-items: center; gap: var(--space-s); margin: 0; }
+.case-rail .preferences::before { content: ''; width: var(--stroke-thin); height: var(--icon-size); background: var(--wcs-border); }
 .case-main { min-width: 0; }
 .case-opening { padding: var(--space-l) var(--case-inset) var(--case-section-space); background: var(--wcs-accent); color: var(--wcs-on-accent); }
 .case-opening p { color: inherit; }
@@ -44,6 +45,7 @@
 .case-concept .concept-route { stroke: var(--wcs-plan); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .case-workflow-stage { margin-top: var(--space-l); }
 .sdlc-showcase { display: grid; gap: var(--space-2xl); }
+.sdlc-showcase h4 { margin: 0; font-weight: var(--weight-semibold); line-height: var(--leading-title); letter-spacing: var(--tracking-title); text-wrap: balance; }
 .sdlc-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--space-l-xl); align-items: start; }
 .sdlc-heading h3 { font-size: var(--item-title); }
 .sdlc-route { list-style: none; padding: 0; margin: var(--space-l) 0 0; }
@@ -126,6 +128,7 @@
   .case-index { order: 3; flex-direction: row; width: 100%; min-width: 0; gap: var(--space-s); overflow-x: auto; border-top: var(--stroke-thin) solid var(--wcs-border); padding-block: var(--space-2xs) var(--focus-offset); }
   .case-index a { flex-shrink: 0; white-space: nowrap; }
   .case-index .case-back-mobile { display: inline-flex; }
+  .case-index .case-back-mobile::after { content: ''; height: var(--icon-size); border-inline-end: var(--stroke-thin) solid var(--wcs-border); margin-inline: var(--space-xs); }
   .case-rail-bottom { display: flex; align-items: center; gap: var(--space-m); }
   .case-discuss { display: none; }
   .case-opening h1 { margin-top: var(--space-m); }

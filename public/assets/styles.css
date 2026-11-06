@@ -81,11 +81,11 @@ h3 { font-size: var(--item-title); font-weight: var(--weight-semibold); line-hei
   .preferences button:hover { background: var(--wcs-surface); color: var(--wcs-foreground); }
 }
 .preferences button:active { color: var(--wcs-accent); }
-#language { display: flex; margin: 0; padding: var(--segmented-inset); border: var(--stroke-thin) solid var(--wcs-border); border-radius: var(--radius-medium); }
+#language { display: flex; margin: 0; padding: 0; border: 0; }
 #language label { position: relative; cursor: pointer; }
 #language input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
-#language span { display: grid; place-items: center; min-width: var(--control-size); min-height: var(--control-size); border-radius: var(--radius-small); font-size: var(--label); color: var(--wcs-foreground-muted); }
-#language input:checked + span { background: var(--wcs-surface); color: var(--wcs-foreground); font-weight: var(--weight-semibold); text-decoration: underline; text-underline-offset: var(--underline-offset-compact); }
+#language span { display: grid; place-items: center; min-width: var(--control-size-compact); min-height: var(--control-size); border-radius: var(--radius-small); font-size: var(--label); color: var(--wcs-foreground-muted); }
+#language input:checked + span { background: var(--wcs-transparent); color: var(--wcs-foreground); font-weight: var(--weight-semibold); text-decoration: underline; text-decoration-color: var(--wcs-accent); text-decoration-thickness: var(--stroke-strong); text-underline-offset: var(--space-2xs); }
 @media (hover: hover) and (pointer: fine) {
   #language label:hover span { color: var(--wcs-accent); }
 }
@@ -248,10 +248,6 @@ footer a { display: inline-flex; min-height: var(--control-size); align-items: c
 .site-nav .nav-label::before { content: '['; right: calc(100% + var(--stroke-strong)); translate: var(--nav-bracket-travel) -50%; }
 .site-nav .nav-label::after { content: ']'; left: calc(100% + var(--stroke-strong)); translate: calc(-1 * var(--nav-bracket-travel)) -50%; }
 .site-nav a[aria-current] .nav-label::before, .site-nav a[aria-current] .nav-label::after, .site-nav a:focus-visible .nav-label::before, .site-nav a:focus-visible .nav-label::after { opacity: 1; translate: 0 -50%; }
-/* Language reads as two quiet text options rather than a boxed control. */
-.top #language { padding: 0; border: 0; }
-.top #language span { min-width: var(--control-size-compact); }
-.top #language input:checked + span { background: var(--wcs-transparent); text-decoration-color: var(--wcs-accent); text-decoration-thickness: var(--stroke-strong); text-underline-offset: var(--space-2xs); }
 @media (hover: hover) and (pointer: fine) {
   .site-nav a:hover { color: var(--wcs-foreground); text-decoration: none; }
   .site-nav a:hover .nav-label::before, .site-nav a:hover .nav-label::after { opacity: 1; translate: 0 -50%; }

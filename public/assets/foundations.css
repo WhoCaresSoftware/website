@@ -221,7 +221,7 @@
   --folder-stack-front-shift: 9px;
   --folder-lift: 10px;
   --folder-documents-padding: 4cqw 9cqw 3cqw;
-  --folder-documents-padding-compact: 0 7cqw;
+  --folder-documents-padding-compact: 0 max(10cqw, var(--control-size-compact));
   --folder-paper-padding: 3cqw;
   --folder-title-size: clamp(var(--body), 4.2cqw, var(--item-title));
   --folder-kind-size: clamp(var(--label), 3cqw, var(--body));

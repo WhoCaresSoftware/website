@@ -10,7 +10,14 @@ if (demo) {
   const input = document.getElementById('fuel-amount');
   const result = document.getElementById('fuel-result');
   let checkedAmount = 100;
+  let checked = true;
   const renderResult = () => {
+    if (!checked) {
+      input.removeAttribute('aria-invalid');
+      result.textContent = greek() ? 'Πατήστε «Έλεγχος καταχώρισης» για να ελέγξετε την ποσότητα.' : 'Choose “Check entry” to check this amount.';
+      delete result.dataset.state;
+      return;
+    }
     const over = checkedAmount > 80;
     const amount = new Intl.NumberFormat(greek() ? 'el-GR' : 'en-GB').format(checkedAmount);
     result.dataset.state = over ? 'review' : 'within-capacity';
@@ -25,12 +32,12 @@ if (demo) {
     event.preventDefault();
     if (!demo.reportValidity()) return;
     checkedAmount = input.valueAsNumber;
+    checked = true;
     renderResult();
   });
   input.addEventListener('input', () => {
-    input.removeAttribute('aria-invalid');
-    result.textContent = greek() ? 'Πατήστε «Έλεγχος καταχώρισης» για να ελέγξετε την ποσότητα.' : 'Choose “Check entry” to check this amount.';
-    delete result.dataset.state;
+    checked = false;
+    renderResult();
   });
   window.addEventListener('wcs:languagechange', renderResult);
   renderResult();

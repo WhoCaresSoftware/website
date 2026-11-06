@@ -161,8 +161,12 @@
   };
   dialog.querySelector('.founder-close').addEventListener('click', () => dialog.close());
   let backdrop = false;
-  dialog.addEventListener('pointerdown', event => { backdrop = event.target === dialog; });
-  dialog.addEventListener('click', event => { if (backdrop && event.target === dialog) dialog.close(); });
+  const onBackdrop = event => {
+    const bounds = dialog.getBoundingClientRect();
+    return event.target === dialog && (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom);
+  };
+  dialog.addEventListener('pointerdown', event => { backdrop = onBackdrop(event); });
+  dialog.addEventListener('click', event => { if (backdrop && onBackdrop(event)) dialog.close(); });
   dialog.addEventListener('close', () => {
     document.documentElement.classList.remove('founder-reading');
     trigger?.focus({preventScroll: true});

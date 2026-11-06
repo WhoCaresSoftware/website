@@ -162,7 +162,7 @@ import { projectLinks } from './project-links.js';
     const greek = document.documentElement.lang === 'el';
     folder.querySelector('.folder-back-far .folder-tab').textContent = greek ? 'Άκρως απόρρητο' : 'Top secret';
     folder.querySelector('.folder-back-near .folder-tab').textContent = greek ? 'Εσωτερικά' : 'Internal';
-    folder.querySelector(':scope > .folder-tab').textContent = greek ? 'Έργα πελατών' : 'Client projects';
+    folder.querySelector(':scope > .folder-tab').textContent = greek ? 'Η δουλειά μας' : 'Our work';
     [previous, next].forEach((button, index) => {
       const neighbor = (current + (index ? 1 : -1) + projects.length) % projects.length;
       const label = `${greek ? (index ? 'Επόμενο έργο' : 'Προηγούμενο έργο') : (index ? 'Next project' : 'Previous project')}: ${projects[neighbor].querySelector('h3').textContent}`;
@@ -281,17 +281,13 @@ import { projectLinks } from './project-links.js';
     });
   }).catch(() => { /* Side buttons and keyboard navigation remain available. */ });
   const localize = () => {
-    const greek = document.documentElement.lang === 'el';
-    const label = greek ? 'Δείτε το έργο' : 'Open project';
     buttons.forEach((button, index) => {
       button.querySelector('.document-name').textContent = projects[index].querySelector('h3').textContent;
       button.querySelector('.document-kind').textContent = projects[index].querySelector('.project-kind').textContent;
-      button.setAttribute('aria-label', `${label}: ${projects[index].querySelector('h3').textContent}`);
     });
     cards.forEach((card, index) => {
       card.querySelector('.document-name').textContent = projects[index].querySelector('h3').textContent;
       card.querySelector('.document-kind').textContent = projects[index].querySelector('.project-kind').textContent;
-      card.setAttribute('aria-label', `${label}: ${projects[index].querySelector('h3').textContent}`);
     });
     labelPager();
     browse();

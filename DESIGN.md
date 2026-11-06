@@ -62,8 +62,7 @@ offer → services → work → approach → founders → contact.
   service artwork is open composition rather than tinted rounded icon tiles.
   `public/assets/illustrations.js` owns the six compositions, integrated by
   `services.js` and `approach.js`; `public/assets/illustrations.css` owns their
-  shared material and stroke grammar. See `docs/svg-art-direction.md` for the
-  direction contract.
+  shared material and stroke grammar.
   All use a 240 × 160 canvas with non-scaling strokes: 1px base, 2px routes and
   emphasized details. Services display at 192px wide on desktop and 108px compact;
   approach artwork at 240px desktop and 180px compact, using foundations sizing.
@@ -83,7 +82,7 @@ offer → services → work → approach → founders → contact.
 - Work uses the editorial collage covers in the desktop grid, mobile folder and
   standalone project pages. Teal overprints, warm monochrome photography and amber routes
   unite frame-specific project portraits; the existing Aigistos cover remains
-  the visual benchmark. See `docs/work-cover-stories.md` for the story contract:
+  the visual benchmark.
   Brand Image Pipelines shows one source product becoming many campaign contexts;
    Engineering and business-operations covers retain distinct workflow stories. Native picture
   sources select compact, panoramic, tall and landscape companions in
@@ -151,6 +150,17 @@ offer → services → work → approach → founders → contact.
   on explicit activation; a native YouTube link remains available. Other project
   showcases use explanatory SVG workflows from `scripts/project-diagrams.mjs`
   rather than client architecture or interfaces.
+- The engineering workflow showcase uses a dedicated bilingual HTML walkthrough: seven connected
+  lifecycle stages, an original customer-discount approval brief paired with four
+  supporting system components, and supporting workflows. The example uses
+  business-facing goals, rules and checks rather than developer-only terminology.
+  The designed lifecycle and
+  proposed operational flow are described in prose, separate from delivered
+  engineering enablement. `templates/coding-showcase.hbs` and
+  `scripts/coding-showcase.mjs` contain the public teaching example, not client
+  documents. Keep all examples readable without JavaScript; use open amber
+  connections and theme-aware paper. Stack the artifacts at the shared 800px
+  breakpoint. No new raster imagery, controls or animation is required.
 - `public/assets/project.js` imports the shared, page-safe preferences controller
   for complete English/Greek and light/dark support. It also localizes dynamic
   demo feedback and video titles. Without JavaScript, retain English content,

@@ -34,6 +34,7 @@ export function projectArtwork(projectID, className = 'project-artwork') {
     picture.append(source);
   }
   const image = new Image();
+  image.loading = 'lazy';
   image.src = cover.src;
   image.alt = '';
   image.width = cover.width;

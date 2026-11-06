@@ -119,7 +119,7 @@
       en: node.getAttribute(key === 'aria' ? 'aria-label' : key), el: node.getAttribute(`data-el-${key}`)
     })));
     const attributes = [
-      ['.logo', 'aria-label', 'Who Cares Software — Αρχική'],
+      ['.logo', 'aria-label', 'Who Cares Software — Κίνηση λογοτύπου'],
       ['.portrait-pair', 'aria-label', 'Γνωρίστε τους συνιδρυτές'],
       ['.collective-members', 'aria-label', 'Οι συνεργάτες μας'],
       ['.site-nav', 'aria-label', 'Ενότητες'],

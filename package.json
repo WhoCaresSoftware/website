@@ -13,7 +13,8 @@
     "lint": "stylelint 'public/assets/*.css'",
     "check:brand": "node --test scripts/check-brand.mjs",
     "check:publication": "node --test scripts/check-publication.mjs",
-    "check": "npm run lint && npm run build && npm run check:brand && npm run check:publication"
+    "check:demo": "node --test scripts/check-project-demo.mjs",
+    "check": "npm run lint && npm run build && npm run check:brand && npm run check:publication && npm run check:demo"
   },
   "dependencies": {
     "@whocaressoftware/brand": "0.7.0"
