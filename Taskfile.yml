@@ -6,6 +6,11 @@ tasks:
     cmds:
       - task --list
 
+  setup:
+    desc: Install project dependencies from the lockfile
+    cmds:
+      - npm ci
+
   dev:
     desc: Start the local development server
     cmds:
