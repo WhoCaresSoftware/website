@@ -7,15 +7,28 @@ composer and approach sketches.
 
 ## Local preview
 
-Requires Node.js 22.12+ and access to the brand package. Package access must be
-configured separately by an authorized maintainer. Never commit credentials.
+Requires Node.js 22.12+, [GitHub CLI](https://cli.github.com/), and Task
+(available through mise). An administrator must grant your GitHub account/team
+Read access to the organization's `@whocaressoftware/brand` package, either
+directly or through its linked [brand repository](https://github.com/WhoCaresSoftware/brand).
+Website repository access alone may not grant package access.
 
 ```sh
-npm ci
+mise exec task -- task setup
 npm run dev
 ```
 
-Alternatively, run `mise exec task -- task dev` (or `task dev` if Task is on your PATH).
+Setup opens GitHub's browser/device authorization when needed (GitHub may ask
+you to enter a one-time code), requests `read:packages`, and installs the lockfile.
+Authorize organization SSO if prompted. Existing authorized logins are reused.
+Credentials are managed by GitHub CLI, not committed or written to your npm
+configuration; npm receives the credential only for the setup process.
+Rerun setup whenever dependencies change. Setup ignores `GH_TOKEN` and
+`GITHUB_TOKEN` for GitHub authentication so shell tokens cannot override the
+browser login. You do not need to set or unset any environment variables.
+
+Without Task, run `node scripts/setup.mjs`. If Task is on your PATH, `task setup`
+and `task dev` work too. Never commit credentials.
 
 Open http://localhost:4174. `public/` is the source root; Vite builds `dist/` for
 GitHub Pages. Use `npm run build` and `npm run preview` to test that output.

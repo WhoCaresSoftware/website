@@ -7,9 +7,9 @@ tasks:
       - task --list
 
   setup:
-    desc: Install project dependencies from the lockfile
+    desc: Authenticate with GitHub in the browser and install dependencies
     cmds:
-      - npm ci
+      - node scripts/setup.mjs
 
   dev:
     desc: Start the local development server
