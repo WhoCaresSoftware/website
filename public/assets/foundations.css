@@ -168,10 +168,13 @@
   --nav-bracket-travel: 6px;
   --menu-line-shift: 5px;
 }
-.hero-graph {
-  --hero-graph-width: 340px;
-  --hero-graph-compact: min(100%, 320px, 36svh);
-  --hero-graph-landscape: min(100%, 280px, 65svh);
+.intro {
+  --hero-row-gap: var(--space-l);
+  --hero-title-measure: 36ch;
+  --hero-art-width: 620px;
+  --hero-art-compact: min(100%, 520px, 40svh);
+  --hero-art-landscape: min(100%, 360px, 70svh);
+  --hero-guide-dash: 2 7;
 }
 .portrait-pair {
   --portrait-width: 520px;

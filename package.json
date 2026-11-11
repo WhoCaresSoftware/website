@@ -17,7 +17,7 @@
     "check": "npm run lint && npm run build && npm run check:brand && npm run check:publication && npm run check:demo"
   },
   "dependencies": {
-    "@whocaressoftware/brand": "0.7.0"
+    "@whocaressoftware/brand": "0.8.1"
   },
   "devDependencies": {
     "stylelint": "17.16.0",

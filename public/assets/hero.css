@@ -1,29 +1,62 @@
-/* The argument takes the full measure; the offer and the symbol share the row beneath it. */
-.intro { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); grid-template-rows: auto 1fr auto; gap: var(--space-m) var(--hero-gap); }
-.intro-copy { display: contents; }
-#intro-title { grid-column: 1 / -1; max-width: 100%; }
+/* The offer takes the full measure; the way in and the drawing share the row beneath it. */
+.intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); grid-template-rows: auto auto; gap: var(--hero-row-gap) var(--hero-gap); align-items: center; }
+#intro-title { grid-column: 1 / -1; max-width: var(--hero-title-measure); }
+#intro-title .accent { display: block; color: var(--wcs-accent); }
 :lang(el) #intro-title { font-size: var(--display-greek); }
-.intro .lead { grid-column: 1; grid-row: 2; align-self: end; margin-top: 0; }
-.intro .cta { grid-column: 1; grid-row: 3; justify-self: start; margin-top: 0; }
-.hero-graph { grid-column: 2; grid-row: 2 / 4; align-self: end; width: 100%; max-width: var(--hero-graph-width); justify-self: end; color: var(--wcs-accent); }
+.intro-offer { grid-column: 1; grid-row: 2; min-width: 0; }
+.intro .lead { margin-top: 0; }
+.intro-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-xs) var(--space-m); margin-top: var(--space-m-plus); }
+.intro-actions .cta { margin-top: 0; }
+.intro-work { display: inline-flex; align-items: center; gap: var(--space-2xs); min-height: var(--control-size); color: var(--wcs-foreground); font-size: var(--label); text-decoration: underline; text-decoration-color: var(--wcs-border); text-decoration-thickness: var(--stroke-thin); }
+.intro-work svg { flex: 0 0 var(--icon-size-small); width: var(--icon-size-small); height: var(--icon-size-small); transition: translate var(--duration-state) var(--ease-out-emphasis); }
+.intro-work:active { color: var(--wcs-accent); }
+@media (hover: hover) and (pointer: fine) {
+  .intro-work:hover { color: var(--wcs-accent); text-decoration-color: currentColor; }
+  .intro-work:hover svg { translate: 0 var(--travel-press); }
+}
+/* A ruled index of the three services: the offer as a fact, not a paragraph. */
+.intro-services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--space-l-xl) 0 0; padding: 0; list-style: none; border-top: var(--stroke-thin) solid var(--wcs-border); border-bottom: var(--stroke-thin) solid var(--wcs-border); }
+.intro-services li { padding: var(--space-xs) var(--space-s) var(--space-xs) 0; font-size: var(--label); font-weight: var(--weight-semibold); color: var(--wcs-foreground); }
+.intro-services li + li { padding-inline-start: var(--space-s); border-inline-start: var(--stroke-thin) solid var(--wcs-border); }
+
+.hero-graph { grid-column: 2; grid-row: 2; width: 100%; max-width: var(--hero-art-width); justify-self: end; }
 .hero-graph svg { display: block; width: 100%; height: auto; overflow: visible; }
-.hero-axes { fill: none; stroke: var(--wcs-foreground-muted); stroke-width: 1; }
-.hero-guides { fill: none; stroke: var(--wcs-border); stroke-width: 1; stroke-dasharray: 2 7; }
-.hero-symbol { fill: currentColor; }
-#intro-title .accent { color: var(--wcs-accent); }
+.hero-art .hero-axes { stroke: var(--wcs-foreground-muted); }
+.hero-art .hero-guides path { stroke: var(--wcs-border); stroke-dasharray: var(--hero-guide-dash); }
+.hero-art .hero-symbol { fill: var(--wcs-accent); stroke: none; }
+.hero-art .hero-window .art-paper { fill: var(--wcs-background); filter: drop-shadow(var(--shadow-paper)); }
+.hero-art .hero-window path:not(.art-paper) { stroke: var(--wcs-foreground-muted); }
+
+/* The thread draws in only once the chart starts to settle; hero.js sets the phases. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-graph[data-state] .art-reveal { opacity: 0; }
+  .hero-graph[data-thread] .hero-reveal-in { animation: art-thread var(--duration-draw) var(--ease-draw) both; }
+  .hero-graph[data-thread] .hero-reveal-in-head { animation: art-thread var(--duration-draw-tip) var(--ease-out-emphasis) var(--duration-draw) both; }
+  .hero-graph[data-state="complete"] .hero-reveal-out { animation: art-thread var(--duration-long) var(--ease-draw) both; }
+  .hero-graph[data-state="complete"] .hero-reveal-out-head { animation: art-thread var(--duration-draw-tip) var(--ease-out-emphasis) var(--duration-long) both; }
+  .hero-graph[data-running="false"]:not([data-state="complete"]) .art-reveal { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) { .intro-work svg { transition: none; } }
+
 @media (--stacked) {
   .intro { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; gap: var(--stack-gap); padding-block: var(--space-s) var(--space-l); }
   #intro-title { grid-column: 1; grid-row: 1; }
-  .hero-graph { grid-column: 1; grid-row: 2; width: var(--hero-graph-compact); justify-self: center; }
-  .intro .lead { grid-column: 1; grid-row: 3; }
-  .intro .cta { grid-column: 1; grid-row: 4; }
+  .hero-graph { grid-column: 1; grid-row: 2; width: var(--hero-art-compact); justify-self: center; }
+  .intro-offer { grid-column: 1; grid-row: 3; }
+  .intro-services { margin-top: var(--space-l); }
 }
-/* Short landscape screens use the available width instead of stacking the graph. */
+/* The narrow offer column beside the drawing, and phones, list the services as rows
+   so long Greek names never break inside a word. */
+@media (--phone), (--wide) and (--navigation) {
+  .intro-services { grid-template-columns: minmax(0, 1fr); }
+  .intro-services li, .intro-services li + li { padding-inline: 0; border-inline-start: 0; }
+  .intro-services li + li { border-top: var(--stroke-thin) solid var(--wcs-border); }
+}
+/* Short landscape screens keep the drawing beside the headline instead of stacking it. */
 @media (--short-landscape) {
   .top { padding-block: var(--space-xs); }
   .intro { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); grid-template-rows: none; gap: var(--space-s-plus) var(--space-m); padding-block: var(--space-xs) var(--space-l); }
-  #intro-title { grid-column: 1; grid-row: 1; }
-  .hero-graph { grid-column: 2; grid-row: 1; align-self: center; width: var(--hero-graph-landscape); justify-self: center; }
-  .intro .lead { grid-column: 1 / -1; grid-row: 2; margin-top: 0; }
-  .intro .cta { grid-column: 1 / -1; grid-row: 3; justify-self: start; margin-top: 0; }
+  #intro-title { grid-column: 1; grid-row: 1; font-size: var(--section-title); }
+  .hero-graph { grid-column: 2; grid-row: 1; align-self: center; width: var(--hero-art-landscape); justify-self: center; }
+  .intro-offer { grid-column: 1 / -1; grid-row: 2; }
 }

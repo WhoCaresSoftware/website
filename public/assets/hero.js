@@ -1,4 +1,5 @@
-/* Three working bars become the approved shared-stroke WC, without a logo swap. */
+/* Loose paperwork is threaded into one screen, where three working bars become the
+   approved shared-stroke WC without a logo swap. */
 (() => {
   const graph = document.querySelector('.hero-graph');
   if (!graph) return;
@@ -80,6 +81,8 @@
     cap.setAttribute('opacity', join);
     axes.style.opacity = mix(.65, .3, join);
     guides.style.opacity = mix(.55, .16, join);
+    // The thread pulls the paperwork into the screen while the bars are still working.
+    if (progress >= .05) graph.dataset.thread = '';
     announce(progress);
   };
   const finish = () => {

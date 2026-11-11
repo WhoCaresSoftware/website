@@ -56,11 +56,17 @@ offer → services → work → approach → founders → contact.
 - Desktop navigation uses accent `[ ]` brackets for the current section, hover
   and keyboard focus, with no separator dots or underline. Brackets slide inward
   and fade in; the mobile menu retains arrows and an accent current row instead.
-- Hero sets the argument at full width in regular display type; the offer,
-  contact action and graph share the row beneath it. Section titles use a dark
-  line then an accent line. The graph resolves
-  into the exact supplied WC symbol. The reveal runs once; reduced motion and
-  no JavaScript show the completed symbol. The action remains usable throughout.
+- Hero states what is sold at full width in regular display type, a dark line
+  then an accent line (as section titles do). Beneath it, the offer column holds
+  the lead, the contact action with a quieter "See the work" link (never a second
+  `.cta`), and a ruled index of the three services: one row on wide screens,
+  stacked rows on phones and the narrow tablet column. Beside the offer, a 480 × 300 drawing in
+  the editorial cut-paper family (inline in `index.html`, styled in `hero.css`)
+  shows loose paperwork threaded into one screen whose chart resolves into the
+  exact supplied WC symbol. The bars play first; the knotted amber thread draws
+  in from 5% progress, and a short exit thread toward Services draws once the
+  symbol completes. The reveal runs once; reduced motion and no JavaScript show
+  the completed drawing. The action remains usable throughout.
   The wordmark loading highlight follows the running reveal and clears whenever
   it pauses, so offscreen progress cannot leave a static accent in the header.
 - Services and approach share six expressive editorial SVG illustrations: layered,

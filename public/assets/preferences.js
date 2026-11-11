@@ -34,9 +34,13 @@
     // Selectors map whole phrases so inline emphasis and accessible names translate together.
     const greek = {
       '.skip-link': 'Μετάβαση στο περιεχόμενο',
-      '#intro-title': 'Τα περισσότερα προβλήματα λογισμικού είναι <span class="accent">προβλήματα δουλειάς.</span>',
-      '.lead': 'Από εκεί ξεκινάμε. Μετά φτιάχνουμε ό,τι λείπει: λογισμικό στα μέτρα σας, πρακτικό AI και αξιόπιστες πλατφόρμες.',
+      '#intro-title': 'Λογισμικό στα μέτρα σας, αυτοματισμοί και AI <span class="accent">για δουλειά που έχει κολλήσει.</span>',
+      '.lead': 'Συνήθως το πρόβλημα δεν είναι το λογισμικό, αλλά ο τρόπος που γίνεται η δουλειά. Ξεκινάμε από εκεί και φτιάχνουμε ό,τι λείπει.',
       '.cta-label': 'Πείτε μας τι κολλάει',
+      '.intro-work-label': 'Δείτε τη δουλειά μας',
+      '.intro-services li:nth-child(1)': 'Λογισμικό στα μέτρα σας',
+      '.intro-services li:nth-child(2)': 'Αυτοματισμοί &amp; AI',
+      '.intro-services li:nth-child(3)': 'Cloud &amp; αξιοπιστία',
       '#services-title': 'Τρία πράγματα,<br><span class="accent">σωστά φτιαγμένα.</span>',
       '.service-list article:nth-child(1) h3': 'Λογισμικό στα μέτρα σας',
       '.service-list article:nth-child(1) p': 'Εσωτερικά εργαλεία και εφαρμογές για πελάτες, φτιαγμένα γύρω από τον τρόπο που δουλεύει η επιχείρησή σας. Ή κάνουμε πιο υποφερτό το λογισμικό που ήδη έχετε.',
@@ -127,7 +131,7 @@
       ['.footer-nav', 'aria-label', 'Υποσέλιδο'],
       ['meta[name="description"]', 'content', 'Ένα ανεξάρτητο στούντιο λογισμικού από τον Mike και τον XRS. Λογισμικό στα μέτρα σας, πρακτικό AI και αξιόπιστες πλατφόρμες, ξεκινώντας από τον τρόπο που δουλεύετε.'],
       ['meta[property="og:title"]', 'content', 'Who Cares Software — Λογισμικό που κάνει τη δουλειά πιο εύκολη'],
-      ['meta[property="og:description"]', 'content', 'Τα περισσότερα προβλήματα λογισμικού είναι προβλήματα δουλειάς. Ο Mike και ο XRS ξεκινούν από εκεί και φτιάχνουν ό,τι λείπει.']
+      ['meta[property="og:description"]', 'content', 'Λογισμικό στα μέτρα σας, αυτοματισμοί και AI για δουλειά που έχει κολλήσει. Ανεξάρτητο στούντιο στην Ελλάδα, από τον Mike και τον XRS.']
     ].map(([selector, attribute, el]) => {
       const node = document.querySelector(selector);
       if (!node || (root.hasAttribute('data-project-page') && selector.startsWith('meta'))) return null;
