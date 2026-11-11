@@ -131,7 +131,7 @@
       ['.footer-nav', 'aria-label', 'Υποσέλιδο'],
       ['meta[name="description"]', 'content', 'Ένα ανεξάρτητο στούντιο λογισμικού από τον Mike και τον XRS. Λογισμικό στα μέτρα σας, πρακτικό AI και αξιόπιστες πλατφόρμες, ξεκινώντας από τον τρόπο που δουλεύετε.'],
       ['meta[property="og:title"]', 'content', 'Who Cares Software — Λογισμικό που κάνει τη δουλειά πιο εύκολη'],
-      ['meta[property="og:description"]', 'content', 'Λογισμικό στα μέτρα σας, αυτοματισμοί και AI για δουλειά που έχει κολλήσει. Ανεξάρτητο στούντιο στην Ελλάδα, από τον Mike και τον XRS.']
+      ['meta[property="og:description"]', 'content', 'Λογισμικό στα μέτρα σας, αυτοματισμοί και AI για δουλειά που έχει κολλήσει. Ξεκινάμε από τον τρόπο που γίνεται η δουλειά και φτιάχνουμε ό,τι λείπει.']
     ].map(([selector, attribute, el]) => {
       const node = document.querySelector(selector);
       if (!node || (root.hasAttribute('data-project-page') && selector.startsWith('meta'))) return null;
