@@ -119,7 +119,7 @@
       node, attribute: node.tagName === 'META' ? 'content' : null,
       en: node.tagName === 'META' ? node.content : node.innerHTML, el: node.dataset.el
     }));
-    const pageAttributes = ['aria', 'alt'].flatMap(key => [...document.querySelectorAll(`[data-el-${key}]`)].map(node => ({
+    const pageAttributes = ['aria', 'alt', 'title'].flatMap(key => [...document.querySelectorAll(`[data-el-${key}]`)].map(node => ({
       node, attribute: key === 'aria' ? 'aria-label' : key,
       en: node.getAttribute(key === 'aria' ? 'aria-label' : key), el: node.getAttribute(`data-el-${key}`)
     })));

@@ -160,8 +160,10 @@ footer a { display: inline-flex; min-height: var(--control-size); align-items: c
 .footer-connect .footer-social { margin-inline: auto calc(-1 * var(--control-inset)); }
 .footer-social a { justify-content: center; width: var(--control-size); border-radius: var(--radius-small); color: var(--wcs-foreground-muted); }
 .footer-social svg { width: var(--icon-size); height: var(--icon-size); }
+/* Channels that are not open yet keep their place but read as unavailable. */
+.footer-social .social-soon { display: inline-flex; align-items: center; justify-content: center; width: var(--control-size); min-height: var(--control-size); color: var(--wcs-foreground-muted); opacity: .4; cursor: default; }
 .menu-social { display: none; }
-.menu-social a { display: inline-flex; align-items: center; min-height: var(--control-size); }
+.menu-social :is(a, .social-soon) { display: inline-flex; align-items: center; min-height: var(--control-size); }
 @media (hover: hover) and (pointer: fine) {
   .footer-social a:hover { color: var(--wcs-accent); }
 }
