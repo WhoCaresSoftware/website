@@ -82,8 +82,8 @@ import { media } from './media.js';
   const narrow = matchMedia(media.navigation);
   const preferences = menu.querySelector('.preferences');
   // The open menu ends with the footer's social links, copied so they stay in one place.
-  const social = document.querySelector('.footer-social')?.cloneNode(true);
-  if (social) { social.classList.add('menu-social'); menu.append(social); }
+  const social = document.querySelector('.footer-channels')?.cloneNode(true);
+  if (social) { social.classList.add('menu-channels'); menu.append(social); }
   const placePreferences = () => {
     if (narrow.matches) actions.prepend(preferences);
     else menu.append(preferences);
