@@ -17,7 +17,7 @@ A static, bilingual website with self-hosted assets, built with Vite and npm.
 ## Setup
 ```sh
 mise install
-mise exec task -- task setup
+task setup
 ```
 
 ## Brand updates and deployment
