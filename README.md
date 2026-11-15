@@ -1,31 +1,35 @@
-# Who Cares Software website
+# website
 
-A static, bilingual website with self-hosted assets, built with Vite and npm.
+The static, bilingual Who Cares Software website, built with Vite and hosted on
+GitHub Pages at [whocaressoftware.com](https://whocaressoftware.com/).
 
-## Requirements
+## Prerequisites
 
 - mise
+- Node.js 22.12+ and the GitHub CLI
+- Read access to the private `@whocaressoftware/brand` package (an account in
+  the WhoCaresSoftware GitHub organization)
 
-`mise` installs all packages and tools that are needed for the website to build locally.
+## Getting started
 
-### Technologies
-
-- Node.js 22.12+
-- Github Cli
-- Task
-
-## Setup
 ```sh
 mise install
-task setup
+task setup    # signs in to GitHub in the browser and installs dependencies
 ```
 
-## Brand updates and deployment
-
-Install a published brand version explicitly, then commit both npm manifests:
+## Usage
 
 ```sh
-npm install --save-exact @whocaressoftware/brand@<version>
-npm run check
+task dev          # local development server
+task lint         # stylesheet lints
+npm run check     # lints, build and brand, publication and demo checks
+npm run preview   # serve the production build
 ```
 
+Pushes to `main` are checked, built and deployed to GitHub Pages.
+
+## Learn more
+
+- [Product: purpose, audience and voice](PRODUCT.md)
+- [Design system](DESIGN.md)
+- Runbooks: [Update the brand package](docs/runbooks/update-brand.md)
