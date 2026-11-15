@@ -1,16 +1,26 @@
+/* WCS Sans is Source Sans 3 subset to Latin and Greek (static/licenses/WCS-SANS-FONTLOG.txt). */
 @font-face {
-  font-family: "Source Sans 3";
-  src: url("fonts/source-sans-3-regular.woff2") format("woff2");
+  font-family: "WCS Sans";
+  src: url("fonts/wcs-sans-regular.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
-  font-family: "Source Sans 3";
-  src: url("fonts/source-sans-3-semibold.woff2") format("woff2");
+  font-family: "WCS Sans";
+  src: url("fonts/wcs-sans-semibold.woff2") format("woff2");
   font-style: normal;
   font-weight: 600;
   font-display: swap;
+}
+/* Arial scaled to WCS Sans metrics, so the swap does not move text. */
+@font-face {
+  font-family: "WCS Sans Fallback";
+  src: local("Arial"), local("ArialMT"), local("Liberation Sans"), local("Arimo");
+  size-adjust: 94.73%;
+  ascent-override: 108.1%;
+  descent-override: 42.23%;
+  line-gap-override: 0%;
 }
 /* UI glyphs share one optical weight; logos and large illustrations are excluded. */
 svg[viewBox="0 0 24 24"][stroke="currentColor"] {
@@ -81,15 +91,14 @@ h3 { font-size: var(--item-title); font-weight: var(--weight-semibold); line-hei
 }
 .preferences button:active { color: var(--wcs-accent); }
 #language { display: flex; margin: 0; padding: 0; border: 0; }
-#language label { position: relative; cursor: pointer; }
-#language input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
-#language span { display: grid; place-items: center; min-width: var(--control-size-compact); min-height: var(--control-size); border-radius: var(--radius-small); font-size: var(--label); color: var(--wcs-foreground-muted); }
-#language input:checked + span { background: var(--wcs-transparent); color: var(--wcs-foreground); font-weight: var(--weight-semibold); text-decoration: underline; text-decoration-color: var(--wcs-accent); text-decoration-thickness: var(--stroke-strong); text-underline-offset: var(--space-2xs); }
+#language a { display: grid; place-items: center; min-width: var(--control-size-compact); min-height: var(--control-size); border-radius: var(--radius-small); font-size: var(--label); color: var(--wcs-foreground-muted); }
+#language a[aria-current="page"] { background: var(--wcs-transparent); color: var(--wcs-foreground); font-weight: var(--weight-semibold); text-decoration: underline; text-decoration-color: var(--wcs-accent); text-decoration-thickness: var(--stroke-strong); text-underline-offset: var(--space-2xs); }
 @media (hover: hover) and (pointer: fine) {
-  #language label:hover span { color: var(--wcs-accent); }
+  #language a:hover { color: var(--wcs-accent); text-decoration: none; }
+  #language a[aria-current="page"]:hover { color: var(--wcs-foreground); text-decoration: underline; }
 }
-#language input:active + span { background: var(--wcs-border); }
-#language input:focus-visible + span { outline: var(--stroke-strong) solid var(--wcs-focus); outline-offset: var(--focus-offset-tight); }
+#language a:active { background: var(--wcs-border); }
+#language a:focus-visible { outline: var(--stroke-strong) solid var(--wcs-focus); outline-offset: var(--focus-offset-tight); }
 #theme { display: grid; place-items: center; width: var(--control-size); color: var(--wcs-foreground); }
 #theme svg { width: var(--icon-size); height: var(--icon-size); }
 #theme .theme-sun, :root[data-wcs-theme="dark"] #theme .theme-moon { display: none; }
@@ -281,6 +290,9 @@ footer a { display: inline-flex; min-height: var(--control-size); align-items: c
 .menu-toggle[aria-expanded="true"] .menu-line-middle { opacity: 0; scale: 0 1; }
 @media (--navigation) {
   .top:not(.has-menu) .header-menu { flex-basis: 100%; flex-wrap: wrap; margin-inline-start: 0; }
+  /* Until nav.js builds the menu button, reserve its place rather than wrap the links. */
+  .has-modules .top:not(.has-menu) .header-menu { display: none; }
+  .has-modules .top:not(.has-menu)::after { content: ''; width: var(--control-size); height: var(--control-size); margin-inline-start: auto; }
   .top:not(.has-menu) .site-nav { flex-wrap: wrap; margin-inline-start: calc(-1 * var(--space-xs)); }
   .has-menu .header-actions { display: flex; }
   .has-menu:not(.menu-open) .header-actions .preferences { display: none; }

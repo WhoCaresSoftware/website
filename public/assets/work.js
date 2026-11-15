@@ -295,6 +295,5 @@ import { projectLinks } from './project-links.js';
   section.querySelector('h2').after(stage);
   showView();
   projects.forEach(project => { project.hidden = true; });
-  window.addEventListener('wcs:languagechange', localize);
   localize();
 })();

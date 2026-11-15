@@ -106,8 +106,5 @@
     catch (error) { if (error.name !== 'AbortError') statusKey = 'shareError'; }
     finally { sharing = false; update(); }
   });
-  window.addEventListener('wcs:languagechange', localize);
-  // preferences.js runs its initial translation at DOMContentLoaded.
-  document.addEventListener('DOMContentLoaded', localize);
   localize();
 })();

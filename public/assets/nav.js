@@ -119,6 +119,5 @@ import { media } from './media.js';
   });
   narrow.addEventListener('change', () => { setOpen(false); placePreferences(); });
   placePreferences();
-  addEventListener('wcs:languagechange', localize);
   localize();
 })();

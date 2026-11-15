@@ -39,7 +39,6 @@ if (demo) {
     checked = false;
     renderResult();
   });
-  window.addEventListener('wcs:languagechange', renderResult);
   renderResult();
 }
 
@@ -60,10 +59,6 @@ if (film) {
     frame.allowFullscreen = true;
     frame.referrerPolicy = 'strict-origin-when-cross-origin';
     container.append(frame);
-  });
-  window.addEventListener('wcs:languagechange', () => {
-    const frame = container.querySelector('iframe');
-    if (frame) frame.title = greek() ? 'Hex Mythica — Η πορεία ανάπτυξης' : 'Hex Mythica — Development journey';
   });
 }
 

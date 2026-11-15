@@ -171,6 +171,5 @@
     document.documentElement.classList.remove('founder-reading');
     trigger?.focus({preventScroll: true});
   });
-  window.addEventListener('wcs:languagechange', localize);
   localize();
 })();

@@ -1,20 +1,18 @@
 <!doctype html>
-<html lang="en" data-project-page data-title-el="{{project.name}} — Who Cares Software">
+<html lang="en" data-project-page>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script>try { const t = localStorage.getItem('wcs-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.wcsTheme = t; } catch {}</script>
-  <title>{{project.name}} — Who Cares Software</title>
-  <meta name="description" content="{{project.summary.en}}" data-el="{{project.summary.el}}">
+  <script>try { const t = localStorage.getItem('wcs-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.wcsTheme = t; } catch {}
+  {{{languageRedirect}}}</script>
+  {{{headMeta}}}
   <meta name="theme-color" content="{{theme.modes.light.page-background}}" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="{{theme.modes.dark.page-background}}" media="(prefers-color-scheme: dark)">
-  <link rel="canonical" href="https://whocaressoftware.com/work/{{project.slug}}/">
-  <meta property="og:title" content="{{project.name}} — Who Cares Software">
-  <meta property="og:description" content="{{project.summary.en}}" data-el="{{project.summary.el}}">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://whocaressoftware.com/work/{{project.slug}}/">
   <link rel="icon" href="{{brandAsset 'favicon.svg'}}" type="image/svg+xml">
-  <link rel="preload" href="/assets/fonts/source-sans-3-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/wcs-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/wcs-sans-semibold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{brandAsset 'theme.css'}}">
   <link rel="stylesheet" href="/assets/foundations.css">
   <link rel="stylesheet" href="/assets/styles.css">
@@ -37,7 +35,7 @@
     <div class="case-rail-bottom">
       <a class="case-discuss" href="mailto:whocaressoftware@gmail.com"><span data-el="Ας μιλήσουμε">Let’s talk</span><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
       <div class="preferences" hidden><div class="preference-buttons">
-        <fieldset id="language" aria-label="Language"><label><input type="radio" name="language" value="en" aria-label="EN — English"><span lang="en">EN</span></label><label><input type="radio" name="language" value="el" aria-label="ΕΛ — Ελληνικά"><span lang="el">ΕΛ</span></label></fieldset>
+        <nav id="language" aria-label="Language"><a href="{{languageHref 'en'}}" hreflang="en" lang="en" aria-label="EN — English">EN</a><a href="{{languageHref 'el'}}" hreflang="el" lang="el" aria-label="ΕΛ — Ελληνικά">ΕΛ</a></nav>
         <button id="theme" type="button" aria-label="Switch to dark theme"><svg class="theme-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></svg><svg class="theme-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg></button>
       </div></div>
     </div>
@@ -82,10 +80,10 @@
       {{/if}}
       {{#if project.hex}}
       <div class="case-game-gallery">
-        <figure><img src="/assets/images/project-showcase/hex-cards.webp" srcset="/assets/images/project-showcase/hex-cards-800.webp 800w, /assets/images/project-showcase/hex-cards.webp 1600w" sizes="(max-width: 1000px) 90vw, 75vw" width="1600" height="878" loading="lazy" alt="Hex Mythica cards: Spirit of Inspiration and Druid’s Runic Dirk, with the game’s ornate card back." data-el-alt="Κάρτες του Hex Mythica: Spirit of Inspiration και Druid’s Runic Dirk, μαζί με την περίτεχνη πίσω όψη τους."><figcaption><span data-el="Κάρτες και εικαστικό προώθησης · ">Cards &amp; promotional artwork · </span><a href="https://www.artstation.com/artwork/9EoxER">Tanya Podolskaia / ArtStation</a></figcaption></figure>
-        <figure><img src="/assets/images/project-showcase/hex-environment.webp" srcset="/assets/images/project-showcase/hex-environment-800.webp 800w, /assets/images/project-showcase/hex-environment.webp 1600w" sizes="(max-width: 1000px) 90vw, 65vw" width="1600" height="908" loading="lazy" alt="An isometric Hex Mythica room with a carved fireplace, bookshelves, magical objects and a character." data-el-alt="Ισομετρικό δωμάτιο του Hex Mythica με σκαλιστό τζάκι, βιβλιοθήκες, μαγικά αντικείμενα και έναν χαρακτήρα."><figcaption><span data-el="Περιβάλλον παιχνιδιού · ">Game environment · </span><a href="https://games.gg/hex-mythica/">Hex Mythica / MYTH CENTRAL · GAMES.GG</a></figcaption></figure>
-        <figure><img src="/assets/images/project-showcase/hex-characters.webp" srcset="/assets/images/project-showcase/hex-characters-800.webp 800w, /assets/images/project-showcase/hex-characters.webp 1600w" sizes="(max-width: 1000px) 90vw, 75vw" width="1600" height="878" loading="lazy" alt="Thieves Guild character development: an alchemist, an armored tank and a hooded thief, with accessory studies." data-el-alt="Σχεδιασμός χαρακτήρων της συντεχνίας κλεφτών: αλχημιστής, θωρακισμένος πολεμιστής και κλέφτρα με κουκούλα, μαζί με αξεσουάρ."><figcaption><span data-el="Χαρακτήρες · Thieves Guild · ">Character development · Thieves Guild · </span><a href="https://www.artstation.com/artwork/9EoxER">Tanya Podolskaia / ArtStation</a></figcaption></figure>
-        <figure><img src="/assets/images/project-showcase/hex-props.webp" srcset="/assets/images/project-showcase/hex-props-800.webp 800w, /assets/images/project-showcase/hex-props.webp 1600w" sizes="(max-width: 1000px) 90vw, 65vw" width="1600" height="878" loading="lazy" alt="Hex Mythica prop studies including enchanted books, a preserved professor and an alchemist’s table." data-el-alt="Σχέδια αντικειμένων του Hex Mythica: μαγεμένα βιβλία, ένας διατηρημένος καθηγητής και το τραπέζι ενός αλχημιστή."><figcaption><span data-el="Αντικείμενα και λεπτομέρειες του κόσμου · ">Props &amp; world details · </span><a href="https://www.artstation.com/artwork/9EoxER">Tanya Podolskaia / ArtStation</a></figcaption></figure>
+        <figure><img decoding="async" src="/assets/images/project-showcase/hex-cards.webp" srcset="/assets/images/project-showcase/hex-cards-800.webp 800w, /assets/images/project-showcase/hex-cards-1200.webp 1200w, /assets/images/project-showcase/hex-cards.webp 1600w" sizes="(max-width: 1000px) 92vw, (max-width: 1600px) calc(92vw - 230px), 1242px" width="1600" height="878" loading="lazy" alt="Hex Mythica cards: Spirit of Inspiration and Druid’s Runic Dirk, with the game’s ornate card back." data-el-alt="Κάρτες του Hex Mythica: Spirit of Inspiration και Druid’s Runic Dirk, μαζί με την περίτεχνη πίσω όψη τους."><figcaption><span data-el="Κάρτες και εικαστικό προώθησης · ">Cards &amp; promotional artwork · </span><a href="https://www.artstation.com/artwork/9EoxER">Tanya Podolskaia / ArtStation</a></figcaption></figure>
+        <figure><img decoding="async" src="/assets/images/project-showcase/hex-environment.webp" srcset="/assets/images/project-showcase/hex-environment-800.webp 800w, /assets/images/project-showcase/hex-environment-1200.webp 1200w, /assets/images/project-showcase/hex-environment.webp 1600w" sizes="(max-width: 600px) 92vw, (max-width: 1000px) 78vw, (max-width: 1600px) calc(78vw - 193px), 1056px" width="1600" height="908" loading="lazy" alt="An isometric Hex Mythica room with a carved fireplace, bookshelves, magical objects and a character." data-el-alt="Ισομετρικό δωμάτιο του Hex Mythica με σκαλιστό τζάκι, βιβλιοθήκες, μαγικά αντικείμενα και έναν χαρακτήρα."><figcaption><span data-el="Περιβάλλον παιχνιδιού · ">Game environment · </span><a href="https://games.gg/hex-mythica/">Hex Mythica / MYTH CENTRAL · GAMES.GG</a></figcaption></figure>
+        <figure><img decoding="async" src="/assets/images/project-showcase/hex-characters.webp" srcset="/assets/images/project-showcase/hex-characters-800.webp 800w, /assets/images/project-showcase/hex-characters-1200.webp 1200w, /assets/images/project-showcase/hex-characters.webp 1600w" sizes="(max-width: 1000px) 92vw, (max-width: 1600px) calc(92vw - 230px), 1242px" width="1600" height="878" loading="lazy" alt="Thieves Guild character development: an alchemist, an armored tank and a hooded thief, with accessory studies." data-el-alt="Σχεδιασμός χαρακτήρων της συντεχνίας κλεφτών: αλχημιστής, θωρακισμένος πολεμιστής και κλέφτρα με κουκούλα, μαζί με αξεσουάρ."><figcaption><span data-el="Χαρακτήρες · Thieves Guild · ">Character development · Thieves Guild · </span><a href="https://www.artstation.com/artwork/9EoxER">Tanya Podolskaia / ArtStation</a></figcaption></figure>
+        <figure><img decoding="async" src="/assets/images/project-showcase/hex-props.webp" srcset="/assets/images/project-showcase/hex-props-800.webp 800w, /assets/images/project-showcase/hex-props-1200.webp 1200w, /assets/images/project-showcase/hex-props.webp 1600w" sizes="(max-width: 600px) 92vw, (max-width: 1000px) 78vw, (max-width: 1600px) calc(78vw - 193px), 1056px" width="1600" height="878" loading="lazy" alt="Hex Mythica prop studies including enchanted books, a preserved professor and an alchemist’s table." data-el-alt="Σχέδια αντικειμένων του Hex Mythica: μαγεμένα βιβλία, ένας διατηρημένος καθηγητής και το τραπέζι ενός αλχημιστή."><figcaption><span data-el="Αντικείμενα και λεπτομέρειες του κόσμου · ">Props &amp; world details · </span><a href="https://www.artstation.com/artwork/9EoxER">Tanya Podolskaia / ArtStation</a></figcaption></figure>
       </div>
       <div class="case-film"><button class="case-button" id="load-film" type="button" aria-expanded="false" aria-controls="development-film" hidden><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m9 5 11 7-11 7Z"/></svg><span data-el="Δείτε την πορεία ανάπτυξης">Watch the development journey</span></button><div id="development-film" hidden></div><a class="case-text-link" href="https://www.youtube.com/watch?v=r5dA7W-qCfE" data-el="Δείτε το βίντεο στο YouTube">Watch on YouTube</a></div>
       {{/if}}

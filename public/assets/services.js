@@ -26,7 +26,6 @@ import { projectLinks } from './project-links.js';
     link.querySelector('span').textContent = labels[document.documentElement.lang === 'el' ? 'el' : 'en'][index];
   });
   localize();
-  window.addEventListener('wcs:languagechange', localize);
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
     if (entry.isIntersecting) entry.target.classList.add('is-revealed');
     entry.target.classList.toggle('is-visible', entry.isIntersecting);

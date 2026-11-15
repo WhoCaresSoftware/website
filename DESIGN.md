@@ -20,7 +20,9 @@ Product facts and content constraints live in `PRODUCT.md`.
   section spacing 48–64px at the default root font size. Use shared roles first;
   dedicated variables cover coupled component geometry, not a second spacing scale.
 - **Typography:** foundations defines the family, weights, leading, tracking and
-  reading measures. Self-host Source Sans 3 regular/semibold, including Greek.
+  reading measures. Self-host Source Sans 3 regular/semibold as WCS Sans: an
+  OFL-renamed subset covering Latin and Greek, preloaded in both weights, with a
+  metric-matched Arial fallback so the font swap does not move text.
   Labels are 16px, body 18px, lead 20px, item titles 24–26px, section titles
   32–52px and display 40–76px. Body measure is capped at 65ch.
 - **Responsive behavior:** `public/assets/media.js` defines named conditions
@@ -179,27 +181,52 @@ offer → services → work → approach → founders → contact.
   connections and theme-aware paper. Stack the artifacts at the shared 800px
   breakpoint. No new raster imagery, controls or animation is required.
 - `public/assets/project.js` imports the shared, page-safe preferences controller
-  for complete English/Greek and light/dark support. It also localizes dynamic
-  demo feedback and video titles. Without JavaScript, retain English content,
+  for light/dark support and reads the page language for dynamic demo feedback
+  and video titles. Without JavaScript, retain the page's own language,
   system-aware appearance, native links and the static study; enhanced controls
   remain hidden until usable.
 
 ## Accessibility and preferences
 
 - Support complete English and Greek, light and dark, narrow and wide layouts.
-  First visit follows the system appearance and primary browser language; only
-  Greek selects Greek. Manual choices persist safely when storage is available.
-- Language uses native EN / ΕΛ radios; appearance uses a localized sun/moon button.
-  No manual reset control. Without JavaScript, retain English content, native
-  links and system-aware CSS.
+  Each language is its own static page: English at `/`, Greek at `/el/`. The
+  build (`scripts/greek-pages.mjs`) writes the Greek pages from the English
+  source, `scripts/translations.mjs` and `data-el` attributes. A first visit from
+  a Greek-language browser moves once from an English page to its Greek twin;
+  a stored choice always wins, and Greek pages never redirect.
+- Language uses EN / ΕΛ links to the same page in the other language, the current
+  one marked `aria-current="page"`; appearance uses a localized sun/moon button.
+  No manual reset control. Without JavaScript, both languages, native links and
+  system-aware CSS remain complete.
 - Keep visible focus, underlined text links, readable contrast, wrapping text and
   usable touch targets. Dialogs close with Escape and restore trigger focus.
 - Honor reduced motion without hiding content or removing functionality. Avoid
   horizontal page overflow and fixed-height containers that clip enlarged text.
 
+## Search and discovery
+
+- `scripts/site.mjs` holds the search titles, descriptions and public facts;
+  `scripts/seo.mjs` renders each page's head: canonical, reciprocal hreflang
+  (en, el, x-default), Open Graph and X card tags, and one JSON-LD graph
+  (Organization with country only, no street address; WebSite on the home pages;
+  WebPage and breadcrumbs on project pages). Search titles say what the studio
+  does in searchers' words; visible copy keeps its own voice.
+- The build also writes `llms.txt`, a Markdown copy beside every page
+  (`index.md`, linked as `rel="alternate" type="text/markdown"`) and
+  `sitemap.xml` with hreflang alternates. `npm run check:seo` guards all of it.
+- Link-preview cards (1200 × 630 JPEG, both languages) live in `static/social/`.
+  Rerun `npm run social` after changing project names, kinds or cover artwork;
+  the home card's artwork master is `masters/social/home-art.png`.
+
 ## Publication
 
 Vite builds `public/` and copies `static/` into `dist/` for website deployment.
+Full-resolution founder cutouts and the original fonts live in `masters/`, which
+never ships; `scripts/build-assets.sh` (cwebp, uv) regenerates the delivered
+founder sizes, half-width work-cover companions, gallery steps and font subsets.
+Every raster image ships with `srcset` and `sizes`. Media conditions use
+`min-`/`max-width` syntax; the browser floor is Safari/iOS 16.2, Chrome/Edge 117
+and Firefox 121.
 The repository itself is also public: files outside `dist/` are not private.
 Keep internal context, review records and confidential material outside the
 repository. Review asset metadata as well as visible content before publication.

@@ -24,6 +24,7 @@ task dev          # local development server
 task lint         # stylesheet lints
 npm run check     # lints, build and brand, publication and demo checks
 npm run preview   # serve the production build
+sh scripts/build-assets.sh  # regenerate image sizes and font subsets (needs cwebp, uv)
 ```
 
 Pushes to `main` are checked, built and deployed to GitHub Pages.

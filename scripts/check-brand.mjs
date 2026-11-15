@@ -36,7 +36,9 @@ test('favicon and both wordmarks ship unchanged from the brand package', () => {
     assert.equal(read(`dist/assets/${output}`), brand(`${name}.svg`));
     assert.ok(html.includes(`/assets/${output}`), `Missing HTML reference to ${name}`);
   }
-  assert.ok(html.includes(brand('symbol-parts.html').trim()), 'Missing brand hero geometry');
+  for (const page of [html, read('dist/el/index.html')]) {
+    assert.ok(page.includes(brand('symbol-parts.html').trim()), 'Missing brand hero geometry');
+  }
 });
 
 test('all authored brand color roles exist in the supplied theme', () => {

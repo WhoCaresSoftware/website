@@ -5,23 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
     // Apply a saved preference before styles paint; CSS handles system defaults.
+    // Module-capable browsers will run nav.js, so narrow headers can paint
+    // collapsed from the first frame instead of shifting the page later.
+    if ('noModule' in HTMLScriptElement.prototype) document.documentElement.classList.add('has-modules');
     try {
       const theme = localStorage.getItem('wcs-theme');
       if (theme === 'light' || theme === 'dark') document.documentElement.dataset.wcsTheme = theme;
     } catch { /* Storage may be unavailable. */ }
+    {{{languageRedirect}}}
   </script>
   <script type="module" src="assets/main.js"></script>
-  <title>Who Cares Software — Software that makes work easier</title>
-  <meta name="description" content="An independent software studio run by Mike and XRS. Custom software, practical AI and dependable platforms, starting from how your work actually runs.">
+  {{{headMeta}}}
   <meta name="theme-color" content="{{theme.modes.light.page-background}}" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="{{theme.modes.dark.page-background}}" media="(prefers-color-scheme: dark)">
-  <link rel="canonical" href="https://whocaressoftware.com/">
-  <meta property="og:title" content="Who Cares Software — Software that makes work easier">
-  <meta property="og:description" content="Custom software, automation and AI for work that’s stuck. We start with how the work runs, then build what’s missing.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://whocaressoftware.com/">
   <link rel="icon" href="{{brandAsset 'favicon.svg'}}" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/source-sans-3-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/wcs-sans-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/wcs-sans-semibold.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{brandAsset 'theme.css'}}">
   <link rel="stylesheet" href="assets/foundations.css">
   <link rel="stylesheet" href="assets/styles.css">
@@ -43,7 +44,7 @@
       </nav>
       <div class="preferences" hidden>
         <div class="preference-buttons">
-          <fieldset id="language" aria-label="Language"><label><input type="radio" name="language" value="en" aria-label="EN — English"><span lang="en">EN</span></label><label><input type="radio" name="language" value="el" aria-label="ΕΛ — Ελληνικά"><span lang="el">ΕΛ</span></label></fieldset>
+          <nav id="language" aria-label="Language"><a href="{{languageHref 'en'}}" hreflang="en" lang="en" aria-label="EN — English">EN</a><a href="{{languageHref 'el'}}" hreflang="el" lang="el" aria-label="ΕΛ — Ελληνικά">ΕΛ</a></nav>
           <button id="theme" type="button" aria-label="Switch to dark theme">
             <svg class="theme-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z"/></svg>
             <svg class="theme-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
@@ -99,7 +100,7 @@
       </div>
     </section>
     <section class="services section" id="problems" aria-labelledby="services-title">
-      <h2 id="services-title">Three things,<br><span class="accent">done properly.</span></h2>
+      <h2 id="services-title">Three things, <br><span class="accent">done properly.</span></h2>
       <div class="service-list">
         <article><h3>Custom software</h3><p>Internal tools and customer applications shaped around how your business runs. Or we make the software you already have less painful.</p></article>
         <article><h3>Automation &amp; AI</h3><p>Connect your tools. Cut the repetitive work. Use AI where it earns its place, and nowhere else.</p></article>
@@ -107,7 +108,7 @@
       </div>
     </section>
     <section class="work section" id="work" aria-labelledby="work-title">
-      <h2 id="work-title">Work we can<br><span class="accent">actually show you.</span></h2>
+      <h2 id="work-title">Work we can <br><span class="accent">actually show you.</span></h2>
       <article class="project" id="work-aigistos">
         <div><h3><a href="/work/aigistos/">Aigistos</a></h3><p class="project-kind">Worksite ERP</p></div>
         <div class="project-copy"><p>A system built for one job: running worksites in Greece. The Aigistos team uses it now.</p><p>Clearer worksite visibility, better analytics and less friction day to day.</p><p class="note">Outcomes reported qualitatively by our team.</p></div>
@@ -134,7 +135,7 @@
       </article>
     </section>
     <section class="approach section" id="approach" aria-labelledby="approach-title">
-      <h2 id="approach-title">Understand first.<br><span class="accent">Code later.</span></h2>
+      <h2 id="approach-title">Understand first. <br><span class="accent">Code later.</span></h2>
       <ol class="steps approach-timeline" role="list">
         <li><span class="timeline-marker" aria-hidden="true">01</span><div class="timeline-copy"><h3>Ask the awkward questions</h3><p>We test the assumptions and agree the scope before anyone talks price.</p></div></li>
         <li><span class="timeline-marker" aria-hidden="true">02</span><div class="timeline-copy"><h3>Build around the work</h3><p>We bring the skills the project needs. You pay for the scope, not the headcount.</p></div></li>
@@ -143,15 +144,15 @@
     </section>
     <section class="people section" id="people" aria-labelledby="people-title">
       <div class="people-intro">
-      <h2 id="people-title">Two founders.<br><span class="accent">No account managers.</span></h2>
+      <h2 id="people-title">Two founders. <br><span class="accent">No account managers.</span></h2>
       <div class="people-copy"><p>Mike and XRS are co-founders and platform engineers. You talk to the people who build it, with a collective of trusted specialists when the work calls for it.</p>
       </div>
       </div>
       <div class="people-stage">
       <div class="people-orbit">
         <div class="portrait-pair" aria-label="Meet the co-founders">
-          <figure><a class="founder-portrait founder-cutout" data-founder="xrs" href="https://www.linkedin.com/in/chriskarpousis/" aria-label="XRS — LinkedIn"><img src="assets/images/xrs-cutout.webp" alt="XRS" width="1122" height="1402" loading="lazy"></a><figcaption>XRS <span>Co-founder</span></figcaption></figure>
-          <figure><a class="founder-portrait founder-cutout" data-founder="mike" href="https://www.linkedin.com/in/mbastakis/" aria-label="Mike — LinkedIn"><img src="assets/images/mike-cutout.webp" alt="Mike" width="1121" height="1403" loading="lazy"></a><figcaption>Mike <span>Co-founder</span></figcaption></figure>
+          <figure><a class="founder-portrait founder-cutout" data-founder="xrs" href="https://www.linkedin.com/in/chriskarpousis/" aria-label="XRS — LinkedIn"><img src="assets/images/founders/xrs-cutout-400.webp" srcset="assets/images/founders/xrs-cutout-400.webp 400w, assets/images/founders/xrs-cutout-800.webp 800w" sizes="(max-width: 1000px) 45vw, 250px" alt="XRS" width="800" height="1000" loading="lazy" decoding="async"></a><figcaption>XRS <span>Co-founder</span></figcaption></figure>
+          <figure><a class="founder-portrait founder-cutout" data-founder="mike" href="https://www.linkedin.com/in/mbastakis/" aria-label="Mike — LinkedIn"><img src="assets/images/founders/mike-cutout-400.webp" srcset="assets/images/founders/mike-cutout-400.webp 400w, assets/images/founders/mike-cutout-800.webp 800w" sizes="(max-width: 1000px) 45vw, 250px" alt="Mike" width="800" height="1000" loading="lazy" decoding="async"></a><figcaption>Mike <span>Co-founder</span></figcaption></figure>
       <details class="collective">
         <summary><span class="collective-label">Who else cares?</span><svg class="collective-toggle" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5v14"/></svg></summary>
         <ul class="collective-members" id="collective-members" aria-label="The collective">
@@ -219,14 +220,14 @@
       </div>
     </section>
     <section class="contact section" id="contact" tabindex="-1" aria-labelledby="contact-title">
-      <h2 id="contact-title">What needs to<br><span class="accent">work better?</span></h2>
+      <h2 id="contact-title">What needs to <br><span class="accent">work better?</span></h2>
       <div class="contact-body"><p>No finished brief required. Tell Mike and XRS what you’re working on and what’s in the way.</p><a class="email" href="mailto:whocaressoftware@gmail.com">whocaressoftware@gmail.com</a></div>
       <p class="signoff"><span>Who cares? <span class="accent">We do.</span></span></p>
     </section>
   </main>
   <footer>
     <div class="footer-main">
-      <div class="footer-intro"><div class="footer-brand" role="img" aria-label="Who Cares Software">{{{brandSymbol 'footer-symbol' 40}}}<img class="footer-wordmark brand-light" src="{{brandAsset 'website-wordmark-light.svg'}}" alt="" width="120" aria-hidden="true"><img class="footer-wordmark brand-dark" src="{{brandAsset 'website-wordmark-dark.svg'}}" alt="" width="120" aria-hidden="true"></div>
+      <div class="footer-intro"><div class="footer-brand" role="img" aria-label="Who Cares Software">{{{brandSymbol 'footer-symbol' 40}}}<img class="footer-wordmark brand-light" src="{{brandAsset 'website-wordmark-light.svg'}}" alt="" width="120" height="23" aria-hidden="true"><img class="footer-wordmark brand-dark" src="{{brandAsset 'website-wordmark-dark.svg'}}" alt="" width="120" height="23" aria-hidden="true"></div>
       </div>
       <div class="footer-links">
         <nav class="footer-nav" aria-label="Footer">

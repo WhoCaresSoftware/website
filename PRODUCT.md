@@ -20,7 +20,7 @@ Services cover workflow automation, custom software and cloud/platform engineeri
 - Selected-work pages explain the problem, delivered scope and supported outcomes.
 - Contact hands off to the visitor's email or sharing application. The website
   does not send messages, upload attachments or store enquiries on a server.
-- Without JavaScript, English content, navigation and contact links remain usable.
+- Without JavaScript, content in both languages, navigation and contact links remain usable.
 
 ## Identity
 
@@ -39,8 +39,9 @@ colors and identity artwork come from the pinned brand package.
 
 ## Visitor preferences
 
-On first visit, a Greek primary browser language selects Greek; other languages
-select English. Appearance follows the system preference. Visitors can change
+English lives at `/` and Greek at `/el/`. On first visit, a Greek primary
+browser language moves an English page to its Greek twin; other languages stay
+in English. The studio is based in Greece and works with clients anywhere. Appearance follows the system preference. Visitors can change
 language and appearance, with choices stored locally when storage is available.
 Denied storage must not prevent changes for the current session.
 

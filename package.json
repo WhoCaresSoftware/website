@@ -14,12 +14,16 @@
     "check:brand": "node --test scripts/check-brand.mjs",
     "check:publication": "node --test scripts/check-publication.mjs",
     "check:demo": "node --test scripts/check-project-demo.mjs",
-    "check": "npm run lint && npm run build && npm run check:brand && npm run check:publication && npm run check:demo"
+    "check": "npm run lint && npm run build && npm run check:brand && npm run check:publication && npm run check:demo && npm run check:seo",
+    "check:seo": "node --test scripts/check-seo.mjs",
+    "social": "node scripts/social-images.mjs"
   },
   "dependencies": {
     "@whocaressoftware/brand": "0.8.1"
   },
   "devDependencies": {
+    "linkedom": "0.18.15",
+    "puppeteer-core": "25.17.0",
     "stylelint": "17.16.0",
     "vite": "8.3.5",
     "vite-plugin-handlebars": "2.0.3"

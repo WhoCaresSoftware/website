@@ -5,8 +5,8 @@ import { runInNewContext } from 'node:vm';
 
 const source = readFileSync('public/assets/project.js', 'utf8').replace(/^import .*;\n/gm, '');
 
-function setup() {
-  const inputEvents = new Map(), formEvents = new Map(), windowEvents = new Map();
+function setup(lang = 'en') {
+  const inputEvents = new Map(), formEvents = new Map();
   const attributes = new Map();
   const input = {
     valueAsNumber: 100,
@@ -21,20 +21,19 @@ function setup() {
   };
   const fallback = { hidden: false };
   const document = {
-    documentElement: { lang: 'en' },
+    documentElement: { lang },
     getElementById: id => ({ 'fuel-amount': input, 'fuel-result': result })[id] || null,
     querySelector: selector => selector === '.fuel-demo' ? form : selector === '.fuel-static' ? fallback : null,
     querySelectorAll: () => []
   };
   runInNewContext(source, {
     document, Intl, matchMedia: () => ({ matches: false }),
-    window: { addEventListener: (name, listener) => windowEvents.set(name, listener) }
+    window: { addEventListener() {} }
   });
   return {
     input, result, form, fallback, attributes,
     edit(amount) { input.valueAsNumber = amount; inputEvents.get('input')(); },
     submit() { formEvents.get('submit')({ preventDefault() {} }); },
-    language(value) { document.documentElement.lang = value; windowEvents.get('wcs:languagechange')(); }
   };
 }
 
@@ -46,26 +45,24 @@ test('fuel example enhances the static fallback and shows its initial review sta
   assert.equal(demo.attributes.get('aria-invalid'), 'true');
 });
 
-test('changing language after editing never restores a stale checked amount', () => {
+test('editing an amount clears the previous check until it is checked again', () => {
   const demo = setup();
   demo.edit(50);
-  demo.language('el');
-  assert.match(demo.result.textContent, /Πατήστε/);
+  assert.match(demo.result.textContent, /Check entry/);
   assert.doesNotMatch(demo.result.textContent, /100/);
   assert.equal(demo.attributes.has('aria-invalid'), false);
   assert.equal(demo.result.dataset.state, undefined);
-  demo.language('en');
-  assert.match(demo.result.textContent, /Check entry/);
 });
 
-test('checked results retain the current amount when translated', () => {
-  const demo = setup();
+test('the Greek page checks and reports amounts in Greek', () => {
+  const demo = setup('el');
+  assert.match(demo.result.textContent, /ξεπερνούν/);
   demo.edit(50);
+  assert.match(demo.result.textContent, /Πατήστε/);
   demo.submit();
-  demo.language('el');
   assert.equal(demo.result.dataset.state, 'within-capacity');
   assert.equal(demo.attributes.get('aria-invalid'), 'false');
-  assert.match(demo.result.textContent, /^50 L/);
+  assert.match(demo.result.textContent, /^50 L είναι εντός/);
 });
 
 test('invalid form submissions leave the edited amount unchecked', () => {
