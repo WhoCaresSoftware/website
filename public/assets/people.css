@@ -10,6 +10,7 @@
 .collective-person[aria-expanded="true"] img { outline-color: var(--wcs-accent); }
 .collective-role-slot { min-height: var(--collective-role-height); padding-top: var(--space-3xs); }
 .collective-role { margin: 0; color: var(--wcs-foreground-muted); font-size: var(--label); line-height: var(--leading-compact); overflow-wrap: anywhere; }
+.collective-link { display: inline-block; padding-block: var(--space-2xs); color: var(--wcs-foreground); text-decoration: underline; text-underline-offset: var(--underline-offset); }
 @media (--phone) {
   .collective-member { width: min(calc((100% - var(--space-s)) / 2), var(--collective-member-width)); }
 }

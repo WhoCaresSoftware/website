@@ -17,7 +17,7 @@
     behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
   });
 
-  members.forEach(member => {
+  members.forEach((member, index) => {
     const button = member.querySelector('.collective-person');
     const role = document.getElementById(button.getAttribute('aria-controls'));
     const slot = role.parentElement;
@@ -58,6 +58,21 @@
       pinned = !pinned;
       show(pinned);
       if (pinned) revealCaption();
+    });
+    // The caption lives after the roster, so keep a member's link next to them in the tab order.
+    const link = slot.querySelector('a');
+    if (!link) return;
+    button.addEventListener('keydown', event => {
+      if (event.key !== 'Tab' || event.shiftKey || slot.hidden) return;
+      event.preventDefault();
+      link.focus();
+    });
+    link.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const next = event.shiftKey ? button : members[index + 1]?.querySelector('.collective-person');
+      if (!next) return;
+      event.preventDefault();
+      next.focus();
     });
   });
   stage.parentElement.addEventListener('pointerleave', () => {

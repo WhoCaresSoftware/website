@@ -59,7 +59,7 @@ export const greekHome = {
   '#kikidimop-expertise': 'Ανάπτυξη εφαρμογών για κινητά',
   '#stratos-expertise': 'Καλλιτεχνική διεύθυνση · Κινηματογράφηση · VR/AR',
   '#giannis-expertise': 'Μουσική διεύθυνση · Δημιουργικό',
-  '#teo-expertise': 'Μηχανικός λογισμικού',
+  '#teo-expertise': 'Μηχανικός λογισμικού · <a class="collective-link" href="https://chlktheo.com/">chlktheo.com</a>',
   '#chara-expertise': 'Μηχανικός λογισμικού',
   '#kostas-expertise': 'Μηχανικός λογισμικού',
   '.people-copy > p:first-child': 'Ο Mike και ο XRS είναι συνιδρυτές και μηχανικοί πλατφορμών. Μιλάτε με τους ανθρώπους που το φτιάχνουν, και όταν το ζητά η δουλειά μπαίνει και ένα δίκτυο έμπιστων συνεργατών.',
