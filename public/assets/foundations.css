@@ -101,7 +101,7 @@
   --ease-overshoot: cubic-bezier(.34,1.4,.64,1);
 
   /* Stable reading/UI roles share the same face and real font weights. */
-  --font-body: "Source Sans 3", Arial, sans-serif;
+  --font-body: "WCS Sans", "WCS Sans Fallback", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --weight-regular: 400;
   --weight-semibold: 600;

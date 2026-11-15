@@ -1,0 +1,14 @@
+FONTLOG for WCS Sans
+
+WCS Sans is a Modified Version of Source Sans 3 (Copyright 2010-2024 Adobe,
+with Reserved Font Name 'Source'), released under the SIL Open Font License,
+Version 1.1. The full license is in SOURCE-SANS-OFL.txt beside this file.
+
+Changes from the Original Version:
+- Subset to Basic Latin, Latin-1, Latin Extended-A, Greek and Coptic, general
+  punctuation and a few symbols, for web delivery on whocaressoftware.com.
+- All OpenType layout features of the retained glyphs are kept.
+- Renamed to WCS Sans, as the OFL requires of Modified Versions.
+
+Source Sans 3 is a trademark of Adobe in the United States and/or other
+countries. This modification is not endorsed by Adobe.
